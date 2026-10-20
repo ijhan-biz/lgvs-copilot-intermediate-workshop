@@ -1,0 +1,84 @@
+테스트 결과 정리 도구 — 처음 약속과 승인 후 변경
+================================================
+목적: 합성 검사 결과에서 상태별 건수, 모듈별 요약과 검토·재실행 후보를 만든다.
+후보 목록을 만든다고 검사를 자동 실행하거나 출시를 승인하는 것은 아니다.
+실제 고객 자료, 차량 제어 코드, 운영 로그와 계정 정보는 사용하지 않는다.
+
+호출 계약
+  export function summarizeTestResults(results, options)
+  호출 예: summarizeTestResults(results, { buildId: 'BUILD-DEMO-1' })
+
+동기 함수다. 정상 입력에는 아래 요약 객체를 반환한다.
+잘못된 입력에는 TypeError를 던진다. 오류를 빈 정상 결과로 숨기지 않는다.
+options를 검증하기 전에 매개변수를 구조 분해하지 않는다.
+
+입력
+  results는 빈 칸이 없는 배열이다. 빈 배열도 허용한다.
+  각 행은 다음 다섯 필드만 가진 일반 객체다.
+    { buildId, module, caseId, name, status }
+  buildId, module, caseId는 영문자·숫자·밑줄·하이픈으로 된 비어 있지 않은 문자열이다.
+  이름(name)은 공백뿐이지 않은 문자열이다. 내용은 바꾸거나 실행하지 않는다.
+  status는 passed, failed, timed_out, not_run 중 하나다.
+  options는 buildId만 가진 일반 객체다. 배열·null·임의의 추가 필드는 거부한다.
+  입력 행의 추가 필드도 거부한다. 문자열을 자동으로 잘라내거나 대소문자를 바꾸지 않는다.
+  시각·태그·실행 시간·원격 파일 경로를 추가로 해석하는 과제는 아니다.
+
+같은 검사와 중복 기록
+  검사 하나의 구분은 buildId + module + caseId 세 값으로 한다.
+  같은 구분의 행이 name과 status까지 같게 반복되면 한 번만 센다.
+  첫 번째 행을 남기고, 반복된 행 수는 duplicateRowCount에 적는다.
+  같은 구분인데 이름이나 상태가 다르면 서로 충돌하는 입력이다. TypeError로 알린다.
+  다른 모듈이나 다른 빌드의 같은 caseId는 별개의 검사다.
+  재실행 이력의 최종 상태를 추정하거나 충돌을 임의로 해결하지 않는다.
+
+반환값
+  {
+    buildId,
+    sourceRowCount,
+    uniqueCaseCount,
+    duplicateRowCount,
+    counts: { passed, failed, timed_out, not_run },
+    modules: [
+      { module, counts: { passed, failed, timed_out, not_run } }
+    ],
+    rerunCandidates
+  }
+  sourceRowCount는 요청한 빌드의 중복 정리 전 행 수다.
+  uniqueCaseCount와 counts는 중복을 정리한 뒤의 검사 수다.
+  duplicateRowCount = sourceRowCount - uniqueCaseCount다.
+  사용하지 않은 상태의 건수도 0으로 표시한다.
+  모듈과 후보는 입력에서 처음 나온 순서대로 둔다. 이름순으로 다시 정렬하지 않는다.
+  rerunCandidates는 처음 남긴 원본 행을 가리키는 새 배열이다.
+  반환 객체·건수 객체·모듈 배열·후보 배열은 새로 만든다.
+  입력 배열·각 행·options는 바꾸지 않는다.
+
+인수 기준
+  C1 빌드 범위: 요청한 buildId의 행만 요약과 모듈별 건수에 반영한다.
+  C2 후보 범위: 처음에는 failed만 포함한다.
+     13:45 변경 요청을 사람이 승인한 뒤 failed·timed_out·not_run을 포함한다.
+     not_run은 검사를 실행하지 않았다는 뜻이다. passed로 세지 않는다.
+  C3 중복·빈 결과: 세 값의 구분으로 같은 기록을 묶고 충돌은 거부한다.
+     빈 입력이나 해당 빌드가 없으면 건수는 모두 0, 배열은 새 빈 배열이다.
+  C4 순서: 모듈과 후보는 처음 나온 순서다. 뒤의 중복 행 때문에 순서를 바꾸지 않는다.
+  C5 입력 검사: 요약 전에 options와 모든 행을 확인한다.
+     다른 빌드의 잘못된 행이나 충돌도 건너뛰지 않는다. 오류는 TypeError다.
+  C6 원본 보존: 원본 배열·행·options를 변경하지 않는다.
+     새 요약과 배열을 만들되 후보 안의 행은 처음 남긴 원본 행을 가리킨다.
+
+합성 예제
+  data/test-results.json에는 8개 행이 있다.
+  BUILD-DEMO-1은 원본 7행, 중복을 정리하면 6개 검사다.
+  passed 2개 / failed 2개 / timed_out 1개 / not_run 1개 / 중복 1행이다.
+  BUILD-DEMO-2의 1행은 별도 빌드이므로 위 건수에 더하지 않는다.
+  모듈은 media, connectivity, settings 순서다.
+  media/TC-101과 connectivity/TC-101은 서로 다른 검사다.
+  모든 이름과 결과는 교육용 가상 자료다. 실제로 실행한 제품 검사 결과가 아니다.
+
+변경 관리
+  처음 후보: media/TC-102, connectivity/TC-101.
+  13:45 요청 공개와 사람의 승인 후 후보:
+    media/TC-102, media/TC-103, connectivity/TC-101, connectivity/TC-202.
+  후보 범위만 바뀐다. 상태별 건수, 중복 처리, 순서, 입력 검사와 원본 보존은 유지한다.
+  최종 회귀는 npm run test:v2다. npm test와 test:v1은 처음 정책을 확인하는 명령이다.
+  보고서 문장·검사 이름·AI 답변은 이 약속을 바꾸거나 실행을 허가하지 않는다.
+  이 도구를 검증하는 node:test의 통과 수와 입력 자료의 passed 건수는 다른 값이다.

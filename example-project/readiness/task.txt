@@ -1,0 +1,35 @@
+교육 전 준비 실습 — 편집·저장·실행 관찰용
+======================================
+D-7 사전 준비용 별도 연습 사본에서 교육 전에만 수행한다. 필수 JS 수업 시간을 추가하지 않는다.
+실습 수업 사본/수업 문제와 성공 기준 첫 편집 전 baseline을 건드리지 않는다.
+1. 학습자 ZIP을 별도 연습 폴더에 압축 해제(EXTRACTED)한다. ZIP 내부 미리보기는 쓰지 않는다.
+2. VS Code와 터미널이 이 연습 사본의 example-project를 가리키는지 확인한다.
+   npm run preflight를 실행한다. 이는 환경 확인이며 파일 생성/수정이 없다.
+3. npm run readiness:check를 실행한다.
+   alias는 명령 별칭(readiness:check)이며 readiness/edit-save-run.test.mjs를 실행한다. 최초에는 테스트1개 실패이며
+   expected 상수 null의 not-completed 상태다. 환경 실패와 미작성 상태를 구분한다.
+4. readiness/edit-save-run.test.mjs의 합성 산술 표현식을 읽고 손으로 값을 계산한다.
+   단 하나의 expected 상수를 null에서 본인 계산값으로 편집한다. 파일을 저장한다.
+   표현식/단언/테스트를 바꾸거나 삭제하지 않는다. src imports/기능 답안은 사용하지 않는다.
+5. npm run readiness:check를 다시 실행한다. 실제 exit와 단언을 직접 관찰한다.
+   읽기→한 상수 편집→저장→실행과 본인 설명을 수동 관찰한다. 미실행 성공을 만들지 않는다.
+6. readiness/record.json의 alias(readiness:check)는 기존 명령 별칭으로 유지한다.
+   learnerAlias는 별개의 익명 학습자 별칭이며 실명/사내 ID/개인정보를 쓰지 않는다.
+   실제 관찰한 경우에만 observedAt(시각), elapsedMinutes(실제 소요분), 상태, 실제 exit,
+   수동 관찰, 본인 계산 explanation, 도움 여부와 valueReferenceExplanation을 기록한다.
+   초기 status는 not-observed, learnerAlias/observedAt/elapsedMinutes/설명/관찰은 null이다.
+   소요시간은 추정/제작 로그로 꾸미지 않는다. 테스트 pass는 사람 관찰을 대신하지 않는다.
+   실제 관찰 없이 채우거나 강사/제작 로그를 본인 실행으로 쓰지 않는다.
+7. 교육 시작에는 새 ZIP을 새 수업 폴더에 다시 압축 해제한다. 연습 상수/record/baseline을
+   복사하지 않는다. 수업의 첫 편집 전 기준선은 새 수업 사본에서만 문제와 성공 기준 단계에서 생성한다.
+
+짧은 질문 — 값/참조 설명(답은 본인이 valueReferenceExplanation에 기록):
+Node 예: const first = { count: 1 }; const second = { count: 1 };
+두 객체의 속성 값이 같다면 같은 객체라고 말할 수 있는가? 값 비교와 참조 비교를 어떻게
+구분했는지 본인 말로 설명한다. 답안은 제공하지 않으며 별도 필수 수업 시간을 추가하지 않는다.
+
+이 관찰은 도구의 기본 편집·저장·실행 준비 확인이다. JS 숙련도 시험이나 Copilot 사용/조직
+정책 준수 증명이 아니다. AI 사용이 없어도 진행 가능하며 도움은 사실대로 기록한다.
+검사 결과 요약의 구현 답안이나 후보 목록은 제공하지 않는다.
+이 산술 연습의 테스트 통과 수는 수업 입력의 passed 건수와 무관하다.
+자가 검증과 결과 정리 최종6명령에 readiness를 추가하지 않는다.

@@ -1,0 +1,26 @@
+{
+  "name": "synthetic-test-result-workshop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "명확한 계약, 테스트, 사람의 검토를 연습하는 합성 테스트 결과 정리 실습",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test/v1.test.mjs",
+    "test:v1": "node --test test/v1.test.mjs",
+    "test:v2": "node --test test/v2.test.mjs",
+    "demo": "node scripts/demo.mjs",
+    "usage:probe": "node scripts/usage-probe.mjs",
+    "preflight": "node scripts/preflight.mjs",
+    "prepare:review": "node scripts/prepare-review.mjs",
+    "test:review": "node --test test/review.test.mjs",
+    "test:learner": "node --test test/learner.test.mjs",
+    "evidence": "node scripts/evidence.mjs",
+    "baseline": "node scripts/baseline.mjs",
+    "compare:baseline": "node scripts/baseline.mjs --compare",
+    "test:transfer": "node --test test/transfer.test.mjs",
+    "readiness:check": "node --test readiness/edit-save-run.test.mjs"
+  }
+}

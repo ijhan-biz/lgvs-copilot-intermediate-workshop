@@ -1,0 +1,14 @@
+{
+  "alias": "readiness:check",
+  "learnerAlias": null,
+  "observedAt": null,
+  "elapsedMinutes": null,
+  "valueReferenceExplanation": null,
+  "status": "not-observed",
+  "command": null,
+  "commandExitCode": null,
+  "editedFilePath": null,
+  "manualObserved": null,
+  "explanation": null,
+  "assistance": null
+}

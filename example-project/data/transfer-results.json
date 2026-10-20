@@ -1,0 +1,9 @@
+[
+  {"buildId":"BUILD-TRANSFER-1","module":"display","caseId":"X-01","name":"합성 화면 설정","status":"passed"},
+  {"buildId":"BUILD-TRANSFER-1","module":"audio","caseId":"X-01","name":"합성 소리 복구","status":"failed"},
+  {"buildId":"BUILD-TRANSFER-2","module":"display","caseId":"X-02","name":"다른 빌드 화면 전환","status":"failed"},
+  {"buildId":"BUILD-TRANSFER-1","module":"display","caseId":"X-02","name":"합성 화면 전환","status":"timed_out"},
+  {"buildId":"BUILD-TRANSFER-1","module":"network","caseId":"X-03","name":"합성 연결 대기","status":"not_run"},
+  {"buildId":"BUILD-TRANSFER-1","module":"audio","caseId":"X-01","name":"합성 소리 복구","status":"failed"},
+  {"buildId":"BUILD-TRANSFER-1","module":"network","caseId":"X-04","name":"합성 연결 확인","status":"passed"}
+]

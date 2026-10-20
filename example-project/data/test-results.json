@@ -1,0 +1,10 @@
+[
+  {"buildId":"BUILD-DEMO-1","module":"media","caseId":"TC-101","name":"음량 설정 저장","status":"passed"},
+  {"buildId":"BUILD-DEMO-1","module":"media","caseId":"TC-102","name":"재생 목록 불러오기","status":"failed"},
+  {"buildId":"BUILD-DEMO-1","module":"media","caseId":"TC-103","name":"오디오 장치 전환","status":"timed_out"},
+  {"buildId":"BUILD-DEMO-1","module":"connectivity","caseId":"TC-101","name":"블루투스 연결","status":"failed"},
+  {"buildId":"BUILD-DEMO-1","module":"connectivity","caseId":"TC-202","name":"연결 복구","status":"not_run"},
+  {"buildId":"BUILD-DEMO-1","module":"settings","caseId":"TC-301","name":"기본 설정 저장","status":"passed"},
+  {"buildId":"BUILD-DEMO-1","module":"media","caseId":"TC-102","name":"재생 목록 불러오기","status":"failed"},
+  {"buildId":"BUILD-DEMO-2","module":"media","caseId":"TC-101","name":"음량 설정 저장","status":"passed"}
+]

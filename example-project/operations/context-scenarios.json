@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "scope": "교육용 상황 사실. 모델 판단의 정답표·실행 지시·프롬프트 주입 벤치마크가 아니다.",
+  "scenarios": [
+    {
+      "id": "stale-contract-handoff",
+      "title": "승인 변경 뒤 도착한 오래된 인계",
+      "applicability": ["initial-v1", "approved-v2"],
+      "authoritativeInputs": ["contract.txt", "src/summarize-results.mjs", "src/summary-core.mjs", "src/validate-input.mjs", "test/v1.test.mjs", "test/v2.test.mjs", "data/test-results.json", "work-record.json의 실제 승인·실행 기록"],
+      "facts": {
+        "initial-v1": "CR-01 공개·사람 승인 전에는 C2-v1 failed만 후보에 포함한다.",
+        "approved-v2": "13:45 CR-01 공개 뒤 사람 승인이 기록되면 C2-v2 failed/timed_out/not_run이 최신 후보 범위다. 상태 건수와 C1,C3,C4,C5,C6는 유지한다.",
+        "contractFile": "contract.txt는 v1 기준선과 변경 관리 절을 함께 보존한다. 파일 제목만으로 현재 승인을 결정하지 않는다.",
+        "historicalHandoff": {"contract": "C2-v1 failed-only", "claim": "모두 GREEN", "executionEvidence": null},
+        "historyApplicability": "옛 인계는 초기 상태 설명용이다. 승인 뒤 현재 인수 기준이나 현재 실행 증거를 대신하지 않는다."
+      },
+      "task": "선택한 현재 파일로 소스 상태를 직접 확인하고, 승인된 기준·내 독립 예측·실제 실행·옛 주장을 구분한 짧은 인계를 제안하라. 승인/실행 근거가 없으면 그 공백을 남겨라.",
+      "permissions": "읽기와 판단만. 소스/기록 수정·명령 실행·승인 대행 없음. 파일 해시는 읽은 상태 식별일 뿐 승인이나 불변 증명 아님."
+    },
+    {
+      "id": "unrelated-file-conflict",
+      "title": "무관한 두 작업이 같은 파일을 수정하려는 상황",
+      "applicability": ["initial-v1", "approved-v2"],
+      "authoritativeInputs": ["src/summarize-results.mjs", "scripts/demo.mjs", "contract.txt", "현재 사람이 정한 작업별 범위"],
+      "facts": {
+        "workA": "승인된 후보 상태 범위 변경",
+        "workB": "별도 후보 표시 문구 검토",
+        "conflict": "두 작업의 초안이 scripts/demo.mjs의 같은 출력 구간 수정 권한을 주장한다.",
+        "ownership": "아직 파일별 소유자·입출력 인터페이스·통합 검증 담당 합의가 없다."
+      },
+      "task": "목적의 독립성·파일 충돌을 근거로 작업 경계, 소유자, 인터페이스와 통합 확인을 제안하라. 병렬 작업 자체를 일괄 금지하거나 그대로 허용하지 말라.",
+      "permissions": "계획만. 다른 소유자의 파일 수정·자동 병합·도구 권한 확대 없음."
+    },
+    {
+      "id": "related-bounded-cause",
+      "title": "같은 원인의 검증과 작은 복구를 이어가는 상황",
+      "applicability": ["initial-v1", "approved-v2"],
+      "authoritativeInputs": ["contract.txt", "현재 승인 범위", "해당 실패 단언과 최소 반례", "현재 변경 diff", "최근 실제 테스트 기록"],
+      "facts": {
+        "boundary": "같은 계약 조건의 실패 재현·원인 확인·작은 수정·회귀가 하나의 검증 가능한 결과로 묶인다.",
+        "context": "대화가 길어졌지만 승인 범위·현재 코드·실패 증거는 선택 가능하다. 다른 무관 작업은 없다.",
+        "unknown": "실제 원인과 복구 성공 여부는 이 상황 파일에 제공되지 않는다."
+      },
+      "task": "계속 진행·요약 후 압축·새 세션 중 선택 이유와 필요한 인계 근거를 제안하라. 기능 하나마다 무조건 새 세션을 요구하지 말고, 원인 불명/범위 확대 시 중단 기준을 정하라.",
+      "permissions": "판단만. 실제 복구는 별도 사람 승인 뒤 허용 범위에서만 한다."
+    }
+  ]
+}
