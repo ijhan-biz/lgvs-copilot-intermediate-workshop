@@ -137,7 +137,7 @@ independentExpected, tests, guardrails, stopConditions, rollback, approval.
 입력 8행에서 선택 빌드의 건수와 후보를 손으로 계산한다. 구현 결과를 복사하면 독립 검증이 아니다.
 JS/test 브리지는 문제와 성공 기준 단계에서 이미 읽었다. 필요한 문법만 hints/js-reference.txt에서 재확인한다.
 문제와 성공 기준 첫 파일 편집 전에 실행한 npm run baseline은
-.baseline/에 src/summarize-results.mjs, src/validate-input.mjs,
+.baseline/에 src/summarize-results.mjs, src/summary-core.mjs, src/validate-input.mjs,
 test/learner.test.mjs, README.txt, handoff.txt의 실제 사본과 SHA-256 manifest만 보존한다.
 기존 .baseline 디렉터리/파일/심볼릭 링크는 거부한다. 덮어쓰기/삭제/재생성하지 않는다.
 manifest 위치/시각/exit와 확인 근거는 주 기록.execution 또는 sourceBaseline에서 참조한다.
@@ -297,10 +297,10 @@ Node/OS/아키텍처, 안전한 실행 도구 정보와 전후 고정 파일 해
 기준선 차이 확인 (행 비교와 해시 요약은 다름)
 -------------------------------------------
   npm run compare:baseline
-출력은 위 5개 허용 파일의 SHA-256 동일/변경 요약이다. 행 diff나 자동 복구가 아니다.
+출력은 위 6개 허용 파일의 SHA-256 동일/변경 요약이다. 행 diff나 자동 복구가 아니다.
 VS Code 탐색기에서 .baseline을 표시/펼쳐 실제 사본 .baseline/src/summarize-results.mjs를
 연다. 탐색기에서 그 사본 우클릭 → Select for Compare → 현재 src/summarize-results.mjs
-우클릭 → Compare with Selected. 다른 4개도 사본/현재의 같은 상대 경로끼리 비교한다.
+우클릭 → Compare with Selected. 다른 5개도 사본/현재의 같은 상대 경로끼리 비교한다.
 README는 고정 지시와 맨 끝 완성란을 구분해 비교한다. Timeline이나 추측으로 대체하지 않는다.
 승인 범위 밖 차이는 기록하고 사람 판단으로만 되돌린다. 삭제/초기화는 하지 않는다.
 
@@ -335,7 +335,8 @@ QA 관점에서 구현을 읽기 전 반례/기대값을 만들고 부정 입력
 purposeAcceptance 목적·성공 기준 / contextModelTokens 맥락·모델·토큰 /
 coreProcess 핵심 작업 과정 / verificationCauseRepair 검증·원인 수정 /
 selfReplayHandoff 본인 재현·인수인계.
-0=실제 근거 없음, 1=부분 근거/설명 보완 필요, 2=근거 연결과 본인 설명/재현 확인.
+0=실제 수행을 확인했으나 기준 미달, 1=부분 근거/설명 보완 필요, 2=근거 연결과 본인 설명/재현 확인.
+미실행·미확인·근거 미열람은 0으로 짐작하지 않고 점수/총점/완료 판정을 보류한다.
 합계 8/10 이상이고 필수 3개(① 핵심 작업 과정 ② 검증·원인 수정
 ③ 본인 재현·인수인계)가 각각 1점 이상이어야 완료다. 안전한 중단만으로 자동 완료하지 않는다.
 자동 채점은 없다. 확인 전 점수/총점/최종 판정은 null로 둔다.
