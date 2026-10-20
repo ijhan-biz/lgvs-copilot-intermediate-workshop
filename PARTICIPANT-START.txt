@@ -4,11 +4,14 @@ Agentic SDLC with Github Copilot
 실습: 테스트 결과 정리 도구 · 합성 자료의 요약·검토 후보·인계
 
 빠른 시작
-  1. 사전 연습은 ZIP을 별도 폴더에 풀어 example-project에서 npm run readiness:check.
-     의도적 실패를 실제 편집·저장·재실행하고, 수업용은 ZIP을 새 폴더에 다시 풉니다.
+  1. 공개 저장소를 git clone하거나 GitHub Code → Download ZIP 소스 압축을 모두 풉니다.
+     사전 연습은 별도 사본에서 npm run readiness:check로 의도적 실패→편집·저장·재실행을 확인합니다.
+     수업용은 새 clone 또는 GitHub 소스 ZIP 다운로드·압축 해제로 새 사본을 준비합니다.
   2. workbook.html은 브라우저로, example-project만 VS Code로 엽니다.
      프로젝트 터미널에서 npm run preflight → npm test. 첫 편집 전 npm run baseline.
   3. 주 기록은 워크북 여섯 칸 또는 work-record.json.coreRecord 하나만 누적합니다.
+     프로젝트 JSON을 고르면 baseline 뒤 같은 폴더의 work-record.template.json을
+     work-record.json으로 복사합니다. 워크북 사용자는 프로젝트 기록을 만들지 않아도 됩니다.
      워크북은 상단 저장·불러오기에서 JSON 내보내기 후 실제 파일을 확인합니다.
      자동 저장은 없습니다. 다음에는 내 JSON을 가져와 이어 씁니다.
   4. 진행 경로의 전체 단계명을 눌러 할 일·명령·확인 관문으로 이동합니다.
@@ -44,7 +47,8 @@ Agentic SDLC with Github Copilot
 필수 일정 540분/교육 440분/개인 활동 265분을 늘리거나 대체하지 않으며 추가 점수는 없습니다.
 
 수업 전 준비 연습 (교육 시간 밖 · readiness)
-  먼저 participant-kit.zip을 연습 전용 폴더에 따로 모두 풉니다.
+  먼저 공개 저장소를 연습 전용 폴더에 git clone하거나 GitHub Code → Download ZIP
+  소스 압축을 다운로드해 모두 풉니다.
   수업용 시작본과 섞지 않고 example-project/readiness/task.txt를 읽습니다.
   example-project 위치에서 npm run readiness:check를 실행합니다.
   의도적 1개 실패를 확인하고 지정 파일을 직접 편집·저장·재실행합니다.
@@ -52,7 +56,8 @@ Agentic SDLC with Github Copilot
   값/객체 참조 설명·지원·완료 또는 미확인을 남깁니다. 예시를 실측으로 복사하지 않습니다.
   준비·지원 증거도 승인된 합성 예제와 별칭, 명령·exit·최소 가림 출력·참조만 공유합니다.
   테스트 통과는 준비 완료·JS/Copilot 숙련 인증이 아닙니다. 실제 사람이 준비를 확인합니다.
-  연습 후 ZIP을 새 수업용 폴더에 다시 풀어 손대지 않은 v1 시작본으로 진행합니다.
+  연습 후 새 clone 또는 GitHub 소스 ZIP 다운로드·압축 해제로 새 수업용 폴더를 준비합니다.
+  손대지 않은 v1 시작본으로 진행합니다.
   연습 사본의 src/.baseline/work-record를 수업에 재사용하지 않습니다.
   첫 실제 수업 편집은 문제와 성공 기준 baseline 뒤입니다. 추가 설치는 필요하지 않습니다.
   수업용 contract.txt, operations/usage-cases.json, operations/context-scenarios.json,
@@ -63,10 +68,12 @@ Agentic SDLC with Github Copilot
   실제 참가자 준비·대표 인간 리허설·담당 명단·로컬 정책·후속 지원은 아직 미확정입니다.
   운영자가 실제 근거로 go / revise / hold를 명시해야 하며 기술 통과로 자동 GO하지 않습니다.
 
-1. participant-kit.zip을 새 폴더에 모두 압축 해제합니다.
-   ZIP 내부 미리보기에서 실행하지 않습니다.
+1. 공개 저장소 자체가 배포본입니다. git clone 또는 GitHub Code → Download ZIP으로
+   새 사본을 받습니다. 후자는 GitHub가 만드는 소스 압축이며 별도 제작 교육 ZIP이 아닙니다.
+   소스 ZIP은 새 폴더에 모두 압축 해제하고 내부 미리보기에서 실행하지 않습니다.
+   두 경로의 추적 파일은 같으며 work-record.template.json만 있고 work-record.json은 없습니다.
    workbook.html은 브라우저로 엽니다.
-   VS Code에서는 압축을 푼 example-project 폴더만 엽니다.
+   VS Code에서는 새 사본의 example-project 폴더만 엽니다.
    터미널 작업 위치 역시 example-project여야 합니다.
    통합 안내인 example-project/README.txt를 먼저 읽고 실제 경로를 확인합니다.
    실명 대신 별칭을 쓰며, 모든 과제·승인·재실행은 개인 수행입니다.
@@ -94,6 +101,12 @@ Agentic SDLC with Github Copilot
    .baseline에 src 요약 함수·validator·learner.test·README·handoff 범위 제한 사본을
    최초 생성합니다. 실제 manifest 경로·필드·원본 파일 목록을 기록합니다.
    재실행 거부는 보호 동작입니다. 기존 기준선을 지우거나 덮어쓰지 않습니다.
+   baseline 전에는 소스·기록을 미리 작성하지 않습니다. 프로젝트 JSON을 선택했다면 이제
+   example-project/work-record.template.json을 같은 폴더의 work-record.json으로 복사합니다.
+   템플릿은 수정하지 않고 개인 기록만 작성합니다. 워크북 선택이면 이 복사는 생략합니다.
+   실제 clone에는 .git이 있고 개인 work-record.json은 Git에서 무시됩니다. 강제 추가하거나
+   추적 대상으로 되돌리지 않습니다. GitHub 소스 ZIP에는 .git이 없고 Git은 필수가 아닙니다.
+   어느 경로든 개인 기록을 수동 업로드하지 않습니다. .gitignore는 수동 업로드를 막지 않습니다.
    test/learner.test.mjs에 같은 buildId/module/caseId/name/status의 반복을 한 번만 세는 테스트를 작성한 뒤
      npm run test:learner
    실제 exit·건수·근거 경로를 주 기록의 실행결과에 남깁니다.

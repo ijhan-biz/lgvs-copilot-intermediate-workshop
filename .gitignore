@@ -1,4 +1,8 @@
 .DS_Store
+# Course content and code are maintained in the repository, not generated downloads.
+*.zip
+*.pdf
+*.docx
 **/.DS_Store
 node_modules/
 **/node_modules/

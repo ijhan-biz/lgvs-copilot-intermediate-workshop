@@ -42,7 +42,7 @@ not-attempted / attempted-unassisted / hint-assisted / answer-assisted / incompl
 0. 실행 환경과 범위
 ------------------
 VS Code에서 example-project/만 연다. 터미널의 작업 위치도 이 폴더로 한다.
-강사용 자료는 학습자 작업 영역/AI 문맥/학습자 ZIP에서 제외한다. CR-01만 13:45에 공개하며
+강사용 자료는 학습자 작업 영역/AI 문맥/공개 저장소 배포본에서 제외한다. CR-01만 13:45에 공개하며
 복구/전이 답안과 최종 참조는 본인 재현 뒤 17:25에 강사가 공개한다.
 Node.js 22 이상과 npm이 필요하다. Windows/macOS/Linux에서 아래 npm 명령은 동일하다.
 Node 설치/터미널 준비가 어려우면 강사의 로컬 환경 지원을 받는다.
@@ -55,16 +55,20 @@ AI 상태는 used / unavailable-policy(N/A) / unavailable-outage로 구분한다
 사용 불가 시 같은 계약·수동 검토·실행 증거로 진행하며 강제 AI/정책 우회는 없다.
 
 교육 전 준비 — 수업 전만, 실제 수업 사본과 분리:
-학습자 ZIP을 별도 연습 폴더에 반드시 압축 해제(EXTRACTED)한다. ZIP 내부 미리보기로 편집하지 않는다.
+공개 저장소를 별도 연습 폴더에 git clone하거나 GitHub Code → Download ZIP으로 받는다.
+후자는 GitHub 소스 압축이며 모두 압축 해제(EXTRACTED)한다. 내부 미리보기로 편집하지 않는다.
 그 연습 사본에서 npm run preflight로 환경을 확인한다. preflight는 파일을 생성/수정하지 않는다.
 readiness/task.txt에 따라 readiness:check의 최초 실패→한 상수 편집→저장→재실행을 확인한다.
-교육 시작에는 새 ZIP을 새 수업 폴더에 다시 압축 해제한다. 연습 결과/기준선을 수업 사본에 복사하지 않는다.
+교육 시작에는 새 clone 또는 GitHub 소스 ZIP 다운로드·압축 해제로 새 수업 사본을 준비한다.
+연습 결과/기준선을 수업 사본에 복사하지 않는다.
 readiness는 교육 전 편집·저장·실행 관찰용이며 수업 활동이나 자가 검증과 결과 정리 추가 명령이 아니다.
 준비·지원 증거는 승인된 합성 예제·별칭·명령/exit·최소 가림 출력·참조만 공유한다.
 개인·회사 프롬프트/대화 전문, 전체 디버그 로그, 신원·계정 화면은 제출하지 않는다.
 재현에 필요한 입력 조건·버전·단언 위치는 남기되 프록시·로그 수집기를 추가하지 않는다.
 
 수업 시작 확인:
+새 저장소 사본의 example-project에서 먼저 환경을 확인한다:
+  npm run preflight
   npm test
   npm run test:v1
   npm run demo
@@ -97,6 +101,14 @@ timed_out/not_run 후보 추가는 13:45 공개와 사람 승인 뒤에만 한�
 앞 10분은 읽기·손메모다. 프로젝트 주 기록의 파일 입력도 baseline 뒤 한 번만 한다.
 기록/README/테스트 등 첫 파일 편집보다 먼저 npm run baseline을 실행한다.
 기준선이 이미 있으면 보존하고 사본/manifest를 확인한다. 삭제·덮어쓰기·재생성하지 않는다.
+clone과 GitHub 소스 ZIP에는 같은 추적 파일과 work-record.template.json만 있으며
+work-record.json은 없다. baseline 전에는 소스·기록을 미리 작성하지 않는다.
+프로젝트 JSON을 주 기록으로 선택한 경우에만 baseline 뒤 work-record.template.json을
+같은 example-project 폴더의 work-record.json으로 복사하고 그 개인 기록에 작성한다.
+워크북 선택이면 프로젝트 기록 파일은 없어도 된다. 템플릿 자체는 수정하지 않는다.
+실제 clone에는 .git이 있고 work-record.json은 Git에서 무시된다. 강제 추가하거나 추적하지 않는다.
+GitHub 소스 ZIP에는 .git이 없고 Git은 선택이다. 개인 기록은 어느 경로든 수동 업로드하지 않는다.
+.gitignore는 수동 업로드의 개인정보 보호 장치가 아니다.
 test/learner.test.mjs에 완전히 같은 검사 행의 반복을 한 번 세는 본인 테스트 1개를 작성한다.
 원본 행 수·고유 검사 수·중복 행 수를 계약에서 계산한다.
 npm run test:learner로 제공 1+본인 중복 1=2개 GREEN을 확인한다.
@@ -284,7 +296,7 @@ Node/OS/아키텍처, 안전한 실행 도구 정보와 전후 고정 파일 해
 서명된 위변조 방지 증명이 아니다. 실행 중 편집하지 않고 상태/수/해시를 함께 확인한다.
 이 기록만으로 learner/review/사람 승인/Copilot 사용까지 증명하지는 않는다.
 ③ 17:25 본인 6명령 재현 뒤 강사가 공개한 최종 참조/CR-01 및 복구·전이 답안과 비교한다.
-강사 independent-answer.txt의 전이 정답을 학습자 ZIP/이 문서에 복사하지 않는다.
+강사 independent-answer.txt의 전이 정답을 공개 저장소 배포본/이 문서에 복사하지 않는다.
 코드 모양이 아니라 C1~C6, 변경 범위, 근거, 미해결 위험을 비교하고 자신의 판정을 기록한다.
 모든 단계의 실제 명령/exit/관찰을 주 기록.execution에 연결한다(runs 상세 양식은 선택).
 템플릿의 null은 미실행이다. 강사 검증 로그는 내 실행 로그가 아니다.

@@ -2,7 +2,8 @@
 ======================================
 D-7 사전 준비용 별도 연습 사본에서 교육 전에만 수행한다. 필수 JS 수업 시간을 추가하지 않는다.
 실습 수업 사본/수업 문제와 성공 기준 첫 편집 전 baseline을 건드리지 않는다.
-1. 학습자 ZIP을 별도 연습 폴더에 압축 해제(EXTRACTED)한다. ZIP 내부 미리보기는 쓰지 않는다.
+1. 공개 저장소를 별도 연습 폴더에 git clone하거나 GitHub Code → Download ZIP으로 받는다.
+   GitHub 소스 압축은 모두 압축 해제(EXTRACTED)하고 내부 미리보기는 쓰지 않는다.
 2. VS Code와 터미널이 이 연습 사본의 example-project를 가리키는지 확인한다.
    npm run preflight를 실행한다. 이는 환경 확인이며 파일 생성/수정이 없다.
 3. npm run readiness:check를 실행한다.
@@ -20,7 +21,7 @@ D-7 사전 준비용 별도 연습 사본에서 교육 전에만 수행한다. �
    초기 status는 not-observed, learnerAlias/observedAt/elapsedMinutes/설명/관찰은 null이다.
    소요시간은 추정/제작 로그로 꾸미지 않는다. 테스트 pass는 사람 관찰을 대신하지 않는다.
    실제 관찰 없이 채우거나 강사/제작 로그를 본인 실행으로 쓰지 않는다.
-7. 교육 시작에는 새 ZIP을 새 수업 폴더에 다시 압축 해제한다. 연습 상수/record/baseline을
+7. 교육 시작에는 새 clone 또는 GitHub 소스 ZIP 다운로드·압축 해제로 새 수업 사본을 받는다. 연습 상수/record/baseline을
    복사하지 않는다. 수업의 첫 편집 전 기준선은 새 수업 사본에서만 문제와 성공 기준 단계에서 생성한다.
 
 짧은 질문 — 값/참조 설명(답은 본인이 valueReferenceExplanation에 기록):

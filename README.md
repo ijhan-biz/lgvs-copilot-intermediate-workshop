@@ -6,7 +6,9 @@ Copilot과 함께 요구사항을 정리하고, 작은 코드 변경을 검증�
 
 실습은 가상의 **테스트 결과 정리 도구**를 사용합니다. 처음부터 앱 전체를 만들지 않고, 제공된 JavaScript/Node.js 코드에서 요구가 바뀌는 상황과 결함을 다룹니다.
 
-**[과정 설명 PDF](./%EA%B5%90%EC%9C%A1%EB%82%B4%EC%9A%A9-%EC%89%AC%EC%9A%B4%EC%84%A4%EB%AA%85.pdf)** · **[편집 가능한 Word](./%EA%B5%90%EC%9C%A1%EB%82%B4%EC%9A%A9-%EC%89%AC%EC%9A%B4%EC%84%A4%EB%AA%85.docx)** · **[참가자 실습 ZIP](./participant-kit.zip?raw=true)** · **[단계별 시작 안내](./PARTICIPANT-START.txt)**
+**[교육 목표와 내용](#교육-목표와-확인할-작업물)** · **[사전 준비](#수강-대상과-사전-준비)** · **[단계별 시작 안내](./PARTICIPANT-START.txt)** · **[개인 기록장](./workbook.html)**
+
+교육 내용과 실습 자료는 이 저장소를 기준으로 관리합니다. 별도 실습 ZIP·PDF·Word 대신 Markdown 안내, 실습 코드와 작성형 워크북을 사용합니다.
 
 ## 교육 목표와 확인할 작업물
 
@@ -69,12 +71,28 @@ AI Credit은 계획상 1인당 1,000 준비를 권장합니다. 실측 사용량
 
 ## 시작 방법
 
-### 권장: 참가자 ZIP 사용
+### 자료 받기
 
-1. [participant-kit.zip](./participant-kit.zip?raw=true)을 내려받아 완전히 압축 해제합니다. ZIP 내부 미리보기에서 실행하지 않습니다.
-2. `workbook.html`은 브라우저로 열고, **`example-project` 폴더만** VS Code에서 엽니다.
-3. 사전 연습은 별도 사본에서 진행합니다. `readiness/task.txt`를 읽고 `npm run readiness:check`의 의도적인 첫 실패를 확인한 뒤 직접 편집·저장·재실행합니다.
-4. 실제 수업용은 ZIP을 새 폴더에 다시 풉니다. 아래 명령은 그 폴더의 `example-project`에서 실행합니다.
+Git을 사용한다면 저장소를 복제합니다.
+
+```bash
+git clone https://github.com/ijhan-biz/lgvs-copilot-intermediate-workshop.git
+cd lgvs-copilot-intermediate-workshop/example-project
+```
+
+Git을 사용하지 않는다면 GitHub의 **Code → Download ZIP**을 누르고 완전히 압축 해제합니다. 이 파일은 GitHub가 저장소에서 자동으로 만든 소스 사본입니다. 별도로 관리하는 배포 ZIP이 아닙니다. 압축 파일 안에서 바로 편집·실행하지 않습니다.
+
+어느 방법이든 같은 파일을 받습니다. `workbook.html`은 로컬 브라우저로 열고, **`example-project` 폴더만** VS Code에서 엽니다. GitHub 소스 ZIP을 받았다면 압축을 푼 상위 폴더 이름에 `-main`이 붙을 수 있습니다. 터미널이 그 안의 `example-project`를 가리키는지 확인합니다.
+
+### 사전 연습과 수업용 사본 분리
+
+사전 연습은 별도 사본에서 합니다. `readiness/task.txt`를 읽고 `npm run readiness:check`의 의도적인 첫 실패를 확인한 뒤 직접 편집·저장·재실행합니다. 사전 연습의 수정 파일과 기록은 수업용에 옮기지 않습니다.
+
+실제 수업용은 저장소를 새 폴더에 다시 복제하거나, GitHub에서 받은 새 소스 ZIP을 다른 폴더에 풉니다. 기존 작업을 삭제·초기화해서 새 원본처럼 만들지 않습니다.
+
+### 공통 시작 절차
+
+아래 명령은 손대지 않은 수업용 사본의 `example-project`에서 실행합니다.
 
 ```bash
 node --version
@@ -90,16 +108,11 @@ npm run baseline
 
 이미 기준 사본이 있다면 지우거나 덮어쓰지 않습니다. 실행이 안 되면 위치·Node 버전·오류부터 확인하고 도움을 요청합니다.
 
-### 선택: 저장소 복제
+### 개인 기록 파일 준비
 
-```bash
-git clone https://github.com/ijhan-biz/lgvs-copilot-intermediate-workshop.git
-cd lgvs-copilot-intermediate-workshop/example-project
-```
+복제와 GitHub 소스 ZIP 모두 빈 `work-record.template.json`을 제공합니다. 프로젝트 JSON을 주 기록으로 선택했다면 **환경·시작 검사와 첫 편집 전 기준 사본 보존을 마친 뒤**, 파일 탐색기나 편집기로 이를 같은 폴더의 `work-record.json`으로 복사합니다. 워크북을 주 기록으로 선택했다면 이 복사와 이중 입력은 필요하지 않습니다.
 
-복제한 사본에서도 위의 환경·시작 검사와 **첫 편집 전 기준 사본 보존**을 먼저 합니다. 그다음 파일 탐색기나 편집기로 `work-record.template.json`을 같은 폴더의 `work-record.json`으로 복사합니다. ZIP에는 이 빈 기록 파일이 이미 들어 있습니다.
-
-실제 개인 기록은 Git이 무시합니다. 빈 템플릿은 고치지 말고, `git add -f`로 개인 기록을 올리지 않습니다. 이미 추적되는 README·인계 파일에도 개인정보나 비밀을 적지 않습니다.
+Git으로 복제한 경우 실제 개인 기록은 `.gitignore`로 추적에서 제외됩니다. GitHub 소스 ZIP에는 `.git` 이력이 없으며, 이 무시 규칙은 웹에서 파일을 수동 업로드하는 것을 막아주지 않습니다. 빈 템플릿은 고치지 말고, `git add -f`나 수동 업로드로 개인 기록을 공개하지 않습니다. 이미 추적되는 README·인계 파일에도 개인정보나 비밀을 적지 않습니다.
 
 ## 처음 보이는 실패를 구분하기
 
@@ -159,11 +172,11 @@ npm run evidence
 
 | 파일·폴더 | 용도 |
 | --- | --- |
+| `README.md` | 교육 목표·내용·초점·준비와 시작 방법 |
 | `PARTICIPANT-START.txt` | 수업의 진행 순서와 공개 조건 |
 | `workbook.html` | 브라우저로 작성하고 JSON으로 저장·불러오는 개인 기록장 |
 | `example-project/` | 작동하는 시작 코드, 합성 입력, 계약과 검사 |
-| `participant-kit.zip` | 수업용 파일을 한 번에 받는 배포본 |
-| `교육내용-쉬운설명.docx` / `.pdf` | 교육 목표·내용·초점·준비를 설명하는 문서 |
+| `example-project/work-record.template.json` | 기준 사본 보존 뒤 복사해 사용하는 빈 작업 기록 양식 |
 
 워크북 입력은 자동 저장되지 않습니다. 내보낸 실제 파일을 확인하고 보관합니다. GitHub의 HTML 파일 화면은 실행되는 워크북이 아니므로 내려받아 로컬 브라우저에서 엽니다.
 
@@ -176,8 +189,10 @@ npm run evidence
 | 가정한 작업 흐름 | 확인한 내용 | 기술 리허설 결과 |
 | --- | --- | --- |
 | 개발자형·저장소 복제 | 편집 전 기준 사본, 후보 변경 전 실패, 작은 수정, 결함 복구와 최종 여섯 명령 | 계획한 단계와 실제 결과 일치 |
-| QA형·ZIP 시작 | 모듈별 같은 검사 번호, 중복·충돌·잘못된 입력, 미실행 구분과 재현 | 계획한 단계와 실제 결과 일치 |
-| 지원 필요형·ZIP 시작 | 잘못된 작업 위치, 사전 연습, 미작성 예측과 검토 사본 누락 | 미완료로 남고 완료·정답 공개 판단을 보류 |
+| QA형·기존 배포본 시작 | 모듈별 같은 검사 번호, 중복·충돌·잘못된 입력, 미실행 구분과 재현 | 계획한 단계와 실제 결과 일치 |
+| 지원 필요형·기존 배포본 시작 | 잘못된 작업 위치, 사전 연습, 미작성 예측과 검토 사본 누락 | 미완료로 남고 완료·정답 공개 판단을 보류 |
+
+이 세 흐름의 결과는 앞선 배포본을 대상으로 한 기록입니다. 현재처럼 저장소 복제와 GitHub 소스 ZIP을 같은 절차로 사용하는 시작 경로는 별도로 확인합니다.
 
 코드 실행 시간은 사람이 읽고 배우는 시간이 아닙니다. 역할을 가정한 시나리오도 실제 수강생 조사·학습 효과가 아니며, 실제 Copilot 추론·조직 권한·수업 지원 인력·교실 소요시간은 별도로 확인해야 합니다. 기본 과정을 끝냈다고 실제 제품 검사나 출시 준비가 끝났다고 판단하지 않습니다.
 

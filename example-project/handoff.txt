@@ -94,8 +94,9 @@ coreProcess 핵심 작업 과정 / verificationCauseRepair 검증·원인 수정
 selfReplayHandoff 본인 재현·인수인계. 필수3은 마지막3개다.
 자동 채점 없이 미확인 점수/총점/판정은 null, 자가 잠정 평가와 강사 최종확정은 구분한다.
 
-교육 전만: 별도 압축 해제 연습 사본의 readiness/task.txt로 편집·저장·실행을 관찰한 뒤
-수업은 새 ZIP을 새 폴더에 압축 해제해 시작한다. preflight는 파일을 생성/수정하지 않는다.
+교육 전만: 별도 저장소 연습 사본의 readiness/task.txt로 편집·저장·실행을 관찰한 뒤
+수업은 git clone으로 새 사본을 받거나 GitHub Code → Download ZIP 소스 압축을 새 폴더에 모두 풀어 시작한다.
+preflight는 파일을 생성/수정하지 않는다.
 수정과 재검증 고정 시간: 16:20–28 재현/가설8, 16:28–38 최소 복구/review16 확인10,
 16:38–45 독립 예측·테스트 전이7, 16:45–50 src v2/learner 회귀·기록5분.
 7분은 설계값이며 제작 검증 로그를 사람 학습/독립 숙달의 관찰로 주장하지 않는다.

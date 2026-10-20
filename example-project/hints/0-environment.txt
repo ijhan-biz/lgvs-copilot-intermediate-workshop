@@ -1,7 +1,8 @@
 지원 0 — 폴더와 실행 환경
-VS Code와 터미널이 압축 해제한 example-project 폴더를 가리키는지 확인한다.
+VS Code와 터미널이 새 저장소 사본의 example-project 폴더만 가리키는지 확인한다.
 교육 전만: 별도 연습 사본에서 npm run preflight와 readiness/task.txt를 수행한다.
-preflight는 파일을 생성/수정하지 않는다. 수업은 새 ZIP을 새 폴더에 압축 해제해 시작한다.
+preflight는 파일을 생성/수정하지 않는다. 수업은 git clone으로 새 사본을 받거나
+GitHub Code → Download ZIP 소스 압축을 새 폴더에 모두 풀어 시작한다.
 수업 npm test의 후보 정책 단언 실패와 Node22·import·명령 경로 문제를 구분한다.
 현재 위치·명령·exit·오류를 기록하고 환경 문제면 코드 변경 전에 지원을 요청한다.
 문제와 성공 기준 첫 파일 편집 전에 npm run baseline을 한 번 실행한다. 계획과 검증 기준 단계에서는 확인만 한다.
