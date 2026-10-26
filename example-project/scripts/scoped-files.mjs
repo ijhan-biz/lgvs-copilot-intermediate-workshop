@@ -5,6 +5,7 @@ import { resolve, sep } from 'node:path';
 export const baselineFiles = Object.freeze([
   'src/summarize-results.mjs', 'src/summary-core.mjs', 'src/validate-input.mjs', 'test/learner.test.mjs',
   'README.txt', 'handoff.txt',
+  'harness/workflow.json', 'harness/run.mjs', 'harness/instructions.txt',
 ]);
 
 export async function readScopedFile(root, file) {

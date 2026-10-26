@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "title": "필수: 학습자가 만드는 최소 하네스와 실패·복구 운영",
+  "required": true,
+  "learnerArtifacts": [
+    {"path": "harness/workflow.json", "work": "목적·합성 입력·컨텍스트·허용 도구·출력·시간 제한·재시도 한도를 직접 작성"},
+    {"path": "harness/run.mjs", "work": "보호된 primitive를 연결하여 검증→승인 확인→순서 실행→결과 기록→실패 중단→필수 성공 후 완료를 구현"},
+    {"path": "harness/instructions.txt", "work": "Copilot/수동 작업에 전달할 구체적 지시와 중단·반환 조건을 작성; 실제 해시 컨텍스트"}
+  ],
+  "commands": [
+    "npm run harness:check",
+    "npm run harness:approve -- --reason \"직접 검토한 범위와 이유\"",
+    "npm run harness:run",
+    "npm run harness:drill -- timeout",
+    "npm run harness:drill -- forbidden",
+    "npm run harness:status",
+    "npm run harness:resume -- --latest"
+  ],
+  "requiredScenarios": [
+    {"id": "timeout", "work": "실제 자식 프로세스 시간 초과와 실패 기록 보존; 의도한 훈련이라도 명령은 0이 아닌 종료"},
+    {"id": "forbidden", "work": "허용되지 않은 도구 요청을 자식 실행/보호 파일 쓰기 전에 거부"},
+    {"id": "stale", "work": "성공 후 허용된 instructions 수정→상태 stale/재개 거부→사람 재검토·새 승인·새 실행"},
+    {"id": "resume", "work": "같은 fingerprint 중단 실행은 checkpoint와 재시도 한도 적용; 완료 실행 재개는 성공 작업 반복 없음"}
+  ],
+  "activityMinutes": {
+    "OPEN": [5],
+    "M1": [5, 7, 10, 3],
+    "M2": [10, 15, 5],
+    "M3": [15, 15, 10],
+    "M4": [10, 25, 15, 15, 5],
+    "M5": [10, 10, 10],
+    "M6": [10, 8, 7, 5],
+    "M7": [10, 15, 10]
+  },
+  "activityWork": {
+    "OPEN": ["별도 연습/수업 사본과 환경 확인"],
+    "M1": ["기준선과 입력 준비", "독립 기대값", "첫 개인 검사", "기록과 저장"],
+    "M2": ["맥락 선택과 instructions 작성", "AI 주장 한 개와 권위 자료 대조", "모델/수동 상태와 이유 기록"],
+    "M3": ["workflow 입력·도구 경계·예상 실패 계획", "단계 순서·checkpoint·중단/복구 계획", "인수 조건과 기존 기록 검토"],
+    "M4": ["공개 요청 대조와 실제 사람 승인", "workflow 구성과 run 조합 작성", "승인된 업무 후보 정책만 수정", "직접 만든 하네스 실행과 결과 확인", "구축 근거와 한계 기록"],
+    "M5": ["업무 회귀·원본 보존·개인 검사", "15:30–15:40 운영 10분 안에 개인 검사 편집을 포함한 현재 파일 사람 재검토 → npm run harness:approve → npm run harness:run → npm run harness:status 뒤 timeout·forbidden 훈련; 13:45 업무 승인과 별개인 로컬 재검토", "초기 review 결함과 최초 실패 보존"],
+    "M6": ["review 최소 수정", "stale 근거·복구·안전 재개", "기존 독립 과제 16:38–16:45", "회귀와 최종 기록"],
+    "M7": ["17:00–17:04 README/handoff 4분 → 17:04–17:05 저장·동결 1분 → 17:05–17:07 새 비판/수동 대조 2분 → 17:07–17:09 현재 파일 사람 재검토·npm run harness:approve·npm run harness:run 2분 → 17:09–17:10 npm run harness:status·현재 근거 기록 1분; 자동 승인 없음, 실행 뒤 파일 변경은 재검토·승인·재실행 전 HOLD, 첫 기록 보존", "기존 개인 여섯 명령 17:10–17:25", "근거 해석과 공개 조건 충족 후 비교"]
+  },
+  "planningRule": "계획 40분은 읽기·계획 기록만 수행한다. 구현·테스트 작성·실행을 하지 않는다.",
+  "schedule": {"totalMinutes": 440, "practiceMinutes": 265, "independent": "16:38–16:45", "personalReplay": "17:10–17:25"},
+  "countDomains": {"businessV1": 16, "businessV2": 16, "learner": 4, "review": 16, "independent": 1, "personalReplayCommands": 6, "legacyEngineeringScenarios": 38},
+  "boundaries": [
+    "완성 정답은 instructor/harness-reference에만 보관; 공개 starter는 실제 TODO와 누락 설정으로 최초 check 실패",
+    "로컬 검토 선언은 조직 인증/실제 업무 승인/보안 sandbox가 아님; 학습자 코드는 Node 사용자 권한으로 실행",
+    "임의 shell/command 설정·네트워크·설치·모델 자동 호출 없음; 보호 registry의 로컬 Node 작업만 실행",
+    "입력·설정·지시·소스 변경은 기존 승인과 근거를 무효화; 변경 후 resume 금지",
+    "운영 결과와 의도한 훈련 성공 여부, 합성 업무 건수와 node:test 건수를 구분",
+    "시간은 수업 배분 계획이며 사람의 완료 시간 측정/학습 효과 인증이 아님",
+    "합성 입력만 사용; 개인정보·실고객 자료를 읽지 않음"
+  ]
+}

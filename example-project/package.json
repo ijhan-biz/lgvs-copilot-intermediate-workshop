@@ -8,6 +8,13 @@
     "node": ">=22"
   },
   "scripts": {
+    "harness:check": "node scripts/harness.mjs check",
+    "harness:approve": "node scripts/harness.mjs approve",
+    "harness:run": "node scripts/harness.mjs run",
+    "harness:drill": "node scripts/harness.mjs drill",
+    "harness:status": "node scripts/harness.mjs status",
+    "harness:resume": "node scripts/harness.mjs resume",
+    "test:harness": "node --test test/harness*.test.mjs",
     "test": "node --test test/v1.test.mjs",
     "test:v1": "node --test test/v1.test.mjs",
     "test:v2": "node --test test/v2.test.mjs",

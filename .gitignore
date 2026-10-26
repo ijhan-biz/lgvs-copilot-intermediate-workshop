@@ -8,6 +8,8 @@ node_modules/
 **/node_modules/
 .baseline/
 **/.baseline/
+.harness/
+**/.harness/
 review/
 **/review/
 evidence/
