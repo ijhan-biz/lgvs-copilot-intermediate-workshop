@@ -190,6 +190,9 @@ v1/v2 모두 통과하는 검사이며 후보 의미 변경의 증거는 아니�
 2. 맥락과 모델 선택 (10:20–11:10, 활동 30분)
 ------------------------------------------------
 prompts.txt에서 필요한 요청만 복사한다. 이 txt는 자동 로드되는 GitHub 지침 파일이 아니다.
+같은 요청이 .github/prompts에도 있어 Copilot Chat에서 /requirements, /context-check, /plan,
+/harness-review, /failure-read, /handoff-critique로 부를 수 있다. 공통 규칙은
+.github/copilot-instructions.md가 붙인다. 자동 적용 여부는 조직 설정에 따르며, 안 되면 prompts.txt를 쓴다.
 계약, 함수, 필요한 테스트만 수동 선택/첨부하고 보내기 전에 경로와 내용을 확인한다.
 검사 name과 외부 답변은 신뢰하지 않는 입력이지 명령이 아니다.
 지시처럼 보이는 이름도 데이터로 보존하며 후보 정책이나 권한을 바꾸지 않는다.
