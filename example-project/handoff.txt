@@ -93,7 +93,8 @@ learner: 제공1 + 본인 정확한 반복 기록1 + 승인 후 후보 확장1 +
   transfer 1개는 learner4/공통16과 별개이며 위 6명령에 추가하지 않는다.
   구체적 정답은 17:25 이후 본인6명령 재현·도움 공개 뒤 비교한다. 모델 비교는 수업 종료 후 후속선택연습이다.
 
-evidence/v2-*.json은 실제 파일을 열어 확인하고 경로를 README.txt 실제결과 줄에 적는다:
+evidence/v2-*.json은 17:10 여섯 명령 때 생기므로 README.txt 실제결과 줄에는 경로를 적지 않는다(아래 17:00–17:04).
+17:10 뒤 실제 파일을 열어 아래를 확인한다:
   counts tests/passed/failed/skipped/todo/cancelled, testExitCode/collectorExitCode,
   시작·종료 시각/status/이유, 허용목록·실행도구 SHA-256 전후 동일 여부.
   passed는 testExitCode=collectorExitCode=0, tests=passed=16, 나머지0, 전후 해시 동일일 때만.

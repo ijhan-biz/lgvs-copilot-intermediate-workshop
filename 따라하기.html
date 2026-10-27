@@ -101,6 +101,17 @@ code, pre { font-family: var(--mono); }
 .whynot b { color: var(--ink); margin-right: 6px; }
 .t-q { font: 800 22px var(--display); fill: var(--stop); }
 .f-mute { fill: var(--muted); }
+.st-paper { stroke: var(--paper); }
+.after { background: var(--paper); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; }
+.after-h { font: 800 18px/1.3 var(--display); }
+.afterlist { margin: 0; display: grid; gap: 10px; }
+.afterlist > div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.afterlist dt { font-weight: 700; font-size: 14px; color: var(--muted); }
+.afterlist dd { margin: 0; font-size: 15px; }
+.ba { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 4px; font-weight: 700; font-size: 14px; }
+.ba .am { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 1px 10px; }
+.ba .pm { background: var(--marker); color: var(--on-marker); border-radius: 999px; padding: 1px 10px; }
+.ba i { font-style: normal; color: var(--muted); }
 
 /* 하루 지도 */
 .map { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0; position: relative; }
@@ -238,6 +249,7 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
   .why { padding: 18px; }
   .whycard { grid-template-columns: 1fr; }
   .whycard .pic { max-width: 360px; }
+  .afterlist > div { grid-template-columns: 1fr; gap: 2px; }
   .finish tbody th { white-space: normal; min-width: 5.5em; }
   .finish .when { white-space: normal; }
   .finish th, .finish td { padding: 8px 8px; }
@@ -269,14 +281,15 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
   <p class="eyebrow">GITHUB COPILOT 중급과정 · 2026년 10월 28일 · 수강생용</p>
   <h1>오늘 수업을,<br><mark>한 장씩</mark> 따라 하기.</h1>
   <section class="why" id="why" aria-labelledby="why-h">
-    <h2 id="why-h">어떤 일의, 무엇을 고치나요?</h2>
-    <p class="why-one"><b>소프트웨어 검사 결과를 정리하는 일</b>에서, <b>다시 볼 검사를 고르는 기준</b>을 고쳐요.</p>
+    <h2 id="why-h">어떤 소프트웨어의, 무엇을 고치나요?</h2>
+    <p class="why-one"><b>가상의 차량 인포테인먼트(IVI) 소프트웨어</b>를 검사한 결과를 정리하는 도구에서, <b>다시 볼 검사를 고르는 기준</b>을 고쳐요.</p>
     <ol class="whygrid">
       <li class="whycard">
-        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="새 빌드를 검사하면 통과, 실패, 시간 초과, 미실행 결과가 쌓이는 그림">
-          <rect x="14" y="50" width="72" height="58" rx="6" class="f-tint s"/>
-          <path d="M14 68h72" class="s f-none"/>
-          <rect x="36" y="80" width="28" height="16" rx="3" class="f-card s-thin"/>
+        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="차 안 화면(음악·블루투스)의 새 빌드를 검사하면 통과, 실패, 시간 초과, 미실행 결과가 쌓이는 그림">
+          <rect x="14" y="46" width="76" height="52" rx="8" class="f-ink"/>
+          <circle cx="34" cy="82" r="5" class="f-paper"/><rect x="37" y="58" width="3" height="24" class="f-paper"/><path d="M40 58l10 4v6l-10-4z" class="f-paper"/>
+          <path d="M62 62l14 13-7 7V54l7 7-14 13" class="s-thin st-paper f-none" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M8 114q44-16 88 0" class="s f-none"/>
           <path d="M94 79h18" class="s f-none"/><path d="M106 71l9 8-9 8" class="s f-none"/>
           <text x="104" y="62" text-anchor="middle" class="t-s">검사</text>
           <rect x="124" y="16" width="164" height="122" rx="8" class="f-card s"/>
@@ -285,13 +298,13 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
           <circle cx="142" cy="92" r="7" class="f-mute"/><text x="156" y="97" class="t-s">시간 초과</text>
           <circle cx="142" cy="120" r="6" class="f-none s-thin" stroke-dasharray="3 2"/><text x="156" y="125" class="t-s">미실행</text>
           <path d="M222 36h52M222 64h40M222 92h48M222 120h36" class="s-thin f-none" stroke-dasharray="2 4"/>
-          <text x="50" y="158" text-anchor="middle" class="t">새 빌드</text>
+          <text x="52" y="158" text-anchor="middle" class="t">IVI 새 빌드</text>
           <text x="206" y="158" text-anchor="middle" class="t">검사 결과</text>
         </svg></div>
         <div class="whytxt">
-          <b class="kind">어떤 일</b>
-          <strong>빌드 검사 결과 정리</strong>
-          <span>새 빌드마다 음량·재생 목록·블루투스 같은 기능을 검사해요. 쌓인 결과에서 다시 볼 검사를 골라 주는 작은 도구가 실습 대상이에요.</span>
+          <b class="kind">어떤 소프트웨어</b>
+          <strong>차 안의 음악·블루투스·설정 화면</strong>
+          <span>가상의 차량 인포테인먼트(IVI) 소프트웨어예요. 새 빌드가 나올 때마다 음량 설정·재생 목록·블루투스 연결 같은 기능을 자동으로 검사해요. 쌓인 결과에서 다시 볼 검사를 골라 주는 작은 도구를 고쳐요. 자료는 모두 합성이에요.</span>
         </div>
       </li>
       <li class="whycard">
@@ -335,13 +348,20 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
         <div class="whytxt">
           <b class="kind">고친 뒤 (v2)</b>
           <strong>시간 초과·미실행도 후보로</strong>
-          <span>13:45 변경 요청을 사람이 승인한 뒤에만 넓혀요. 건수 세기, 중복 정리, 입력 검사는 그대로예요.</span>
+          <span>13:45 변경 요청을 강사가 승인한 뒤에만 넓혀요. 건수 세기, 중복 정리, 입력 검사는 그대로예요.</span>
         </div>
       </li>
     </ol>
+    <div class="after">
+      <h3 class="after-h">완성하면 달라지는 것</h3>
+      <dl class="afterlist">
+        <div><dt>다시 볼 목록</dt><dd><span class="ba"><span class="am">아침 · 후보 2개</span><i aria-hidden="true">→</i><span class="pm">저녁 · 후보 4개</span></span>실패만 보던 목록에 시간 초과·미실행이 더해져요. 멈춘 기능, 아예 검사되지 않은 기능도 이제 놓치지 않아요.</dd></div>
+        <div><dt>그대로인 것</dt><dd>건수 세기 · 중복 정리 · 처음 나온 순서 · 입력 검사 · 원본 보존. 바뀌는 곳은 후보 기준 한 곳뿐이에요.</dd></div>
+        <div><dt>내 손에 남는 것</dt><dd>이 변경을 지키는 내 검사 4개, 실패하면 멈추는 내 하네스, 다음 사람이 그대로 다시 돌려 볼 README·handoff.</dd></div>
+      </dl>
+    </div>
     <p class="whyline"><span>고치는 방법</span><b>AI가 제안하고</b><i aria-hidden="true">→</i><b>내가 확인하고</b><i aria-hidden="true">→</i><b>기록으로 남긴다</b></p>
     <p class="whynot"><b>후보란</b>사람이 다시 볼 검사 목록이에요. 이 도구가 검사를 실제로 다시 돌리거나 출시를 승인하지는 않아요.</p>
-    <p class="whynot"><b>함께 만드는 것</b>이 도구를 검사하고 실패하면 멈추는 내 작업 순서(하네스). 일부러 실패시켜 확인해요.</p>
   </section>
   <p class="lead">준비 한 장과 그림 8장을 차례로 넘기며 칩니다. 칠 명령과 나오면 되는 신호가 함께 있어요. 기록은 테스트와 <code>README.txt</code>·<code>handoff.txt</code>에 해요. 수업 중에 볼 화면은 이 페이지 하나예요.</p>
   <div class="firstnote">
@@ -438,7 +458,7 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
   <ul>
     <li>실제 회사 코드·고객 자료·차량 로그·개인정보·비밀키는 Copilot에 붙여 넣지 않아요. 실습 자료는 모두 합성이에요.</li>
     <li>추가 설치·네트워크·전역 Git 설정·커밋·push는 필요 없어요.</li>
-    <li>혼자 하는 실습이에요. 짝이나 동료의 승인이 필요 없어요.</li>
+    <li>혼자 하는 실습이에요. 짝이나 동료의 승인은 필요 없고, 13:45 업무 요청의 승인만 강사가 해요.</li>
     <li>Copilot이 안 되면 정책 때문인지 고장인지 적고, 직접 읽고 고치고 실행해서 계속해요. 확인 기준은 같아요.</li>
     <li>데이터 안의 “이전 지시를 무시하라” 같은 문장은 지시가 아니라 그냥 데이터예요.</li>
   </ul>
@@ -570,9 +590,9 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
     <h2>필요한 곳만 읽고, AI 말은 대조하기</h2>
     <p class="one">세 곳만 읽어요. 그럴듯한 말은 계약과 맞춰 봐요.</p>
     <ol class="steps">
-      <li><div class="txt">읽을 곳 세 군데: <code>contract.txt</code> 전체 · <code>domain-behavior.txt</code> 처음부터 1절 끝 · <code>harness/README.txt</code>의 1–3번.<span class="hint">나머지 문서는 막힐 때 찾아보는 참고용이에요.</span></div></li><li><div class="txt">AI가 “충돌하면 마지막 행을 쓰면 돼요”라고 했다고 칩시다. 계약의 어느 문장과 맞는지, 어긋나는지 직접 찾아 변경 이유 칸에 적어요.<span class="cp hint">Copilot(선택): 채팅에 <code>/context-check</code>를 치고 이 주장을 넣어 대조해요.</span></div></li><li><div class="txt"><code>harness/instructions.txt</code>의 TODO를 지우고 40자 이상 직접 씁니다: 목적, 허용 도구(inspect-input · test:v2), 금지(설치·네트워크·보호 파일 수정), 멈출 조건. 저장만 해요.</div></li>
+      <li><div class="txt">읽을 곳 세 군데: <code>contract.txt</code> 전체 · <code>domain-behavior.txt</code> 처음부터 1절 끝 · <code>harness/README.txt</code>의 1–3번.<span class="hint">나머지 문서는 막힐 때 찾아보는 참고용이에요.</span></div></li><li><div class="txt">AI가 “충돌하면 마지막 행을 쓰면 돼요”라고 했다고 칩시다. 계약의 어느 문장과 맞는지, 어긋나는지 직접 찾아요.<span class="hint">따로 적는 칸은 없어요. 찾은 판단은 바로 다음 <code>harness/instructions.txt</code>의 금지·멈출 조건에 담아요.</span><span class="cp hint">Copilot(선택): 채팅에 <code>/context-check</code>를 치고 이 주장을 넣어 대조해요.</span></div></li><li><div class="txt"><code>harness/instructions.txt</code>의 TODO를 지우고 40자 이상 직접 씁니다: 목적, 허용 도구(inspect-input · test:v2), 금지(설치·네트워크·보호 파일 수정), 멈출 조건. 저장만 해요.</div></li>
     </ol>
-    <div class="okline"><strong>이게 나오면 OK</strong><span class="goal">판단 이유 · 지시 40자+</span><label class="end"><input type="checkbox" id="done3" data-ch="3">3장 끝</label></div>
+    <div class="okline"><strong>이게 나오면 OK</strong><span class="goal">판단을 담은 지시 40자+</span><label class="end"><input type="checkbox" id="done3" data-ch="3">3장 끝</label></div>
   </div>
 </article>
 <!-- 4장 -->
@@ -621,7 +641,7 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
     <h2>요청은 승인이 아니다, 빨간불부터</h2>
     <p class="one">새 검사가 먼저 실패하는 걸 보고, 승인된 만큼만 고쳐요.</p>
     <ol class="steps">
-      <li><div class="txt">13:25 <code>harness/workflow.json</code> 아홉 칸을 채웁니다. 값의 범위는 <code>harness/README.txt</code> 1번에 있어요.</div></li><li><div class="txt"><code>harness/run.mjs</code>를 README의 primitive로 직접 연결해요. 실패하면 <code>stop</code>하고 <code>return</code>해서 finish로 가지 않게. 완성 코드를 복사하지 않아요.<div class="cmd"><code>npm run harness:check</code><span class="pill go">ready · 0</span><button class="copy" type="button">복사</button></div><span class="hint">check는 모양만 봐요. 실패 분기는 6장 훈련에서 확인해요.</span><span class="cp hint">Copilot(선택): 13:55 <code>/harness-review</code> — 내가 쓴 run.mjs를 세 가지로만 검토해요.</span></div></li><li><div class="txt"><span class="gate"><b>13:45</b> 강사가 변경 요청을 공개해요. <b>요청은 승인이 아니에요.</b> 사람이 승인하면 <code>README.txt</code> <b>변경이유:</b> 줄에 언제·어떤 범위로·왜 승인했는지 적은 뒤에만 다음으로 가요.</span></div></li><li><div class="txt">승인된 새 기대(시간 초과·미실행도 후보)를 검사로 <b>먼저</b> 추가하고 실행해요. 소스는 아직 그대로.<div class="cmd"><code>npm run test:learner</code><span class="pill stop">3 중 2 통과 · 1</span><button class="copy" type="button">복사</button></div><span class="hint">정답인 빨간불이에요. 실패 위치와 출력을 먼저 기록해요.</span></div></li><li><div class="txt"><code>src/summarize-results.mjs</code>에서 <b>승인된 후보 범위만</b> 바꿔요.<div class="cmd"><code>npm run test:v2</code><span class="pill go">16 통과 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:learner</code><span class="pill go">3 통과 · 0</span><button class="copy" type="button">복사</button></div><span class="hint">이제 <code>npm test</code>(옛 정책)는 1개 실패해요. 되돌리지 않아요.</span></div></li><li><div class="txt">바뀐 파일을 보고, 직접 읽은 뒤 도장 → 실행 → 상태.<div class="cmd"><code>npm run compare:baseline</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:approve -- --reason "직접 읽은 범위와 이유"</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:run</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><span class="hint">이유 문장은 내가 실제로 읽은 내용으로 바꿔요. 웹 화면을 새로고침하면 후보 정책이 바뀐 게 보여요.</span></div></li>
+      <li><div class="txt">13:25 <code>harness/workflow.json</code> 아홉 칸을 채웁니다. 값의 범위는 <code>harness/README.txt</code> 1번에 있어요.<span class="hint">아홉 칸: <code>schemaVersion</code> · <code>purpose</code>(목적) · <code>input</code> · <code>context</code> · <code>allowedTools</code> · <code>steps</code> · <code>output</code> · <code>timeoutMs</code> · <code>retryLimit</code>. 이름이 하나라도 다르면 거부돼요.</span></div></li><li><div class="txt"><code>harness/run.mjs</code>를 README의 primitive로 직접 연결해요. 실패하면 <code>stop</code>하고 <code>return</code>해서 finish로 가지 않게. 완성 코드를 복사하지 않아요.<div class="cmd"><code>npm run harness:check</code><span class="pill go">ready · 0</span><button class="copy" type="button">복사</button></div><span class="hint">README에 <code>await</code>가 붙은 호출은 await로 기다려요. <code>api.isComplete(step)</code>만 바로 참·거짓을 돌려줘서 await가 없어도 돼요(붙여도 괜찮아요).</span><span class="hint">check는 모양만 봐요. 실패 분기는 6장 훈련에서 확인해요.</span><span class="cp hint">Copilot(선택): 13:55 <code>/harness-review</code> — 내가 쓴 run.mjs를 세 가지로만 검토해요.</span></div></li><li><div class="txt"><span class="gate"><b>13:45</b> 강사가 변경 요청을 공개해요. <b>요청은 승인이 아니에요.</b> 승인은 요구 담당자 역할을 맡은 강사가 해요(짝·동료 승인과는 달라요). 강사가 승인하면 <code>README.txt</code> <b>변경이유:</b> 줄에 언제·어떤 범위로·왜 승인됐는지 적은 뒤에만 다음으로 가요.</span></div></li><li><div class="txt">승인된 새 기대(시간 초과·미실행도 후보)를 검사로 <b>먼저</b> 추가하고 실행해요. 소스는 아직 그대로.<div class="cmd"><code>npm run test:learner</code><span class="pill stop">3 중 2 통과 · 1</span><button class="copy" type="button">복사</button></div><span class="hint">정답인 빨간불이에요. 고치기 전에 실패한 검사 이름과 종료 숫자를 <code>test/learner.test.mjs</code>의 그 검사 바로 위 주석에 한 줄로 적어요.</span></div></li><li><div class="txt"><code>src/summarize-results.mjs</code>에서 <b>승인된 후보 범위만</b> 바꿔요.<div class="cmd"><code>npm run test:v2</code><span class="pill go">16 통과 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:learner</code><span class="pill go">3 통과 · 0</span><button class="copy" type="button">복사</button></div><span class="hint">이제 <code>npm test</code>(옛 정책)는 1개 실패해요. 되돌리지 않아요.</span></div></li><li><div class="txt">바뀐 파일을 보고, 직접 읽은 뒤 도장 → 실행 → 상태.<div class="cmd"><code>npm run compare:baseline</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:approve -- --reason "직접 읽은 범위와 이유"</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:run</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><span class="hint">이유 문장은 내가 실제로 읽은 내용으로 바꿔요. 웹 화면을 새로고침하면 후보 정책이 바뀐 게 보여요.</span></div></li>
     </ol>
     <div class="okline"><strong>이게 나오면 OK</strong><span class="goal">v2 16 · 내 검사 3 · passed</span><label class="end"><input type="checkbox" id="done5" data-ch="5">5장 끝</label></div>
   </div>
@@ -678,7 +698,7 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
     <h2>고치고, 다시 확인하고, 혼자 풀기</h2>
     <p class="one">한 파일만 고쳐요. 혼자 풀 땐 답부터 적어요.</p>
     <ol class="steps">
-      <li><div class="txt">가설을 <code>review/summarize-results.mjs</code> 맨 위 주석에 먼저 쓰고, 그 파일 <b>하나만</b> 고쳐요.<div class="cmd"><code>npm run test:review</code><span class="pill go">16 통과 · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt">review는 스티커 밖이라 도장 없이 실행 → 상태. 그다음 <code>harness/instructions.txt</code>에 허용된 한 문장을 더해 스티커를 찢어 봐요.<div class="cmd"><code>npm run harness:run</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill stop">stale · 1</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:resume -- --latest</code><span class="pill stop">APPROVAL_REQUIRED · 1</span><button class="copy" type="button">복사</button></div><span class="hint">stale은 문장을 더한 뒤의 status예요.</span></div></li><li><div class="txt">다시 읽고 새 도장 → 새 실행.<div class="cmd"><code>npm run harness:approve -- --reason "추가한 지시와 현재 파일을 직접 확인함"</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:run</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt">세이브에서 이어 하기. 파일은 건드리지 않아요.<div class="cmd"><code>npm run harness:drill -- timeout</code><span class="pill stop">ETIMEDOUT · 1</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:resume -- --latest</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:resume -- --latest</code><span class="pill go">"idempotent": true · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt"><span class="gate"><b>16:38–16:45 혼자 풀기.</b> AI·힌트·도움을 모두 닫아요. 일찍 끝나도 16:45 전에는 열지 않아요.</span><span class="hint">① 예측과 이유를 <code>test/transfer.test.mjs</code>의 <code>expectedIds</code> 바로 위 주석에 → ② <code>expectedIds = null</code>을 내 예측으로 → ③ 테스트 파일을 <code>../전이-실행전-테스트.mjs</code>로 복사 → ④ 그다음에만 한 번 실행. 받은 도움은 16:45 뒤 <code>handoff.txt</code> [받은 도움]에 적어요.</span><div class="cmd"><code>npm run test:transfer</code><span class="pill plain">나온 그대로 저장</span><button class="copy" type="button">복사</button></div><span class="hint">통과든 실패든 첫 결과는 고쳐 쓰지 않아요. 실행하지 못했으면 모름으로 남겨요.</span></div></li><li><div class="txt">16:45 도움 상태를 적고(혼자 함 / 힌트 / 답안 / 미완료) 기존 검사를 다시.<div class="cmd"><code>npm run test:v2</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:learner</code><span class="pill go">4 · 0</span><button class="copy" type="button">복사</button></div></div></li>
+      <li><div class="txt">가설을 <code>review/summarize-results.mjs</code> 맨 위 주석에 먼저 쓰고, 그 파일 <b>하나만</b> 고쳐요.<div class="cmd"><code>npm run test:review</code><span class="pill go">16 통과 · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt">review는 스티커 밖이라 도장 없이 실행 → 상태.<div class="cmd"><code>npm run harness:run</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><span class="hint">그다음 <code>harness/instructions.txt</code>에 허용된 한 문장을 더해 스티커를 찢고, 상태와 이어 하기를 다시 쳐요. 예: 완료를 보고할 때 실제 checkpoint 경로를 함께 적는다는 문장.</span><div class="cmd"><code>npm run harness:status</code><span class="pill stop">stale · 1</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:resume -- --latest</code><span class="pill stop">APPROVAL_REQUIRED · 1</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt">다시 읽고 새 도장 → 새 실행.<div class="cmd"><code>npm run harness:approve -- --reason "추가한 지시와 현재 파일을 직접 확인함"</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:run</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt">세이브에서 이어 하기. 파일은 건드리지 않아요.<div class="cmd"><code>npm run harness:drill -- timeout</code><span class="pill stop">ETIMEDOUT · 1</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:resume -- --latest</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:resume -- --latest</code><span class="pill go">"idempotent": true · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt"><span class="gate"><b>16:38–16:45 혼자 풀기.</b> AI·힌트·도움을 모두 닫아요. 일찍 끝나도 16:45 전에는 열지 않아요.</span><span class="hint">① 예측과 이유를 <code>test/transfer.test.mjs</code>의 <code>expectedIds</code> 바로 위 주석에 → ② <code>expectedIds = null</code>을 내 예측으로 → ③ 테스트 파일을 <code>../전이-실행전-테스트.mjs</code>로 복사 → ④ 그다음에만 한 번 실행. 받은 도움은 16:45 뒤 <code>handoff.txt</code> [받은 도움]에 적어요.</span><div class="cmd"><code>npm run test:transfer</code><span class="pill plain">나온 그대로</span><button class="copy" type="button">복사</button></div><span class="hint">통과든 실패든 첫 결과는 고쳐 쓰지 않아요. 16:45 뒤 <code>handoff.txt</code> [받은 도움]의 <b>독립 과제 실제 결과</b> 줄에 pass / fail과 종료 숫자를 그대로 적어요. 실행하지 못했으면 unknown(모름)으로 남겨요.</span></div></li><li><div class="txt">16:45 도움 상태를 적고(혼자 함 / 힌트 / 답안 / 미완료) 기존 검사를 다시.<div class="cmd"><code>npm run test:v2</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:learner</code><span class="pill go">4 · 0</span><button class="copy" type="button">복사</button></div></div></li>
     </ol>
     <div class="okline"><strong>이게 나오면 OK</strong><span class="goal">review 16 · 첫 예측 보존</span><label class="end"><input type="checkbox" id="done7" data-ch="7">7장 끝</label></div>
   </div>
@@ -713,7 +733,7 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
     <h2>넘겨주고, 내 안내만 보고 다시 하기</h2>
     <p class="one">남이 이어받게 적고, 여섯 번 다시 쳐요.</p>
     <ol class="steps">
-      <li><div class="txt"><code>README.txt</code> 끝 다섯 줄(목적·실행명령·실제결과·변경이유·제한)과 <code>handoff.txt</code> 칸을 지금까지의 실제 결과로 채워요. [하네스 근거]는 <code>.harness</code>를 보고, [원인 가설]은 review 주석을 옮겨요. 아직 안 한 재현을 성공이라고 쓰지 않아요.</div></li><li><div class="txt">혼자 풀기 파일이 그대로인지 비교해요.<div class="cmd"><code>cmp ../전이-실행전-테스트.mjs test/transfer.test.mjs</code><span class="pill go">같음 · 0</span><button class="copy" type="button">복사</button></div><span class="hint">Windows PowerShell은 <code>fc.exe ..\전이-실행전-테스트.mjs test\transfer.test.mjs</code>.</span><span class="cp hint">Copilot(선택): 17:04 새 Chat에서 <code>/handoff-critique</code> — 내 안내만 보고 빈틈을 찾게 해요.</span></div></li><li><div class="txt">문서도 스티커 안이라 17:10 전에 마지막 도장 → 실행 → 상태.<div class="cmd"><code>npm run harness:approve -- --reason "현재 인계 문서와 하네스 경계를 직접 다시 읽음"</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:run</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt"><b>17:10–17:25 여섯 명령</b>을 하나씩, 내 안내만 보고.<div class="cmd"><code>npm run preflight</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:v2</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:learner</code><span class="pill go">4 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:review</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run demo</code><span class="pill go">후보 4개 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run evidence</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt"><code>evidence/v2-….json</code>을 열어 status passed, tests 16, 종료 숫자 둘 다 0인지 확인해요.</div></li><li><div class="txt"><span class="gate"><b>17:25 이후</b> 16:45가 지났고, 첫 예측과 첫 결과를 고정했고, 여섯 명령을 마쳤을 때만 참고답안과 비교해요.</span><span class="hint">README·handoff는 하네스를 다시 실행한 뒤라 더 고치지 않아요. 결과는 출력과 <code>evidence/v2-*.json</code>에 남아 있어요. 점수는 강사가 파일을 보고 매겨요.</span></div></li>
+      <li><div class="txt"><code>README.txt</code> 끝 다섯 줄(목적·실행명령·실제결과·변경이유·제한)과 <code>handoff.txt</code> 칸을 지금까지의 실제 결과로 채워요. [하네스 근거]는 <code>.harness</code>를 보고, [원인 가설]은 review 주석을 옮겨요. 아직 안 한 재현을 성공이라고 쓰지 않아요.<span class="hint"><code>evidence/v2-*.json</code>은 17:10 여섯 명령 때 생겨요. 실제결과 줄에는 경로 대신 “여섯 명령 결과는 evidence/v2-*.json과 출력에 남는다”고만 적어요.</span></div></li><li><div class="txt">혼자 풀기 파일이 그대로인지 비교해요.<div class="cmd"><code>cmp ../전이-실행전-테스트.mjs test/transfer.test.mjs</code><span class="pill go">같음 · 0</span><button class="copy" type="button">복사</button></div><span class="hint">Windows PowerShell은 <code>fc.exe ..\전이-실행전-테스트.mjs test\transfer.test.mjs</code>.</span><span class="cp hint">Copilot(선택): 17:04 새 Chat에서 <code>/handoff-critique</code> — 내 안내만 보고 빈틈을 찾게 해요.</span></div></li><li><div class="txt">문서도 스티커 안이라 17:10 전에 마지막 도장 → 실행 → 상태.<div class="cmd"><code>npm run harness:approve -- --reason "현재 인계 문서와 하네스 경계를 직접 다시 읽음"</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:run</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run harness:status</code><span class="pill go">passed · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt"><b>17:10–17:25 여섯 명령</b>을 하나씩, 내 안내만 보고.<div class="cmd"><code>npm run preflight</code><span class="pill go">0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:v2</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:learner</code><span class="pill go">4 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run test:review</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run demo</code><span class="pill go">후보 4개 · 0</span><button class="copy" type="button">복사</button></div><div class="cmd"><code>npm run evidence</code><span class="pill go">16 · 0</span><button class="copy" type="button">복사</button></div></div></li><li><div class="txt"><code>evidence/v2-….json</code>을 열어 status passed, tests 16, 종료 숫자 둘 다 0인지 확인해요.</div></li><li><div class="txt"><span class="gate"><b>17:25 이후</b> 16:45가 지났고, 첫 예측과 첫 결과를 고정했고, 여섯 명령을 마쳤을 때만 참고답안과 비교해요.</span><span class="hint">참고답안은 저장소에 없어요. 조건을 갖췄으면 17:25 뒤 강사에게 받아요. 비교 메모와 그때 받은 도움은 README·handoff 밖(예: <code>../비교-메모.txt</code>)에 적어요.</span><span class="hint">README·handoff는 하네스를 다시 실행한 뒤라 더 고치지 않아요. 결과는 출력과 <code>evidence/v2-*.json</code>에 남아 있어요. 점수는 강사가 파일을 보고 매겨요.</span></div></li>
     </ol>
     <div class="okline"><strong>이게 나오면 OK</strong><span class="goal">여섯 개 모두 0</span><label class="end"><input type="checkbox" id="done8" data-ch="8">8장 끝</label></div>
   </div>
