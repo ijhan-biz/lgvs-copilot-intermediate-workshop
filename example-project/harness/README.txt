@@ -16,8 +16,8 @@
    MISSING_STOP_AFTER_FAILURE(stop 누락)나 MISSING_RETURN_AFTER_STOP(return 누락)이면 고친다.
 
 작성·승인 경계
-  계획·검증 단계은 오전 baseline 뒤 선택한 워크북 여섯 칸 또는 work-record.json.coreRecord
-  한 곳의 계획 기록만 허용한다. 런타임·테스트·설정 편집/실행은 하지 않는다.
+  계획·검증 단계는 오전 baseline 뒤 handoff.txt [계획]에 세 줄만 쓴다.
+  런타임·테스트·설정 편집/실행은 하지 않는다.
   13:25–13:40 workflow 구축은 이미 사람이 검토한 하네스 범위만 다룬다.
   업무 정책 변경은 13:45 요청 공개와 실제 사람 승인 둘 다 갖춘 뒤에만 한다.
   아래 로컬 하네스 검토 선언은 업무 승인과 별개이며 하네스 실행보다 먼저 남긴다.
@@ -100,13 +100,12 @@ inspect-input은 합성 입력을 검사한다. test:v2는 기존 16개 계약�
   17:00–17:04 README/handoff 4분, 17:04–17:05 저장·동결 1분,
   17:05–17:07 새 비판/수동 대조 2분,
   17:07–17:09 현재 파일 사람 재검토 → npm run harness:approve → npm run harness:run 2분,
-  17:09–17:10 npm run harness:status·현재 fingerprint/증거 경로 기록 1분이다.
+  17:09–17:10 npm run harness:status로 현재 fingerprint를 확인하는 1분이다.
   approve에는 위처럼 직접 검토한 이유를 붙인다. 문서 편집도 fingerprint를 바꾼다.
   시간 절약·비판 저장은 자동 승인이 아니다. 실행 뒤 파일 변경은 새 재검토·승인·실행 전 HOLD다.
-  17:10 전 갱신한 하네스 근거가 없으면 HOLD다. 현재 근거와 재현 후 실제 완료 시각·상태·증거 경로는
-  선택한 기존 work-record.json.coreRecord.execution 또는 워크북 execution에 연결한다.
-  이 위치는 불변 firstTransfer·첫 예측/첫 결과·스냅샷과 수집 fileHashes 범위 밖이어야 한다.
-  새 최종 필드는 만들지 않고 동결 README/handoff는 최종 주 기록에서 참조한다.
+  17:10 전 갱신한 하네스 근거가 없으면 HOLD다. 이 실행 결과는 .harness에 남는다.
+  이 실행 뒤에는 README/handoff를 고치지 않는다. 고치면 fingerprint가 바뀌어 stale이 된다.
+  첫 예측/첫 결과와 전이 테스트 사본은 덮어쓰지 않는다.
   17:10–17:25 여섯 명령과 17:25 이후 조건부 답안 공개는 그대로다.
 
 Copilot 기본 구조와의 연결 (선택 도구, 필수 흐름은 그대로)

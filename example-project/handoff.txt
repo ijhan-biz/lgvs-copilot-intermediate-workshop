@@ -1,40 +1,48 @@
-내 실행 안내 — 짧은 기록 위치와 재현 명령
-=======================================
-필수 하네스 인계 — 아래 기존 여섯 칸의 경로를 재사용
-  세 학습자 파일의 위치와 선택 이유: harness/workflow.json·run.mjs·instructions.txt
-  검증→승인 확인→순서 실행→기록→실패 중단/마무리의 실제 연결 위치
-  실제 timeout 실패와 forbidden 실행 전 거절의 명령·exit·실행/쓰기 여부·기록 경로
-  성공 뒤 instructions 수정·stale/재개 거절·사람 재검토/새 승인/새 실행의 경로
-  동일 fingerprint 중단/checkpoint 재개·재시도 상한·성공 단계 중복 방지의 경로
-이 목록을 새 장문 양식으로 채우지 않는다. 기존 changeReason/execution/unknown/nextAction을 가리킨다.
+내 실행 안내 — 다음 사람이 이 파일만 보고 이어받는 곳
+=====================================================
+오늘의 기록은 프로젝트 안에만 남긴다. 워크북이나 따로 적는 양식은 없다.
+  기대값      → test/learner.test.mjs, test/transfer.test.mjs (실행 전에 먼저 쓴다)
+  하네스 승인 → npm run harness:approve -- --reason "직접 검토한 범위와 이유"가 .harness에 남긴다
+  실행 결과   → 명령 출력, evidence/v2-*.json, npm run harness:status
+  목적·변경 이유·실제 결과·제한 → README.txt 맨 끝 [학습자 완성란]
+  계획·원인 가설·받은 도움·미확인·다음 행동 → 아래 칸
+빈칸은 미실행/미확인이다. 실제로 하지 않은 것을 채우지 않는다. 옛 GREEN을 새 실행으로 쓰지 않는다.
+이 파일과 README.txt는 하네스 fingerprint 대상이다. 15:30 승인부터 16:38 재개 확인까지는 열어 보기만 하고,
+17:09 하네스 실행 뒤에는 고치지 않는다. 고치면 승인과 재개가 거절된다.
+짧게 써도 조건·예외·권한·미확인을 보존한다. not_run 건수와 중복 정책도 빠뜨리지 않는다.
+
+[계획] — 계획과 검증 기준 단계에서 세 줄 (파일·명령은 아직 건드리지 않는다)
+  입력·도구·결과:
+  하네스 순서와 한도(시간 한도·다시 시도 횟수):
+  내 검사가 늘어나는 순서:
+
+[하네스 근거] — 17:00–17:04에 .harness를 보고 한 번에. 실제로 확인한 명령·exit·경로만
+  세 학습자 파일: harness/workflow.json · harness/run.mjs · harness/instructions.txt
+  검증→승인 확인→순서 실행→기록→실패 중단/마무리가 연결된 위치:
+  timeout 실패와 forbidden 실행 전 거절의 명령·exit·기록 경로:
+  instructions 수정 뒤 stale·재개 거절과 새 승인·새 실행의 경로:
+  같은 fingerprint 재개·재시도 한도·성공 단계 중복 방지를 확인한 경로:
 바뀐 fingerprint의 옛 성공은 현재 근거가 아니며 새 검토·새 실행이 필요하다.
 업무 함수의 후보 보고와 하네스의 교육 도구 검사 실행은 다른 책임이다.
-누락·미실행은 HOLD다. 로컬 승인 선언은 신원 인증·기업 승인을 대신하지 않는다.
-17:10–17:25 기존 여섯 명령과 첫 기록·도움 공개 조건은 유지한다.
+로컬 승인 선언은 신원 인증·기업 승인을 대신하지 않는다. 누락·미실행은 HOLD다.
 
-빈 양식은 실행 증거가 아니다. 아래에는 주 기록 필드와 실제 증거의 상대 경로만 연결한다.
-워크북 여섯 핵심 필드 또는 work-record.json.coreRecord 한 곳을 선택해 누적한다.
-PLAN/runs/defect/AI/비용 등 상세 양식은 선택이며 이 문서에 내용을 다시 입력하지 않는다.
-DDD/BDD 추적은 domain-behavior.txt 4절을 따른다. 도메인 규칙→합의 예시→허용 파일/
-보존 계약→실제 검사 제목·명령→예상 관찰→증거 상대 경로가 연결된 기존 여섯 칸을 참조한다.
-업무·개발·QA 관점 질문의 합의/미확인과 승인 경계도 남긴다. 별도 회의록/양식은 만들지 않는다.
-명령의 무엇/왜/입력/예상 출력/산출물/다음 행동은 domain-behavior.txt 5절에서 확인한다.
+[원인 가설] — review를 고치기 전에 review/summarize-results.mjs 맨 위 주석에 먼저 쓰고, 17:00에 여기로 옮긴다
+  가설:
+  기각한 대안과 그 이유·다시 볼 조건:
 
-주 기록 파일/필드 위치:
-  purpose / expected:
-  changeReason:
-  execution / 실제 증거 상대 경로:
-  unknown / nextAction (AI/도움 상태와 미확인·다음 확인 포함):
-README 끝 5항목 참조 / 기록 고정 시각 / 저장 파일 열기 확인 위치:
-새 비판·채택/기각 / 본인 재현 / 강사 비교 / 잠정 평가 근거 위치:
-현재 단계·승인 버전/범위·시각·결정 이력 / 폐기된 가정의 주 기록 위치:
-현재 소스·계약·테스트 상대 경로와 확인한 파일 상태 / 실제 실행 수·미실행 옛 주장 위치:
-다음 일관된 작업 경계·담당자 / 미확인·다음 확인 위치:
-선택 probe 해시는 읽은 파일 식별값일 뿐 승인·불변 증명이 아니다. 옛 GREEN을 새 실행으로 쓰지 않는다.
-짧게 써도 조건·예외·권한·미확인을 보존한다. not_run 건수와 중복 정책도 빠뜨리지 않는다.
-오늘 요약 편집으로 옛 증거가 갱신되지는 않는다. 원래 실행 시각/근거와 아래 현재 재실행을 연결한다.
-비판의 기각 이유·재검토 조건은 기존 changeReason을 참조한다. 현재 요구의 판단을 영구 금지로 바꾸지 않는다.
-값이 비어 있으면 NOTEXECUTED/미확인이다. 단계 선언은 승인 근거를 대신하지 않는다.
+[받은 도움] — 16:45 이후 또는 17:00에. 없으면 "없음"
+  힌트·답안·강사 도움과 받은 시점:
+  독립 과제 도움 상태(not-attempted / attempted-unassisted / hint-assisted / answer-assisted / incomplete):
+  독립 과제 실제 결과(pass / fail / unknown):
+  AI 사용(used / unavailable-policy(N/A) / unavailable-outage / not-recorded):
+  새 채팅 비판과 채택/기각 (AI가 없으면 수동 비판):
+
+[미확인]
+
+[다음 행동]
+
+DDD/BDD 추적은 domain-behavior.txt 4절을 따른다. 명령의 무엇/왜/입력/예상 출력/산출물/다음 행동은
+domain-behavior.txt 5절에서 확인한다. 별도 회의록/양식은 만들지 않는다.
 
 재현 전제: Node >=22, example-project 폴더, 승인된 C2-v2와 유지한 C1,C3~C6.
 호출은 summarizeTestResults(results, { buildId })다. src/summarize-results.mjs와
@@ -56,76 +64,66 @@ review는 15:40 전에는 없음/기존 존재만 확인하고 15:40에 prepare:
 v1 후보2개, 승인된 v2 후보4개다. 상태·모듈별 건수와 처음 등장 순서는 유지한다.
 입력 상태 건수는 node:test 통과 수와 다르다. 후보는 자문이며 실제 재실행·출시 승인이 아니다.
 demo는 같은 명령 안에서 합성 사용 사례 7건의 요약·후보·오류·다음 질문도 표시한다.
-단계 미기록(not-recorded)과 실제 후보 관찰을 승인 기록과 대조한다. 별도 필수 명령은 없다.
 빌드 없음의 0건 요약은 유효하다. TypeError는 입력 거부이며 실제 UX 검증은 아니다.
-GREEN 이후에도 권한/부하/관측/운영 복구는 미검증이다. 파일럿 질문은 unknown/nextAction에 참조한다.
-승인된 buildId 변경 시 해당 요약·후보의 독립 기대값을 주 기록.expected에 연결한다.
+GREEN 이후에도 권한/부하/관측/운영 복구는 미검증이다. 파일럿 질문은 위 [미확인]에 적는다.
 learner: 제공1 + 본인 정확한 반복 기록1 + 승인 후 후보 확장1 + C6 원본 보존1 = 4.
 첫 본인 테스트는 v1/v2 모두 통과한다. 두 번째는 timed_out/not_run 포함을 v1 RED→v2 GREEN으로 확인한다.
 세 번째는 입력 비변경·새 요약과 후보 배열·첫 원본 행 참조를 확인한다.
-오전 테스트 재실행은 중복 추가가 아니다. 선택 추가 테스트는 실제 수·이유를 참조한다.
+오전 테스트 재실행은 중복 추가가 아니다.
 
-필수 실행 근거 — 주 기록 참조로 충족하되 게이트는 생략하지 않음
-  첫 편집 전 문제와 성공 기준 baseline의 시각/exit/manifest와 허용 목록의 사본, 계획과 검증 기준 확인·덮어쓰기 없음.
+필수 실행 근거 — 게이트는 생략하지 않는다
+  첫 편집 전 문제와 성공 기준 baseline의 manifest와 허용 목록 사본을 보존하고 덮어쓰지 않는다.
   compare:baseline은 해시 요약만이다. VS Code의 같은 상대 경로 사본/현재 행 비교로 범위를 확인한다.
   13:25–13:40 workflow 구축은 이미 사람이 검토한 하네스 범위만이다.
-  업무 변경은 13:45 CR-01 요청 공개와 실제 사람 승인 뒤에만 한다. 승인 시각·범위,
-  독립 기대값, 후보 확장 테스트 v1 RED→v2 GREEN을 참조한다.
+  업무 변경은 13:45 CR-01 요청 공개와 실제 사람 승인 뒤에만 한다. 승인 시각·범위·이유는
+  README.txt [학습자 완성란]의 변경이유에 적고, 후보 확장 테스트는 v1 RED→v2 GREEN으로 확인한다.
   로컬 하네스 검토 선언은 이 업무 승인과 별개이며 하네스 실행보다 먼저 남긴다.
   문제와 성공 기준 중복2 GREEN / 요구 변경과 구현 후보3 RED→GREEN / 결과와 기준 검증 C6 포함4 GREEN.
   문법·import 오류와 계약 단언의 예상 실패를 구분한다. 오류 이름만으로 의도된 RED라 하지 않는다.
   review 첫 실제 실행 수/exit/실패 단언과 본인 최소 반례를 구분하고 승인 복구 후16 GREEN을 확인한다.
   여러 실패를 여러 결함으로 단정하지 않는다. source validator/공유16/계약은 약화/삭제하지 않는다.
-  data/transfer-results.json을 읽고 module/caseId 후보 예측을 expected에 저장한다.
-  independent-task.txt에 따라 transfer 테스트를 작성·고정한 뒤 test:transfer를 실행한다.
+  data/transfer-results.json을 읽고 module/caseId 후보 예측과 이유를 test/transfer.test.mjs의
+  expectedIds 위 주석에 먼저 쓴다. independent-task.txt에 따라 테스트를 고정한 뒤 test:transfer를 실행한다.
   AI·힌트·강사 내용 도움·답안·고급 모델은 16:45 전에는 동결 여부와 무관하게 닫는다.
   16:45 이후에도 예측·이유·expectedIds/첫 테스트와 최초 명령의 실제 outcome(pass/fail)·
   exit·출력을 모두 저장·동결해야 내용 도움을 연다.
   미실행/차단은 outcome unknown·exit null·incomplete/HOLD로 보존한다. 실제 결과가 없으면
   16:45 이후에도 환경·절차의 과정 지원만 허용하고 내용 힌트는 금지한다.
-  미실행이나 도움 후 통과는 무지원 독립 통과로 부르지 않는다.
+  미실행이나 도움 후 통과는 무지원 독립 통과로 부르지 않는다. 확인한 fail은 그대로 보존한다.
   transfer 1개는 learner4/공통16과 별개이며 위 6명령에 추가하지 않는다.
-  전이 도움 상태(not-attempted/attempted-unassisted/hint-assisted/answer-assisted/incomplete)와
-  실제 결과(pass/fail/unknown)를 분리한다. 확인한 fail은 그대로 보존하며 미확인 역량은 후속 확인.
-  두 동결 전후 답안/고급 모델 노출은 answer-assisted이며 시점을 남긴다. 구체적 정답은
-  17:25 이후 본인6명령 재현·도움 공개 뒤 비교한다. 모델 비교는 수업 종료 후 후속선택연습이다.
-  문제와 성공 기준/맥락과 모델 선택/요구 변경과 구현/수정과 재검증/자가 검증과 결과 정리 checkpointReview에 사람 시각·근거를 참조하고 미확인 차원/점수는 null이다.
-  새 비판과 채택/기각·재확인, 고정 시각, 각 명령 실제 시각/exit/수/ID/오류.
-  AI used / unavailable-policy(N/A) / unavailable-outage / not-recorded를 구분한다.
-  AI 불가 시 같은 질문의 수동 비판을 참조하고 실행한 AI 검토라고 꾸미지 않는다.
-  강사 답 공개 전 독립 시도 보존, 비교/도움 사용/독립 재시도 과제, 실패·중단·미확인.
+  구체적 정답은 17:25 이후 본인6명령 재현·도움 공개 뒤 비교한다. 모델 비교는 수업 종료 후 후속선택연습이다.
 
-evidence/v2-*.json은 실제 파일을 열어 다음을 확인하고 주 기록.execution에 연결한다:
+evidence/v2-*.json은 실제 파일을 열어 확인하고 경로를 README.txt 실제결과 줄에 적는다:
   counts tests/passed/failed/skipped/todo/cancelled, testExitCode/collectorExitCode,
   시작·종료 시각/status/이유, 허용목록·실행도구 SHA-256 전후 동일 여부.
   passed는 testExitCode=collectorExitCode=0, tests=passed=16, 나머지0, 전후 해시 동일일 때만.
   failed/incomplete/state-changed는 collector nonzero다. 실행 중 편집하지 않는다.
   서명된 위변조 방지 증명이 아니며 learner/review/승인/AI 사용까지 증명하지 않는다.
   환경변수/비밀/계정/개인 절대 경로/원시 로그/trace를 넣거나 업로드하지 않는다.
-  제출·지원에는 승인된 합성 예제·별칭·명령/exit·최소 가림 출력·참조만 쓴다.
-  재현 조건·버전·단언 위치는 보존하되 개인·회사 프롬프트/대화 전문·전체 디버그 로그·신원/계정 화면은 제출하지 않는다.
+  지원 요청에는 승인된 합성 예제·별칭·명령/exit·최소 가림 출력만 쓴다.
+  개인·회사 프롬프트/대화 전문·전체 디버그 로그·신원/계정 화면은 제출하지 않는다.
 
 자가 검증과 결과 정리 고정 시간:
-  17:00–17:04 README/handoff 4분 + 17:04–17:05 저장·동결 1분.
+  17:00–17:04 README/handoff 4분: 지금까지 실제로 본 결과로 [학습자 완성란]과 위 칸을 채운다.
+  마지막 여섯 명령의 결과는 evidence/v2-*.json과 출력에 남는다고 실제결과 줄에 적어 둔다.
+  17:04–17:05 저장·동결 1분.
   17:05–17:07 새 비판/수동 대조 2분.
   17:07–17:09 현재 파일 사람 재검토·새 로컬 하네스 승인·실행 2분.
   npm run harness:approve -- --reason "직접 검토한 현재 파일의 범위와 이유"
   → npm run harness:run으로 문서 편집을 포함한 현재 fingerprint의 실행을 갱신한다.
-  17:09–17:10 npm run harness:status의 현재 상태·실제 증거 경로 기록 1분.
+  17:09–17:10 npm run harness:status로 현재 상태·fingerprint를 확인한다. 이 결과는 .harness에 남으므로 옮겨 적지 않는다.
   17:10 전 갱신한 하네스 근거가 없거나 실행 뒤 파일을 바꾸면 새 검토·승인·실행 전 HOLD다.
-  17:10–17:25 본인6명령15분.
-  17:25–17:35 참조 비교3 + 기존 관찰 재사용·자가 잠정 평가/도움 상태 갱신5 + 내보내기/저장·열기2분.
+  17:10–17:25 본인6명령15분. 실행 중 편집하지 않는다. 결과는 출력과 evidence/v2-*.json에 남는다.
+  17:25–17:35 조건을 갖춘 사람만 참조와 비교하고 결과를 확인한다(10분).
   17:35–17:50은 별도 강사 해설: FOCUSED+HOLD 안내8 / Q&A7분(전체6카드는 선택 참고).
-현재 하네스 근거와 POST replay 실제 완료 시각·상태·16/4/16·evidence/v2-*.json 경로는
-선택한 기존 work-record.json.coreRecord.execution 또는 워크북 execution에 연결한다.
-이 최종 기록 위치는 불변 firstTransfer·첫 예측/첫 결과·스냅샷과 수집 fileHashes 범위 밖이어야 한다.
-새 최종 필드를 만들지 않는다. 동결 README/handoff는 덮어쓰지 않고 최종 주 기록에서 참조한다.
-선택 주 기록만 저장한다. 워크북과 프로젝트 JSON은 자동 동기화되지 않으며 중복 입력 불필요다.
-평가는 사람의 실제 근거로 0..2, 합계8/10 이상 + 필수3 각각1 이상이다.
-purposeAcceptance 목적·성공 기준 / contextModelTokens 맥락·모델 판단 /
+README/handoff는 fingerprint 대상이다. 17:09 하네스 실행 뒤에 고치면 하네스 근거가 stale로 바뀐다.
+그래서 여섯 명령 뒤에는 README/handoff를 고치지 않는다. 재현 결과가 적어 둔 내용과 다르면
+강사에게 알리고, 고쳐 적었다면 새 검토·승인·실행을 다시 한다. 비교 메모가 필요하면 이 두 파일 밖에 쓴다.
+평가는 강사가 테스트·승인 기록·evidence·README/handoff를 직접 보고 한다. 자가 채점 양식은 없다.
+5차원: purposeAcceptance 목적·성공 기준 / contextModelTokens 맥락·모델 판단 /
 coreProcess 핵심 작업 과정 / verificationCauseRepair 검증·원인 수정 /
-selfReplayHandoff 본인 재현·인수인계. 필수3은 마지막3개다.
-자동 채점 없이 미확인 점수/총점/판정은 null, 자가 잠정 평가와 강사 최종확정은 구분한다.
+selfReplayHandoff 본인 재현·인수인계. 각 0..2, 합계8/10 이상 + 마지막 필수3개 각각1 이상.
+미확인은 점수로 짐작하지 않고 보류한다.
 
 교육 전만: 공개 저장소의 별도 연습 사본에서 readiness/task.txt로 편집·저장·실행을 관찰한다.
 수업은 새 clone 또는 새 GitHub Code → Download ZIP 소스 압축을 새 폴더에 풀어 시작한다.

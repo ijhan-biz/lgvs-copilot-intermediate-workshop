@@ -131,7 +131,7 @@ test('progress report reads a fresh project as not started without running anyth
     review: false,
     transferPrediction: null,
     evidence: null,
-    workRecord: false,
+    readmeCompletion: null,
   });
 });
 
@@ -146,7 +146,7 @@ test('progress report shows written files, counts and the latest evidence but ne
   await put(root, 'test/transfer.test.mjs', "const expectedIds = ['media/SECRET-ID'];");
   await put(root, 'evidence/v2-2026-01-01.json', '{"status":"failed","counts":{"tests":16},"testExitCode":1}');
   await put(root, 'evidence/v2-2026-01-02.json', '{"status":"passed","counts":{"tests":16},"testExitCode":0}');
-  await put(root, 'work-record.json', '{}');
+  await put(root, 'README.txt', '지시\n[학습자 완성란]\n목적: 검토 담당자의 판단을 돕는다\n실행명령: (다시 확인할 명령)\n실제결과: v2 16 통과\n변경이유:\n제한: 없음\n');
   const progress = await createProgressReport(root);
   assert.equal(progress.baseline, true);
   assert.equal(progress.learnerTests, 2);
@@ -156,7 +156,7 @@ test('progress report shows written files, counts and the latest evidence but ne
   assert.equal(progress.review, true);
   assert.equal(progress.transferPrediction, 'written');
   assert.deepEqual(progress.evidence, { file: 'evidence/v2-2026-01-02.json', status: 'passed', tests: 16, testExitCode: 0 });
-  assert.equal(progress.workRecord, true);
+  assert.equal(progress.readmeCompletion, 3);
   assert.doesNotMatch(JSON.stringify(progress), /SECRET-ID/);
 });
 

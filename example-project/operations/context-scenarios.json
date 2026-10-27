@@ -6,7 +6,7 @@
       "id": "stale-contract-handoff",
       "title": "승인 변경 뒤 도착한 오래된 인계",
       "applicability": ["initial-v1", "approved-v2"],
-      "authoritativeInputs": ["contract.txt", "src/summarize-results.mjs", "src/summary-core.mjs", "src/validate-input.mjs", "test/v1.test.mjs", "test/v2.test.mjs", "data/test-results.json", "work-record.json의 실제 승인·실행 기록"],
+      "authoritativeInputs": ["contract.txt", "src/summarize-results.mjs", "src/summary-core.mjs", "src/validate-input.mjs", "test/v1.test.mjs", "test/v2.test.mjs", "data/test-results.json", "README 변경이유·handoff.txt의 실제 승인·실행 기록"],
       "facts": {
         "initial-v1": "CR-01 공개·사람 승인 전에는 C2-v1 failed만 후보에 포함한다.",
         "approved-v2": "13:45 CR-01 공개 뒤 사람 승인이 기록되면 C2-v2 failed/timed_out/not_run이 최신 후보 범위다. 상태 건수와 C1,C3,C4,C5,C6는 유지한다.",

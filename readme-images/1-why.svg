@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="t d">
 <title id="t">AI의 답을 원문과 대조하고 근거를 남기는 하루</title>
-<desc id="d">왼쪽은 답을 내놓는 AI, 가운데는 그 답을 계약 원문과 돋보기로 대조하는 사람, 오른쪽은 맡긴 것·확인한 것·남은 것을 적은 기록장입니다.</desc>
+<desc id="d">왼쪽은 답을 내놓는 AI, 가운데는 그 답을 계약 원문과 돋보기로 대조하는 사람, 오른쪽은 맡긴 것·확인한 것·남은 것을 적은 handoff 메모입니다.</desc>
 <style>
 .bg{fill:#FFFFFF;stroke:#CED4DF;stroke-width:2}
 .s{stroke:#17202D;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill:none}

@@ -15,19 +15,19 @@ buildId/module/caseId의 전체 구분, 정확한 반복의 한 번 집계, 충�
 후보는 자문용이다. 실제 검사 재실행이나 출시 승인 권한은 없다.
 
 입력을 읽고 계약에서 본인 기대값과 설명을 만든다.
-1. 요약 함수나 전이 명령 실행보다 먼저 coreRecord.expected에 본인 예측과 근거를 저장한다.
-   워크북을 주 기록으로 선택했다면 같은 expected 필드 하나만 저장하고 참조한다.
+1. 요약 함수나 전이 명령 실행보다 먼저 test/transfer.test.mjs의 expectedIds 바로 위 주석에
+   본인 예측과 근거를 쓰고 저장한다. 따로 적는 양식은 없다.
 2. test/transfer.test.mjs의 expectedIds = null 자리만 본인의 module/caseId 후보 배열로 작성한다.
    선택 빌드의 원본·고유·중복·상태별 건수도 손으로 대조하여 포함·제외 이유를 설명한다.
    실행값 자동 복사/후보끼리 비교로 독립 단언을 대체하지 않는다. 저장한다.
-3. 요약 실행 전에 본인 예측/테스트를 먼저 고정한다. 고정 시각·파일/필드 위치를 남긴다.
+3. 요약 실행 전에 본인 예측/테스트를 먼저 고정한다. 따라하기 안내대로 실행 전 사본을 떠 둔다.
    기대값을 실행 결과에 맞춰 덮어쓰지 않는다. 나중 수정은 원래 예측과 이유를 보존한다.
 4. 고정 뒤에만 npm run test:transfer를 실행한다. standalone 테스트1개다.
    null 자리의 최초 미작성 실패는 준비 상태이지 독립 시도/능력 실패를 관찰한 것이 아니다.
    learner4/공통16/최종 자가 검증과 결과 정리 여섯 명령에는 합치지 않는다.
-5. 최초 명령의 실제 시각/outcome/exit/출력·수·단언/본인 설명을 execution에 저장·동결한다.
+5. 최초 명령의 실제 outcome/exit/출력·수·단언을 보존하고 고쳐 쓰지 않는다.
    예측/expectedIds만 고정한 단계에서는 도움을 열지 않는다. 두 동결 후 과정 도움을 연다.
-   independentPractice 또는 주 기록에서 도움 상태와 실제 결과를 별도로 기록한다.
+   도움 상태와 실제 결과는 handoff.txt [받은 도움]에 따로 적는다.
    도움·시도: not-attempted / attempted-unassisted / hint-assisted / answer-assisted / incomplete.
    실제 결과: pass / fail / unknown. 미실행은 unknown이며 완료했다고 쓰지 않는다.
    두 동결 전후 힌트 도움은 hint-assisted, 답안/고급 모델 노출은 answer-assisted이며 시점을 남긴다.

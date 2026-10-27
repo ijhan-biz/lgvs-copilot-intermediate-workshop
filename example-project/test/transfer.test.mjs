@@ -6,7 +6,9 @@ import { summarizeTestResults } from '../src/summarize-results.mjs';
 const results = JSON.parse(readFileSync(new URL('../data/transfer-results.json', import.meta.url), 'utf8'));
 const options = { buildId: 'BUILD-TRANSFER-1' };
 
-// 실행 전에 coreRecord.expected와 본인이 작성한 테스트를 저장하고 고정한다.
+// 실행 전에 바로 아래에 예측과 이유를 주석으로 쓰고, 이 테스트를 저장하고 고정한다.
+// 예측:
+// 이유:
 const expectedIds = null;
 
 test('독립 판단 과제 | 학습자가 작성한 후보 예측', () => {

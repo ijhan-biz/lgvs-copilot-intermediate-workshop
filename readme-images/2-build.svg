@@ -19,7 +19,7 @@ text{font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif
 <rect x="58" y="210" width="200" height="50" rx="10" class="dim s" stroke-dasharray="6 5" stroke-width="2"/>
 <text x="158" y="241" text-anchor="middle" class="b">TODO 세 파일</text>
 <rect x="58" y="274" width="200" height="50" rx="10" class="dim s" stroke-dasharray="6 5" stroke-width="2"/>
-<text x="158" y="305" text-anchor="middle" class="b">빈 기록 여섯 칸</text>
+<text x="158" y="305" text-anchor="middle" class="b">빈 README·handoff</text>
 
 <!-- 화살표 -->
 <path d="M296 236h70" class="s" stroke-width="5"/><path d="M352 220l18 16-18 16" class="s" stroke-width="5"/>

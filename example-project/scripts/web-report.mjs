@@ -72,6 +72,16 @@ export async function createCaseReport(root = projectRoot) {
   }));
 }
 
+// The learner's notes live in README.txt's completion block, not in a separate record file.
+const completionLabels = ['목적', '실행명령', '실제결과', '변경이유', '제한'];
+function completionCount(readme) {
+  const block = readme.slice(Math.max(0, readme.lastIndexOf('[학습자 완성란]')));
+  return completionLabels.filter(label => {
+    const value = block.match(new RegExp(`^${label}:(.*)$`, 'm'))?.[1].trim() ?? '';
+    return value !== '' && !value.startsWith('(');
+  }).length;
+}
+
 async function readText(root, file) {
   try {
     return (await readScopedFile(root, file)).toString('utf8');
@@ -124,7 +134,7 @@ export async function createProgressReport(root = projectRoot) {
     review: (await readText(root, 'review/summarize-results.mjs')) !== null,
     transferPrediction: transfer === null ? null : /const expectedIds = null;/.test(transfer) ? 'not-written' : 'written',
     evidence: await latestEvidence(root),
-    workRecord: (await readText(root, 'work-record.json')) !== null,
+    readmeCompletion: await readText(root, 'README.txt').then(text => text === null ? null : completionCount(text)),
   };
 }
 

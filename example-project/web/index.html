@@ -626,7 +626,8 @@
             progress.transferPrediction === 'written' ? '예측을 적었습니다 · 값은 이 화면에 보여 주지 않습니다' : '아직 null · 16:38에 혼자 적고 고정합니다'),
           progressItem(progress.evidence ? (progress.evidence.status === 'passed' ? 'done' : 'alert') : 'todo', '마지막 evidence',
             progress.evidence ? `${progress.evidence.status} · 검사 ${progress.evidence.tests ?? '?'}개 · ${progress.evidence.file}` : '아직 없음 · 17:10 npm run evidence'),
-          progressItem(progress.workRecord ? 'done' : 'info', '기록 파일', progress.workRecord ? 'work-record.json이 있습니다' : '워크북을 쓰면 브라우저에서 JSON으로 내보내 보관합니다'),
+          progressItem(progress.readmeCompletion === 5 ? 'done' : progress.readmeCompletion === null ? 'info' : 'todo', 'README 완성란',
+            progress.readmeCompletion === null ? 'README.txt가 없습니다' : `${progress.readmeCompletion}/5줄 채움 · 내용은 이 화면에 보여 주지 않습니다`),
         ]],
       ];
       byId('progress-grid').replaceChildren(...groups.map(([title, items]) => {

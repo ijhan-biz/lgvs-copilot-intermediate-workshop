@@ -34,6 +34,5 @@ verification/
 workbook-record*.json
 *workbook*-export*.json
 example-project/work-record*.json
-!example-project/work-record.template.json
 example-project/readiness/record-*.json
 example-project/readiness/record.local.json

@@ -17,8 +17,8 @@
 미실행/실행 불가는 outcome unknown·exit null로 동결하고 incomplete/HOLD를 남긴 뒤 과정 도움을 연다. 확인한 fail은 fail로 보존한다. 미실행이나 도움 후 통과는 무지원 독립 통과가 아니다.
 구체적 강사 정답/모델은 17:25 이후 본인 여섯 명령 재현·도움 공개 뒤에만 연다. 모델 비교는 수업 종료 후의 후속선택연습이다. 이 조건은 자신의 src 읽기/작업을 막지 않는다.
 두 동결 전 허용 자료는 independent-task.txt, 새 입력, 기존 src/계약과 본인 기록/테스트다.
-도움은 주 기록에 참조한다. hint-assisted/answer-assisted를 실제 pass/fail/unknown과 구분한다.
-워크북 여섯 필드 또는 coreRecord 한 곳만 누적한다. 도움을 숨기거나 자동 실패로 보지 않는다.
+도움은 handoff.txt [받은 도움]에 적는다. hint-assisted/answer-assisted를 실제 pass/fail/unknown과 구분한다.
+도움을 숨기거나 자동 실패로 보지 않는다.
 AI에 hints 폴더 전체를 첨부하지 않는다. 이 분리는 교육상 선택 장치이지 접근 통제가 아니다.
 독립 전이는 새 합성 사례의 제한된 관찰이며 블라인드 능력 인증이 아니다.
 실패/미실행 독립 관찰은 unknown과 다음 확인을 남긴다. 답안 도움 뒤에는 새 무도움 재시도를 계획한다.
