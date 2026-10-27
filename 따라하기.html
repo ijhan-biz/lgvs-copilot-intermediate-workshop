@@ -424,7 +424,7 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
   <div class="side">
     <div class="num">4</div>
     <div class="meta"><span class="chip">11:20–12:20</span></div>
-    <div class="pic"><svg viewBox="0 0 320 200" role="img" aria-label="지도에 길을 연필로 그리고 실행 버튼에 금지 표시한 그림">
+    <div class="pic"><svg viewBox="0 0 320 200" role="img" aria-label="지도에 갈 길을 미리 그려 두고 실행 버튼은 막아 둔 그림">
       <path d="M14 50l70-14 70 14 70-14v118l-70 14-70-14-70 14z" class="f-tint s"/>
       <path d="M84 36v118M154 50v118" class="s-thin f-none"/>
       <path d="M36 136C70 106 96 150 124 112S180 70 204 80" class="s f-none" stroke-dasharray="7 6"/>
@@ -432,16 +432,16 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
       <circle cx="270" cy="150" r="32" class="f-card st-stop" stroke-width="6"/>
       <path d="M260 134v32l26-16z" class="f-ink"/>
       <path d="M248 128l44 44" class="st-stop f-none" stroke-width="6"/>
-      <text x="120" y="190" text-anchor="middle" class="t">연필만</text>
+      <text x="120" y="190" text-anchor="middle" class="t">글로만 적기</text>
     </svg></div>
   </div>
   <div class="main">
-    <h2>실행하지 않고 계획만</h2>
-    <p class="one">이 시간엔 연필만. 명령은 치지 않아요.</p>
+    <h2>만들기 전에 설계도를 글로 적기</h2>
+    <p class="one">이 장에서는 파일을 고치지 않고 명령도 치지 않아요. 5장에서 만들 하네스가 무엇을 받아 어떤 순서로 일할지, 워크북에 세 줄로 적어 두기만 합니다.</p>
     <ol class="steps">
-      <li><div class="txt">경계: 입력 <code>data/test-results.json</code> → 도구 <code>inspect-input</code> 다음 <code>test:v2</code> → 출력 <code>.harness</code>.</div></li><li><div class="txt">하네스 순서: 검사 → 도장 확인 → 차례대로 → 이미 한 건 건너뛰기 → 실행 → 기록 → <b>실패면 멈춤</b> → 다 되면 완료. 시간과 재시도 한도도 정해요.<span class="hint">재시도는 1 또는 2. 0이면 7장의 이어 하기가 막혀요.</span></div></li><li><div class="txt">내 검사가 늘어나는 순서: 제공 1 + 중복 1 = 2 → 후보 확장 +1 = 3 → 원본 보존 +1 = 4.<span class="cp hint">Copilot(선택): <code>/plan</code></span></div></li>
+      <li><div class="txt">워크북 <b>계획과 검증 기준</b> 단계를 열고, 주 기록의 <b>변경 이유</b> 칸에 아래 ①②③을 한 줄씩 적어요.<span class="hint">코드나 <code>harness/</code> 파일은 열어 보기만 해요. 고치는 건 5장부터예요.</span></div></li><li><div class="txt"><b>① 무엇을 받아 무엇으로 일하고, 무엇을 남기나.</b> 예: 입력은 <code>data/test-results.json</code>, 쓰는 도구는 <code>inspect-input</code> 다음에 <code>test:v2</code>, 결과는 <code>.harness</code> 폴더에 남긴다.<span class="hint">5장에서 <code>harness/workflow.json</code>에 옮겨 적을 내용이에요.</span></div></li><li><div class="txt"><b>② 하네스가 일하는 순서.</b> 입력 검사 → 사람이 승인했는지 확인 → 단계를 차례대로 → 이미 끝낸 단계는 건너뛰기 → 실행 → 기록 → <b>실패하면 바로 멈춤</b> → 모두 끝나면 완료. 한 단계에 줄 시간 한도와 다시 시도할 횟수도 함께 적어요.<span class="hint">다시 시도는 1번이나 2번으로. 0으로 두면 7장에서 멈춘 곳부터 이어 하기가 안 돼요. 이 순서는 5장에서 <code>harness/run.mjs</code>로 만들어요.</span></div></li><li><div class="txt"><b>③ 내 검사가 늘어나는 순서.</b> 지금 2개(제공 1개 + 2장에서 쓴 중복 검사 1개) → 5장에서 후보 확장 검사를 더해 3개 → 6장에서 원본 보존 검사를 더해 4개.<span class="cp hint">Copilot(선택): <code>/plan</code>으로 세 줄을 보여 주고 빠진 게 없는지만 물어봐요.</span></div></li><li><div class="txt">다 적었으면 워크북을 JSON으로 내보내 저장해요.</div></li>
     </ol>
-    <div class="okline"><strong>이게 나오면 OK</strong><span class="goal">워크북에 계획 세 줄</span><label class="end"><input type="checkbox" id="done4" data-ch="4">4장 끝</label></div>
+    <div class="okline"><strong>이게 나오면 OK</strong><span class="goal">변경 이유 칸에 세 줄 · 고친 파일 0개</span><label class="end"><input type="checkbox" id="done4" data-ch="4">4장 끝</label></div>
   </div>
 </article>
 <!-- 5장 -->
