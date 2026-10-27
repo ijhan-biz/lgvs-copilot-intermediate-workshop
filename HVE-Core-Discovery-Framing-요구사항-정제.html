@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="요구사항 정제 필수 지원 읽기 교재. 기존 50분 안에 HVE 요구사항 정제 40분과 JavaScript·계약 시연 10분을 통합하며 기존 주 기록과 첫 개인 테스트로 연결합니다.">
+<meta name="description" content="요구사항 정제 필수 지원 읽기 교재. 짧은 요청을 사용자의 판단·근거·확인 책임이 보이는 검토 초안으로 바꾸는 HVE 원칙을 쉬운 말과 그림으로 설명합니다.">
 <meta name="lesson-duration-minutes" content="40">
 <meta name="lesson-slide-count" content="22">
-<meta name="lesson-updated" content="2026-10-26">
+<meta name="lesson-updated" content="2026-10-27">
 <meta name="source-reviewed" content="2026-10-23">
 <title>요구사항 정제 필수 · HVE-Core 원칙을 활용한 요구사항 정제</title>
 <script>
@@ -162,6 +162,22 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
 .decision-routes li { padding: 16px; border: 1px solid var(--cp-border-strong); background: var(--cp-surface); }
 .decision-routes .current-route { border: 2px solid var(--cp-accent); }
 .sources li { margin-bottom: 20px; }
+.eli5 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
+.eli5 > div { border: 1px solid var(--cp-border); border-radius: 12px; padding: 16px; background: var(--cp-surface); }
+.eli5 svg { width: 48px; height: 48px; display: block; margin-bottom: 8px; }
+.eli5 h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.eli5 p { margin: 0; }
+.e-fill { fill: var(--cp-accent-soft); stroke: var(--cp-accent); stroke-width: 2.5; }
+.e-line { fill: none; stroke: var(--cp-text); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.e-dot { fill: var(--cp-accent); }
+.e-stop { fill: var(--cp-danger); }
+.e-white { stroke: #ffffff; stroke-width: 4; stroke-linecap: round; }
+.glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 0 0 24px; }
+.glossary > div { border-left: 4px solid var(--cp-accent); padding: 6px 12px; background: var(--cp-surface-soft); }
+.glossary dt { font-weight: 700; }
+.glossary dd { margin: 2px 0 0; }
+.order-list { margin: 12px 0; padding-left: 22px; display: grid; gap: 8px; }
+.order-list strong { display: block; }
 @media (max-width: 1050px) {
   .layout { display: block; max-width: 872px; }
   nav { position: static; max-height: none; overflow: visible; margin-bottom: 24px; }
@@ -176,6 +192,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
   .layout { padding: 12px; }
   header, section, footer { padding: 24px 16px; }
   nav ol, .compare, .context-map { display: block; }
+  .eli5 { grid-template-columns: 1fr; }
   .compare > div { margin-bottom: 24px; }
   table, tbody, tr, td { display: block; width: 100%; }
   thead { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
@@ -235,21 +252,33 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
       <li><a href="#research">최근 작업과 관찰</a></li>
       <li><a href="#synthesis">근거 종합과 문제 가설</a></li>
       <li><a href="#requirements">여섯 칸 요구 초안</a></li>
-      <li><a href="#practice">25분 기존 활동에 적용</a></li>
+      <li><a href="#practice">첫 개인 테스트로 잇기</a></li>
       <li><a href="#handoff">인계와 다음 확인</a></li>
       <li><a href="#recovery">혼동과 복구</a></li>
       <li><a href="#technical">선택 기술 참고</a></li>
       <li><a href="#sources">출처와 적용 범위</a></li>
     </ol>
   </details>
-  <p class="nav-meta">요구사항 정제 필수 · 09:20–10:10 / 50분<br>HVE 40분 · 통합 두 번째 덱 22장<br>교재 개정 2026-10-27<br>기존 원문 검토 2026-10-23</p>
+  <p class="nav-meta">요구사항 정제 필수 · 강의 두 번째 덱<br>교재 개정 2026-10-27<br>기존 원문 검토 2026-10-23</p>
 </nav>
 <main id="lecture" tabindex="-1">
 <header>
   <p class="eyebrow">개발자 · QA를 위한 읽기 교재</p>
   <h1>HVE-Core 원칙을 활용한<br>요구사항 정제</h1>
   <p class="lead">요청을 곧바로 기능 목록으로 바꾸지 않고, 사용자의 판단·근거·확인 책임을 담은 초안으로 정리합니다.</p>
-  <p><strong>요구사항 정제 09:20–10:10의 필수 본과정</strong>입니다. HVE 요구사항 정제 40분은 도입 10분 + 기존 적용 활동 25분 + 정리 5분으로 분산하고, 나머지 10분은 JavaScript·계약 시연으로 연결합니다. 프레임워크 설치·실행 없이 원칙을 수동 적용하되 기존 프로젝트의 첫 개인 테스트는 실제로 실행합니다. 본과정 <strong>440분과 그 안의 활동 265분은 그대로</strong>이며 휴식 40분·점심 60분도 유지합니다. 별도 활동 25분이나 두 번째 제출물을 더하지 않습니다.</p>
+  <p><strong>요구사항 정제 단계의 필수 내용</strong>입니다. HVE 프레임워크를 설치하거나 실행하지 않고 원칙만 손으로 적용합니다. 기존 프로젝트의 첫 개인 테스트는 실제로 실행합니다. 별도 활동이나 제출물을 더하지 않습니다.</p>
+  <div class="eli5" aria-label="한눈에 보기">
+    <div><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" class="e-fill"/><path d="M18 18a6 6 0 1 1 9 5c-2 1-3 2-3 5" class="e-line"/><circle cx="24" cy="35" r="2" class="e-dot"/></svg><h3>왜 필요한가</h3><p>짧은 요청에는 <strong>누가, 언제, 무엇을 판단하는지</strong>가 빠져 있습니다. 그대로 만들면 같은 말을 서로 다르게 이해합니다.</p></div>
+    <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 36c8-12 14 4 22-8s10-12 14-12" class="e-line"/><circle cx="6" cy="36" r="4" class="e-dot"/><circle cx="28" cy="28" r="4" class="e-dot"/><circle cx="42" cy="16" r="4" class="e-dot"/></svg><h3>무엇을 하나</h3><p>범위를 좁히고 → 최근 작업을 살피고 → 기록을 묶어 문제 가설을 세운 뒤 → <strong>여섯 칸 초안</strong>을 만들어 → 확인할 사람에게 넘깁니다.</p></div>
+    <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 5h14l12 12v14L31 43H17L5 31V17z" class="e-stop"/><path d="M15 24h18" class="e-white"/></svg><h3>무엇이 아닌가</h3><p>실제 인터뷰·사용자 검증·조직 승인·구현 허가가 <strong>아닙니다</strong>. 근거와 빈칸을 설명할 수 있는 검토 초안까지 갑니다.</p></div>
+  </div>
+  <dl class="glossary" aria-label="쉬운 말 풀이">
+    <div><dt>HVE 원칙</dt><dd>해결책보다 사람과 문제를 먼저 이해하자는 생각입니다.</dd></div>
+    <div><dt>범위 대화</dt><dd>누구의 어떤 판단을 어디까지 볼지 정하는 대화입니다.</dd></div>
+    <div><dt>사용자 조사</dt><dd>바라는 기능 대신 최근에 실제로 한 일을 묻고 들은 말과 내 해석을 나눕니다.</dd></div>
+    <div><dt>조사 종합</dt><dd>비슷한 기록을 묶어 “이런 문제가 있을 수 있다”는 가설과 다음 질문을 만듭니다.</dd></div>
+    <div><dt>인수 조건</dt><dd>“잘 정리한다” 대신 어떤 입력에서 어떤 결과를 확인할지 적은 문장입니다.</dd></div>
+  </dl>
   <div class="notice"><p><strong>수업의 도착점은 검토할 초안입니다.</strong> 준비된 가상 발언과 관찰을 읽어 방법을 연습합니다. 실제 인터뷰·독립적인 실증 근거·사용자 검증·조직 승인·구현 허가를 얻는 활동은 아닙니다.</p></div>
   <div class="reading-path" aria-label="빠른 읽기"><a href="#process-map">전체 흐름</a><a href="#requirement-draft">채운 여섯 칸</a><a href="#blank-form">빈 여섯 칸</a></div>
   <div class="tools" id="lecture-tools" hidden aria-label="읽기 도구">
@@ -258,11 +287,11 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
     <button id="notes-toggle" type="button" aria-pressed="false">모든 강사 노트 열기</button>
     <button id="print-lecture" type="button">전체 내용 인쇄</button>
   </div>
-  <noscript><p>스크립트 없이도 본문·목차·접기 설명을 읽을 수 있습니다. 인쇄 스타일은 닫힌 상세도 표시합니다. 빈 양식은 선택 계획 보기이며 필수 기록은 기존 주 기록 한 곳에만 남깁니다.</p></noscript>
+  <noscript><p>스크립트 없이도 본문·목차·접기 설명을 읽을 수 있습니다. 인쇄 스타일은 닫힌 상세도 표시합니다. 빈 여섯 칸은 생각을 정리하는 선택 도구이며 따로 적어 내거나 워크북에 옮길 필요가 없습니다.</p></noscript>
 </header>
 
 <section id="overview" aria-labelledby="overview-title" data-slides="1,2,3,4,5,6,7,8">
-  <p class="time">09:20–09:30 · HVE 도입 10분 안의 목표와 원칙</p>
+  <p class="time">1 · 목표와 원칙</p>
   <h2 id="overview-title">요청에서 근거 있는 검토 초안까지</h2>
   <p>요청자는 해결하고 싶은 일을 짧게 말합니다. 그 말에는 사용자, 사용 시점, 판단 기준이 빠질 수 있습니다. 개발자에게는 구현할 행동의 뜻이, QA에게는 무엇을 확인해야 하는지가 필요합니다. 문장을 길게 만드는 대신 <strong>같은 말에서 서로 다른 일을 상상하는 지점</strong>을 찾습니다.</p>
   <div class="compare">
@@ -279,18 +308,14 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
     <p><strong>↓ 수업 적용:</strong> 입력 → 범위 → 최근 작업 관찰 → 종합 → 여섯 칸 초안 → 확인할 역할에 인계</p>
     <p class="return-path"><strong>↩ 되돌아가기:</strong> 근거가 없으면 조사로, 대상과 책임이 다르면 범위 대화로 돌아갑니다. 이 순서는 자동으로 완료되는 일방향 절차가 아닙니다.</p>
   </figure>
-  <h3>요구사항 정제 50분 안의 HVE 40분 운영표</h3>
-  <table>
-    <caption>통합 두 번째 덱 22장 · HVE 10 + 25 + 5분과 JavaScript·계약 시연 10분</caption>
-    <thead><tr><th scope="col">구간 / 분량</th><th scope="col">내용 / 장</th><th scope="col">학습자가 남길 것</th></tr></thead>
-    <tbody>
-      <tr><td data-label="구간 / 분량">09:20–09:30 / 10분</td><td data-label="내용 / 장">HVE 도입 · 범위 대화 → 관찰 → 근거 종합</td><td data-label="학습자가 남길 것">사용자·판단·범위, 원문·해석·미확인의 구분</td></tr>
-      <tr><td data-label="구간 / 분량">09:30–09:40 / 10분</td><td data-label="내용 / 장">JavaScript·계약 시연 · HVE 40분과 구분되는 연결 구간</td><td data-label="학습자가 남길 것">계약 → 손계산 기대값 → 단언의 연결</td></tr>
-      <tr><td data-label="구간 / 분량">09:40–10:05 / 25분</td><td data-label="내용 / 장">HVE 적용 · 기존 활동 안의 요구·근거·계약→테스트</td><td data-label="학습자가 남길 것">기준선·입력 5분 + 독립 기대값 7분 + 첫 개인 테스트 10분 + 주 기록 3분</td></tr>
-      <tr><td data-label="구간 / 분량">10:05–10:10 / 5분</td><td data-label="내용 / 장">HVE 정리 · 근거·미확인·다음 확인</td><td data-label="학습자가 남길 것">실제 실행과 가설, 승인·허가의 차이 설명</td></tr>
-    </tbody>
-  </table>
-  <p class="meta">기존 독립 40분(설명 35분·작성 5분) 구성을 이 통합 배분으로 대체합니다. HVE 적용 활동 25분은 기존 요구사항 정제 활동에 포함된 계획이며 사람 대상 완료 시간의 실측이 아닙니다. 아래 방법별 절은 같은 도입·활동에서 참조하는 읽기 자료이지 각각 별도 시간 블록이 아닙니다.</p>
+  <h3>이 단계의 진행 순서</h3>
+  <ol class="order-list">
+    <li><strong>원칙 익히기</strong>범위 대화 → 최근 작업 관찰 → 근거 종합을 가상 카드로 연습합니다. 사용자·판단·범위, 들은 말·해석·모르는 것을 나눕니다.</li>
+    <li><strong>JavaScript·계약 시연</strong>HVE와는 별개로, 계약 → 손으로 센 기대값 → 단언이 어떻게 이어지는지 봅니다.</li>
+    <li><strong>기존 실습에 적용</strong>기준선을 남기고, 계약에서 기대값을 먼저 세운 뒤, 첫 개인 테스트를 실제로 실행해 비교합니다.</li>
+    <li><strong>돌아보기</strong>실제로 확인한 것과 아직 가설인 것, 승인·허가가 다르다는 점을 말해 봅니다.</li>
+  </ol>
+  <p class="meta">아래 절들은 이 순서에서 필요할 때 꺼내 읽는 자료입니다. 각각 따로 진행하는 활동이 아닙니다.</p>
   <details class="teaching-note">
     <summary>강사 노트 · 도입 질문·해설·전환</summary>
     <p><strong>말하기:</strong> “기능 이름을 빨리 정하는 대신, 누가 어떤 결정을 내리는지 먼저 찾겠습니다.” 참석자의 실제 업무를 말하도록 강요하지 말고 이 가상 입력만 사용합니다.</p>
@@ -300,7 +325,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
 </section>
 
 <section id="scope" aria-labelledby="scope-title" data-slides="1,2,3,4,5,6,7,8">
-  <p class="time">09:20–09:30 도입 및 09:40–10:05 적용 활동의 범위 참고</p>
+  <p class="time">2 · 범위 정하기</p>
   <h2 id="scope-title">요청자·사용자·승인자와 조사 경계</h2>
   <dl class="stage-context">
     <dt>목표</dt><dd>누구의 어떤 판단을 살펴볼지 좁힙니다.</dd>
@@ -350,7 +375,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
 </section>
 
 <section id="research" aria-labelledby="research-title" data-slides="1,2,3,4,5,6,7,8">
-  <p class="time">09:20–09:30 도입 및 09:40–10:05 적용 활동의 관찰 참고</p>
+  <p class="time">3 · 최근 작업 살피기</p>
   <h2 id="research-title">중립 질문과 원문·해석·미확인의 분리</h2>
   <dl class="stage-context">
     <dt>목표</dt><dd>희망하는 기능보다 현재 작업에서의 판단을 알아봅니다.</dd>
@@ -401,7 +426,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
 </section>
 
 <section id="synthesis" aria-labelledby="synthesis-title" data-slides="1,2,3,4,5,6,7,8">
-  <p class="time">09:20–09:30 도입 및 09:40–10:05 적용 활동의 근거 종합 참고</p>
+  <p class="time">4 · 묶어서 문제 가설 만들기</p>
   <h2 id="synthesis-title">원문에서 임시 주제·문제·다음 조사로</h2>
   <dl class="stage-context">
     <dt>목표</dt><dd>누구의 어떤 어려움을 더 확인해야 하는지 설명합니다.</dd>
@@ -447,9 +472,9 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
 </section>
 
 <section id="requirements" aria-labelledby="requirements-title" data-slides="13,14,15,16,17,18,19,20">
-  <p class="time">09:40–10:05 · 기존 주 기록으로 연결할 요구 초안 참고</p>
+  <p class="time">5 · 여섯 칸 초안</p>
   <h2 id="requirements-title">근거·경계·행동이 보이는 여섯 칸 초안</h2>
-  <p>다음 여섯 칸은 <strong>저자가 만든 선택 계획 보기</strong>입니다. 공식 HVE 필수 산출물 형식도 두 번째 제출물도 아닙니다. 필수 기록은 기존 주 기록에 한 번만 남깁니다. 조사 가설과 기존 계약 사실을 섞지 않는 것이 문서 모양보다 중요합니다.</p>
+  <p>다음 여섯 칸은 <strong>생각을 정리하는 틀</strong>입니다. 공식 HVE 형식도 제출물도 아니며, 따로 적어 두거나 워크북에 옮길 필요가 없습니다. 조사 가설과 기존 계약 사실을 섞지 않는 것이 문서 모양보다 중요합니다.</p>
   <article class="draft" id="requirement-draft" aria-labelledby="draft-title">
     <h3 id="draft-title">채운 예시 · 실제 검증 전 검토용</h3>
     <dl class="six-fields">
@@ -480,35 +505,35 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
   <p>전체 입력의 건수와 정확한 반환 규칙은 <a href="#technical">접힌 기술 참고</a>에 있습니다. 본문 예시는 기대 행동이지 실행 증거가 아닙니다. 요구사항 정제의 첫 개인 테스트는 아래 기존 활동에서 실제 실행하고 기대값과 비교합니다. 합성 시험의 실제 재실행이나 출시 승인은 하지 않습니다.</p>
   <details class="teaching-note">
     <summary>강사 노트 · 여섯 칸의 읽는 순서와 이해 확인</summary>
-    <p><strong>진행:</strong> 도입에서 사용자·근거·범위를 연결하고 09:30–09:40 JavaScript·계약 시연을 거쳐 기존 25분 활동으로 옮깁니다. 여섯 범주는 생각을 돕는 관점이며 새 필드나 별도 제출 양식이 아닙니다.</p>
+    <p><strong>진행:</strong> 도입에서 사용자·근거·범위를 연결하고 JavaScript·계약 시연을 거쳐 기존 실습으로 옮깁니다. 여섯 범주는 생각을 돕는 관점이며 새 필드나 제출 양식이 아닙니다.</p>
     <p><strong>질문:</strong> “후보가 하나 나왔다”와 “그 시험을 실행해도 된다”는 같은 말인가요? <strong>해설:</strong> 아니요. 후보는 검토 자료이고 실행 권한은 별도 확인 대상입니다. 행동 기준 충족도 실제 사용자 검증이나 승인과 같지 않습니다.</p>
-    <p><strong>전환:</strong> “이제 같은 입력에서 독립 기대값을 먼저 만들고 개인 테스트와 비교합니다. 근거와 미확인을 기존 주 기록에 한 번만 남깁니다.”</p>
+    <p><strong>전환:</strong> “이제 같은 입력에서 독립 기대값을 먼저 만들고 개인 테스트와 비교합니다. 근거와 미확인은 말로 설명할 수 있으면 충분합니다.”</p>
   </details>
 </section>
 
 <section id="practice" aria-labelledby="practice-title" data-slides="13,14,15,16,17,18,19,20">
-  <p class="time">09:40–10:05 · 기존 활동 25분에 HVE 적용</p>
+  <p class="time">6 · 첫 개인 테스트로 잇기</p>
   <h2 id="practice-title">요구·근거·계약을 첫 개인 테스트로 연결</h2>
-  <p><strong>새 요청·짝 역할극·두 번째 제출물을 추가하지 않습니다.</strong> 앞의 QA 요청과 공개 입력을 그대로 사용하고, 워크북 또는 프로젝트 <code>coreRecord</code> 중 한 곳만 주 기록으로 선택합니다. 기존 워크북 106필드와 여섯 공통 필드를 유지합니다. 아래 빈 양식은 선택 계획 보기일 뿐 필수 제출물이 아닙니다.</p>
+  <p><strong>새 요청·짝 역할극·제출물을 더하지 않습니다.</strong> 앞의 QA 요청과 공개 입력을 그대로 써서, 정리한 요구를 첫 개인 테스트로 잇습니다. 이 문서의 여섯 칸은 생각 정리용이며 따로 기록하지 않아도 됩니다.</p>
   <ol>
-    <li><strong>09:40–09:45 / 5분 · 기준선·입력:</strong> 첫 편집 전에 <code>npm run baseline</code>으로 기준선을 보존하고 계약·공개 입력·가상 카드를 구분합니다.</li>
-    <li><strong>09:45–09:52 / 7분 · 독립 기대값:</strong> 사용자 판단과 포함·제외를 정하고 계약에서 손계산한 기대 행동을 먼저 만듭니다. 제공 예시를 베낀 결과는 독립 근거가 아닙니다.</li>
-    <li><strong>09:52–10:02 / 10분 · 첫 개인 테스트:</strong> 기존 <code>test/learner.test.mjs</code>에 단언을 작성하고 <code>npm run test:learner</code>로 실제 실행한 뒤 기대값과 비교합니다. 실제 실행 전에 결과를 채우지 않습니다.</li>
-    <li><strong>10:02–10:05 / 3분 · 주 기록:</strong> 목적·기대값·변경 이유·실행 결과·미확인·다음 행동을 선택한 주 기록에 한 번만 누적합니다. 미실행은 unknown·종료코드 null이며 검증 완료가 아닙니다.</li>
+    <li><strong>기준선·입력:</strong> 첫 편집 전에 <code>npm run baseline</code>으로 기준선을 보존하고 계약·공개 입력·가상 카드를 구분합니다.</li>
+    <li><strong>독립 기대값:</strong> 사용자 판단과 포함·제외를 정하고 계약에서 손계산한 기대 행동을 먼저 만듭니다. 제공 예시를 베낀 결과는 독립 근거가 아닙니다.</li>
+    <li><strong>첫 개인 테스트:</strong> 기존 <code>test/learner.test.mjs</code>에 단언을 작성하고 <code>npm run test:learner</code>로 실제 실행한 뒤 기대값과 비교합니다. 실제 실행 전에 결과를 채우지 않습니다.</li>
+    <li><strong>돌아보기:</strong> 기대값과 실제 결과가 같은지, 무엇이 아직 모르는 것으로 남았는지 말해 봅니다. 실행하지 못했다면 확인되지 않은 것이며 검증 완료가 아닙니다.</li>
   </ol>
-  <h3>여섯 HVE 범주 → 기존 주 기록 필드</h3>
-  <dl id="record-mapping">
-    <dt>사용자와 판단 → purpose</dt><dd>누구의 어떤 결정을 돕는지 목적에 적습니다.</dd>
-    <dt>근거와 출처 → changeReason</dt><dd>요청 원문·합성 입력·현재 계약의 출처와 선택 이유를 남깁니다. 가상 발언은 실제 조사나 실행 증거로 쓰지 않습니다.</dd>
-    <dt>포함·제외 범위 → purpose</dt><dd>목적에 이번 작업의 포함·제외 범위를 명시하고 범위 변경 이유는 changeReason에 연결합니다.</dd>
-    <dt>요구사항 초안 → expected</dt><dd>정한 범위에서 어떤 입력·행동·결과를 확인할지 적습니다.</dd>
-    <dt>행동 예시와 확인 기준 → expected</dt><dd>실행 전에 계약에 근거한 독립 기대값을 남깁니다.</dd>
-    <dt>남은 질문과 확인할 역할 → unknown</dt><dd>모르는 점과 확인 책임을 남기고 다음 확인 행동은 nextAction에 연결합니다.</dd>
+  <h3>여섯 칸이 테스트로 이어지는 길</h3>
+  <dl id="test-mapping">
+    <dt>사용자와 판단</dt><dd>무엇을 확인할지 고르는 기준입니다. 누구의 어떤 결정을 돕는 검사인지 정합니다.</dd>
+    <dt>근거와 출처</dt><dd>기대값이 어디서 왔는지 보여 줍니다. 계약과 공개 입력이 근거이고, 가상 발언은 실행 증거가 아닙니다.</dd>
+    <dt>포함·제외 범위</dt><dd>테스트가 다룰 것과 다루지 않을 것입니다. 이번에는 실제 실행·출시 승인을 다루지 않습니다.</dd>
+    <dt>요구사항 초안</dt><dd>테스트 이름이 됩니다. 어떤 입력에서 어떤 행동을 기대하는지 한 문장으로 씁니다.</dd>
+    <dt>행동 예시와 확인 기준</dt><dd>단언(기대값)이 됩니다. 실행하기 전에 계약에서 손으로 셉니다.</dd>
+    <dt>남은 질문과 확인할 역할</dt><dd>테스트로는 답할 수 없는 것입니다. 누가 무엇을 확인해야 하는지 남겨 둡니다.</dd>
   </dl>
-  <p><strong>실행 결과 execution은 실제 실행 뒤에만 작성합니다.</strong> 실행 전 기대값과 가상 관찰을 실행 결과로 채우지 않습니다.</p>
+  <p><strong>실행 결과는 실제 실행 뒤에만 말합니다.</strong> 실행 전 기대값이나 가상 관찰을 결과처럼 말하지 않습니다.</p>
   <article class="draft blank" id="blank-form" aria-labelledby="blank-title">
-    <h3 id="blank-title">빈 한 장 양식 · 선택 계획 보기</h3>
-    <p>저자 제작 읽기·인쇄용 보조 보기입니다. 화면 입력·저장 기능은 없으며 별도 작성·제출·이중 전사를 요구하지 않습니다. 필수 기록은 위 매핑에 따라 기존 주 기록 한 곳에만 남깁니다.</p>
+    <h3 id="blank-title">빈 한 장 · 생각 정리용</h3>
+    <p>읽거나 인쇄해 생각을 정리하는 한 장입니다. 화면 입력·저장 기능은 없고, 적어 내거나 워크북에 옮길 필요도 없습니다.</p>
     <dl class="six-fields">
       <dt>사용자와 판단</dt><dd><span class="writing-line">누가, 언제, 무엇을 판단하나요?</span></dd>
       <dt>근거와 출처</dt><dd><span class="writing-line">어떤 원문·관찰·계약인가요? 가상 자료와 확인된 규칙을 구분하세요.</span></dd>
@@ -526,15 +551,15 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
     <li>행동 예시의 결과를 대조할 수 있나요? 후보와 실행 허가를 구분했나요?</li>
   </ul>
   <details class="teaching-note">
-    <summary>강사 노트 · 기존 25분 활동의 관찰과 피드백</summary>
-    <p>09:40에 기준선을 먼저 보존하고 독립 기대값·첫 개인 테스트·기록 순서로 진행한 뒤 10:05에 정리로 이동합니다. 문서 완성도를 점수나 숙달 인증으로 바꾸지 않습니다. 실제 결과가 없으면 실행 증거를 지어내지 않고 미확인으로 남깁니다.</p>
+    <summary>강사 노트 · 기존 실습의 관찰과 피드백</summary>
+    <p>기준선을 먼저 보존하고 독립 기대값 → 첫 개인 테스트 순서로 진행한 뒤 돌아보기로 이동합니다. 문서 완성도를 점수나 숙달 인증으로 바꾸지 않습니다. 실제 결과가 없으면 실행 증거를 지어내지 않고 미확인으로 남깁니다.</p>
     <p><strong>예상 답:</strong> 사용자=QA, 판단=후속 검토 후보 전달, 제외=실제 실행, 근거=가상 카드와 별도 계약, 질문=권한 책임자에게 실제 허가 절차. 같은 범위·근거를 지키면 다른 초안도 검토할 수 있습니다.</p>
     <p><strong>전환:</strong> “초안을 완성했다는 말 대신, 다음 사람이 무엇을 먼저 확인해야 하는지 말해 보겠습니다.”</p>
   </details>
 </section>
 
 <section id="handoff" aria-labelledby="handoff-title" data-slides="21,22">
-  <p class="time">10:05–10:10 · HVE 정리 5분 · 요구사항 정제 안에 포함</p>
+  <p class="time">7 · 넘겨주기</p>
   <h2 id="handoff-title">초안 인계와 보류할 판단</h2>
   <dl class="stage-context">
     <dt>목표</dt><dd>받는 사람이 초안의 이유와 다음 확인을 이해하도록 합니다.</dd>
@@ -559,14 +584,14 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
   </ol>
   <p><strong>초안 작성 ≠ 실제 사용자 검증 ≠ 조직 승인 ≠ 구현 허가.</strong> 문서를 넘기거나 수업을 마쳐도 부족한 근거와 권한이 새로 생기지 않습니다.</p>
   <details class="teaching-note">
-    <summary>강사 노트 · 마지막 5분 운영</summary>
-    <p>10:05–10:06 인계 예시, 10:06–10:07 되돌아갈 경로, 10:07–10:10 세 질문과 해설을 진행합니다. 몇 명의 답을 듣거나 각자 속으로 대조하게 할 수 있습니다. 실제 조사 완료·교육 이수·독립 역량을 인증한 것으로 보고하지 않습니다.</p>
+    <summary>강사 노트 · 마무리 운영</summary>
+    <p>인계 예시 → 되돌아갈 경로 → 세 질문과 해설 순서로 진행합니다. 몇 명의 답을 듣거나 각자 속으로 대조하게 할 수 있습니다. 실제 조사 완료·교육 이수·독립 역량을 인증한 것으로 보고하지 않습니다.</p>
     <p><strong>종료 문장:</strong> “오늘 남긴 것은 정답 기능 목록이 아니라, 근거와 빈칸을 설명할 수 있는 검토 초안입니다.”</p>
   </details>
 </section>
 
 <section id="recovery" aria-labelledby="recovery-title">
-  <p class="eyebrow">필요할 때 찾아 읽는 보충 자료 · 추가 시간 없음</p>
+  <p class="eyebrow">보충 · 헷갈릴 때 찾아 읽기</p>
   <h2 id="recovery-title">정제 과정의 혼동과 복구</h2>
   <table>
     <caption>징후 → 놓친 구분 → 되돌릴 행동</caption>
@@ -636,7 +661,7 @@ rerunCandidates: media/TC-102 → connectivity/TC-101</pre>
   <ul>
     <li><a href="example-project/contract.txt">공개 함수 계약</a>과 <a href="example-project/data/test-results.json">합성 입력</a>: 수업 행동 사실의 기준이며 실제 고객 필요의 근거가 아닙니다.</li>
     <li><a href="example-project/domain-behavior.txt">도메인과 행동 검증 안내</a>: 용어·책임·예시를 후속 단계에서 대조할 때 읽습니다. 이 강의의 실행 과제가 아닙니다.</li>
-    <li><a href="workbook.html#course-journey">전체 교육 흐름과 참가자 워크북</a> — 본과정의 기존 경로를 확인할 때 사용합니다. 이 강의가 본과정 시간을 변경하지 않습니다.</li>
+    <li><a href="workbook.html#course-journey">전체 교육 흐름과 참가자 워크북</a> — 본과정의 기존 경로를 확인할 때 사용합니다. 이 강의가 본과정 흐름을 바꾸지 않습니다.</li>
   </ul>
   <p>대화·관찰·문제 문장·도표·여섯 칸 양식은 저자가 교육용으로 재구성했습니다. 준비된 허구는 실제 인터뷰나 독립 실증 근거가 아닙니다. 원문 전체·로고·외부 이미지를 복제하지 않았으며, 실제 고객 조사·사용자 검증·조직 승인·구현·효과 개선을 수행했다는 주장은 하지 않습니다.</p>
 </section>
