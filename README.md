@@ -22,6 +22,8 @@ npm test
 
 `npm test`가 16개 통과하면 출발 준비가 된 것입니다. `npm run …`은 언제나 `example-project` 안에서 칩니다. 기록장 `workbook.html`은 브라우저로 엽니다.
 
+결과를 그림으로 보고 싶으면 같은 폴더에서 `npm run web`을 치고 브라우저로 `http://127.0.0.1:4173`을 엽니다. 입력에서 후보까지의 흐름, 지금 코드의 후보 정책, 내 진행 상태를 보여 주는 읽기 전용 화면이고, `src/`를 고친 뒤 새로고침하면 바로 다시 계산합니다.
+
 ## 오늘 만들어 가는 것
 
 ![아침에 받은 폴더가 저녁에 고친 도구, 내가 짠 하네스, 인계 묶음이 되는 그림](./readme-images/2-build.svg)
@@ -327,6 +329,8 @@ npm run evidence
 | [HVE 원칙으로 요구사항 정제](./HVE-Core-Discovery-Framing-요구사항-정제.html) | 요구사항 정제 필수 HVE 40분의 원칙·방법 참고 자료; 기존 실습 25분 포함, 별도 강좌 아님 |
 | `example-project/` | 작동하는 시작 코드, 합성 입력, 계약과 검사 |
 | `example-project/work-record.template.json` | 기준 사본 보존 뒤 복사해 사용하는 빈 작업 기록 양식 |
+| `example-project/.github/` | Copilot이 읽는 공통 지침·단계별 프롬프트·읽기 전용 검토 에이전트. 선택 도구이며 판단과 실행은 본인이 함 |
+| `example-project/web/`, `example-project/scripts/web.mjs` | `npm run web`으로 여는 읽기 전용 결과 화면. 파일을 고치거나 검사·하네스를 실행하지 않음 |
 | `readme-images/` | 이 README 맨 앞의 그림 네 장 |
 | `package.json`, `root-hint.cjs` (맨 위) | 맨 위 폴더에서 `npm run`을 쳤을 때 `example-project`로 이동하라고 알려 주는 안내용. 실습 명령을 실행하지 않음 |
 

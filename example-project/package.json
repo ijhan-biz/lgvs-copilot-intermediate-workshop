@@ -19,6 +19,8 @@
     "test:v1": "node --test test/v1.test.mjs",
     "test:v2": "node --test test/v2.test.mjs",
     "demo": "node scripts/demo.mjs",
+    "web": "node scripts/web.mjs",
+    "test:web": "node --test test/web.test.mjs",
     "usage:probe": "node scripts/usage-probe.mjs",
     "preflight": "node scripts/preflight.mjs",
     "prepare:review": "node scripts/prepare-review.mjs",

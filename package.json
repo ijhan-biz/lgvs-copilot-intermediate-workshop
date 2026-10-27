@@ -13,6 +13,8 @@
     "test:v1": "node root-hint.cjs",
     "test:v2": "node root-hint.cjs",
     "demo": "node root-hint.cjs",
+    "web": "node root-hint.cjs",
+    "test:web": "node root-hint.cjs",
     "usage:probe": "node root-hint.cjs",
     "preflight": "node root-hint.cjs",
     "prepare:review": "node root-hint.cjs",
