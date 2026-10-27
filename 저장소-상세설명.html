@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>저장소 상세설명</title>
+<style>
+/* Layout: 위에서 아래로 구조 → 파일 → 예제 도구 → 하네스 → 하루 → 목표 → 기록 → 명령 → 경계 순서로 읽는다 */
+:root {
+  --paper: #F4F6FA;
+  --card: #FFFFFF;
+  --ink: #17202D;
+  --muted: #5B6679;
+  --line: #CED4DF;
+  --tint: #E6EBF4;
+  --marker: #FFD54A;
+  --on-marker: #17202D;
+  --go: #1C9A55;
+  --stop: #D6453B;
+  --read: #3B6FD8;
+  --made: #8A5CC9;
+  --on-signal: #FFFFFF;
+  --cmd-bg: #17202D;
+  --cmd-fg: #EEF2F8;
+  --display: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --body: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10151E; --card: #18202B; --ink: #E7EBF2; --muted: #9AA4B6; --line: #2D3646;
+    --tint: #222B39; --marker: #E8BE36; --go: #39C277; --stop: #EE6A5F; --read: #6E9BF0; --made: #B48BEA;
+    --cmd-bg: #0A0E15; --cmd-fg: #E7EBF2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10151E; --card: #18202B; --ink: #E7EBF2; --muted: #9AA4B6; --line: #2D3646;
+  --tint: #222B39; --marker: #E8BE36; --go: #39C277; --stop: #EE6A5F; --read: #6E9BF0; --made: #B48BEA;
+  --cmd-bg: #0A0E15; --cmd-fg: #E7EBF2; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  word-break: keep-all; overflow-wrap: break-word;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 72px; display: grid; gap: 48px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+code { font-family: var(--mono); font-size: .92em; background: var(--tint); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--ink); }
+a:focus-visible { outline: 3px solid var(--marker); outline-offset: 2px; }
+
+/* 첫 화면 */
+.hero { display: grid; gap: 18px; }
+.eyebrow { font: 600 13px var(--body); letter-spacing: .08em; color: var(--muted); }
+.hero h1 { font: 800 clamp(32px, 6vw, 56px)/1.15 var(--display); letter-spacing: -.01em; }
+.hero h1 mark { background: linear-gradient(transparent 55%, var(--marker) 55%); color: inherit; padding: 0 .08em; }
+.lead { font-size: 18px; max-width: 40em; color: var(--muted); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.facts li { font: 600 13px var(--body); border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 4px 12px; }
+.toplinks { display: flex; gap: 8px 16px; flex-wrap: wrap; font-size: 14px; }
+.toplinks a { font-weight: 600; }
+
+/* 구역 */
+section { display: grid; gap: 18px; scroll-margin-top: 16px; }
+section > h2 { font: 800 28px/1.25 var(--display); display: flex; gap: 12px; align-items: baseline; }
+section > h2 .n { font: 800 15px var(--mono); color: var(--on-marker); background: var(--marker); border-radius: 6px; padding: 2px 8px; flex: none; }
+.intro { max-width: 46em; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: grid; gap: 12px; min-width: 0; }
+.card h3 { font: 800 19px/1.3 var(--display); }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.big { font: 800 34px/1 var(--display); }
+ul.plain { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+
+/* 역할 표시 */
+.tag { display: inline-block; font: 700 12px/1.4 var(--body); border-radius: 999px; padding: 1px 9px; white-space: nowrap; border: 1.5px solid currentColor; }
+.tag.read { color: var(--read); }
+.tag.mine { color: var(--go); }
+.tag.keep { color: var(--stop); }
+.tag.made { color: var(--made); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 14px; align-items: center; }
+
+/* 폴더 나무 */
+.tree { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; font-size: 15px; }
+.tree ul { list-style: none; margin: 0; padding-left: 22px; border-left: 2px solid var(--line); display: grid; gap: 6px; }
+.tree > ul { padding-left: 0; border-left: 0; }
+.tree li { display: grid; gap: 6px; }
+.tree .row { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.tree .name { font: 700 14px var(--mono); }
+.tree .what { color: var(--muted); font-size: 14px; }
+.tree .root > .row .name { font-size: 16px; }
+
+/* 파일 목록 */
+.files { display: grid; gap: 0; margin: 0; }
+.files > div { display: grid; grid-template-columns: minmax(0, 15em) minmax(0, 1fr); gap: 6px 18px; padding: 12px 0; border-top: 1px solid var(--line); }
+.files > div:first-child { border-top: 0; padding-top: 0; }
+.files dt { display: grid; gap: 6px; align-content: start; justify-items: start; }
+.files dt code { background: none; padding: 0; font-weight: 700; font-size: 14px; }
+.files dd { margin: 0; font-size: 15px; }
+
+/* 흐름 */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; counter-reset: f; }
+.flow li { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 6px; align-content: start; position: relative; counter-increment: f; }
+.flow li::before { content: counter(f); font: 800 13px var(--mono); color: var(--on-marker); background: var(--marker); border-radius: 50%; width: 24px; height: 24px; display: grid; place-items: center; }
+.flow b { font-size: 16px; }
+.flow span { font-size: 14px; color: var(--muted); }
+
+.policy { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 14px; align-items: stretch; }
+.policy .arrow { display: grid; place-items: center; font: 700 13px var(--body); color: var(--muted); text-align: center; }
+.policy .arrow b { display: block; font-size: 28px; color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 600 13px var(--mono); border-radius: 6px; padding: 2px 8px; border: 1.5px solid var(--line); }
+.chip.on { border-color: var(--stop); color: var(--stop); }
+.chip.off { color: var(--muted); }
+
+.rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.rule { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 6px; align-content: start; }
+.rule b { font: 800 14px var(--mono); color: var(--muted); }
+.rule strong { font-size: 16px; }
+.rule span { font-size: 14px; color: var(--muted); }
+
+/* 하네스 문 */
+.gates { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.gates li { background: var(--card); border: 2px solid var(--ink); border-radius: 14px; padding: 14px; display: grid; gap: 4px; }
+.gates b { font-size: 16px; }
+.gates span { font-size: 14px; color: var(--muted); }
+
+/* 하루 */
+.day { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.day li { display: grid; grid-template-columns: 52px minmax(0, 9em) minmax(0, 1fr); gap: 4px 16px; align-items: baseline; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+.day .num { font: 800 26px/1 var(--display); }
+.day .when { font: 500 13px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.day .body { display: grid; gap: 2px; }
+.day .body a { font-weight: 700; }
+.day .body span { font-size: 14px; color: var(--muted); }
+.day li.gatebox { border-left: 6px solid var(--stop); }
+
+/* 표 */
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-top: 1px solid var(--line); }
+thead th { background: var(--tint); border-top: 0; font-size: 14px; }
+td code { white-space: nowrap; }
+
+.cmdlist { display: grid; gap: 6px; }
+.cmd { display: block; background: var(--cmd-bg); color: var(--cmd-fg); font: 500 14px var(--mono); border-radius: 8px; padding: 8px 12px; white-space: pre-wrap; word-break: break-all; }
+
+.note { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--marker); border-radius: 12px; padding: 14px 16px; }
+.order { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+footer { font-size: 14px; color: var(--muted); display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 18px; }
+
+@media (max-width: 860px) {
+  .grid3, .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .wrap { padding-block: 28px 56px; gap: 40px; }
+  .grid3, .grid2, .rules, .flow, .gates { grid-template-columns: minmax(0, 1fr); }
+  .policy { grid-template-columns: minmax(0, 1fr); }
+  .policy .arrow b { transform: rotate(90deg); }
+  .files > div { grid-template-columns: minmax(0, 1fr); }
+  .day li { grid-template-columns: 40px minmax(0, 1fr); }
+  .day .body { grid-column: 1 / -1; }
+  section > h2 { font-size: 24px; }
+  table, thead, tbody, tr, th, td { display: block; }
+  thead { display: none; }
+  table { border-radius: 12px; }
+  tr { border-top: 1px solid var(--line); padding: 8px 0; }
+  tr:first-child { border-top: 0; }
+  td { border-top: 0; padding: 4px 14px; }
+  td[data-label]::before { content: attr(data-label); display: block; font: 700 12px var(--body); color: var(--muted); }
+  td code { white-space: normal; }
+}
+@media print {
+  body { background: #fff; }
+  .toplinks { display: none; }
+  .card, .tree, table, .flow li, .rule, .day li { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">GITHUB COPILOT 중급과정 · 저장소 상세설명</p>
+  <h1>이 저장소에는 <mark>무엇이</mark> 있고,<br>하루 동안 무엇을 하나요</h1>
+  <p class="lead">이 저장소는 하루짜리 실습 과정의 수강생 자료입니다. 이미 동작하는 작은 Node.js 도구 하나를 놓고, 바뀌는 요구와 일부러 넣은 결함을 다루며 AI의 답을 계약·검사·실제 실행으로 확인하는 연습을 합니다. 이 문서는 폴더 구조부터 파일마다의 역할, 예제 도구의 규칙, 하네스, 하루 흐름, 교육 목표와 기록 기준까지 한곳에 풀어 씁니다.</p>
+  <ul class="facts" aria-label="과정 기본 정보">
+    <li>2026-10-28(수) 09:00–18:00</li>
+    <li>1인 1프로젝트</li>
+    <li>Node.js 22 이상</li>
+    <li>추가 설치·네트워크 없음</li>
+    <li>합성 자료만 사용</li>
+  </ul>
+  <nav class="toplinks" aria-label="이 문서의 차례">
+    <a href="README.md">README로 돌아가기</a>
+    <a href="따라하기.html">그림 따라하기</a>
+    <a href="#overview">한눈에</a>
+    <a href="#structure">폴더 구조</a>
+    <a href="#top-files">맨 위 파일</a>
+    <a href="#project">실습 폴더</a>
+    <a href="#tool">예제 도구</a>
+    <a href="#harness">하네스</a>
+    <a href="#day">하루 흐름</a>
+    <a href="#goals">교육 목표</a>
+    <a href="#records">기록</a>
+    <a href="#commands">명령</a>
+    <a href="#limits">경계</a>
+    <a href="#reading">읽는 순서</a>
+  </nav>
+</header>
+
+<section id="overview" aria-labelledby="overview-h">
+  <h2 id="overview-h"><span class="n">1</span>한눈에 보기</h2>
+  <div class="grid3">
+    <div class="card">
+      <h3>무엇을 다루나</h3>
+      <p>가상의 <b>테스트 결과 정리 도구</b>입니다. 검사 결과 8행을 읽어 상태별 건수, 모듈별 요약, 다음에 살펴볼 <b>검토·재실행 후보</b>를 만듭니다. 앱을 새로 만들지 않고, 후보를 고를 뿐 검사를 실제로 다시 돌리거나 출시를 승인하지 않습니다.</p>
+    </div>
+    <div class="card">
+      <h3>어떻게 배우나</h3>
+      <p>계약을 먼저 읽고 기대값을 손으로 셉니다. AI의 답은 원문과 대조하고, 요청이 와도 사람의 승인 뒤에만 승인된 만큼 고칩니다. 일부러 실패시켜 안전장치를 확인하고, 마지막에는 대화 기억이 아니라 남긴 안내만 보고 다시 실행합니다.</p>
+    </div>
+    <div class="card">
+      <h3>저녁에 남는 것</h3>
+      <ul class="plain">
+        <li><b>승인된 만큼만 고친 도구</b>와 그 변경을 지키는 내 검사</li>
+        <li><b>내가 짠 하네스</b>와 일부러 실패시킨 기록</li>
+        <li>남이 이어받을 <b>인계 묶음</b>: README 완성란, handoff, 마지막 재현 근거</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">한 줄로 말하면 <b>“AI가 써 준 답을 그냥 믿지 않고, 무엇을 맡겼고 무엇을 직접 확인했는지 설명할 수 있게 되는 하루”</b>를 위한 저장소입니다.</p>
+</section>
+
+<section id="structure" aria-labelledby="structure-h">
+  <h2 id="structure-h"><span class="n">2</span>폴더 구조</h2>
+  <p class="intro">맨 위 폴더는 <b>읽는 안내</b>, <code>example-project</code>는 <b>실제로 일하는 작업장</b>입니다. VS Code로는 <code>example-project</code> 폴더만 열고, <code>npm run …</code> 명령도 언제나 그 안에서 칩니다. 각 항목 옆 표시는 수업 중 그 파일을 어떻게 대하는지입니다.</p>
+  <div class="legend" aria-label="표시의 뜻">
+    <span><span class="tag read">읽기</span> 읽고 판단에 씀</span>
+    <span><span class="tag mine">내가 씀</span> 수업 중 내가 고치거나 채움</span>
+    <span><span class="tag keep">고치지 않음</span> 보호된 부품·기준</span>
+    <span><span class="tag made">수업 중 생김</span> 명령이 만들고 공개 저장소에는 올리지 않음</span>
+  </div>
+  <div class="tree">
+    <ul>
+      <li class="root"><div class="row"><span class="name">lgvs-copilot-intermediate-workshop/</span><span class="what">저장소 맨 위</span></div>
+        <ul>
+          <li><div class="row"><span class="name">README.md</span><span class="tag read">읽기</span><span class="what">과정 소개, 시작 방법, 교육 목표와 기준</span></div></li>
+          <li><div class="row"><span class="name">저장소-상세설명.html</span><span class="tag read">읽기</span><span class="what">지금 보는 이 문서</span></div></li>
+          <li><div class="row"><span class="name">따라하기.html</span><span class="tag read">읽기</span><span class="what">수업 중 띄워 두는 한 장씩 그림 안내</span></div></li>
+          <li><div class="row"><span class="name">PARTICIPANT-START.txt</span><span class="tag read">읽기</span><span class="what">진행 순서와 도움 공개 조건</span></div></li>
+          <li><div class="row"><span class="name">HVE-Core-Discovery-Framing-요구사항-정제.html</span><span class="tag read">읽기</span><span class="what">요구사항 정제 원칙 참고</span></div></li>
+          <li><div class="row"><span class="name">package.json · root-hint.cjs</span><span class="tag keep">고치지 않음</span><span class="what">맨 위에서 npm run을 치면 example-project로 가라고 알려 줌</span></div></li>
+          <li><div class="row"><span class="name">readme-images/</span><span class="what">README 맨 앞 그림 네 장</span></div></li>
+          <li><div class="row"><span class="name">content/harness-lab.json</span><span class="what">하네스 실습 범위를 기계가 읽는 형식으로 정리한 것</span></div></li>
+          <li><div class="row"><span class="name">.gitignore</span><span class="what">개인 기록·비밀·내려받은 파일이 올라가지 않게 막음</span></div></li>
+          <li><div class="row"><span class="name">example-project/</span><span class="what">실습 작업장</span></div>
+            <ul>
+              <li><div class="row"><span class="name">src/</span><span class="tag mine">진입점 한 곳만</span><span class="what">업무 코드: 요약과 후보 계산</span></div></li>
+              <li><div class="row"><span class="name">data/</span><span class="tag keep">고치지 않음</span><span class="what">합성 입력 두 개</span></div></li>
+              <li><div class="row"><span class="name">test/</span><span class="tag mine">내 검사 두 파일</span><span class="what">공통 검사와 내가 쓰는 검사</span></div></li>
+              <li><div class="row"><span class="name">harness/</span><span class="tag mine">내가 씀</span><span class="what">하네스 세 파일과 설명</span></div></li>
+              <li><div class="row"><span class="name">scripts/</span><span class="tag keep">고치지 않음</span><span class="what">실행 도구와 보호된 하네스 부품</span></div></li>
+              <li><div class="row"><span class="name">README.txt · handoff.txt</span><span class="tag mine">내가 씀</span><span class="what">실행 안내와 인계 기록</span></div></li>
+              <li><div class="row"><span class="name">contract.txt · domain-behavior.txt · quality-guide.txt · quality-workflows.json</span><span class="tag read">읽기</span><span class="what">약속과 읽을거리</span></div></li>
+              <li><div class="row"><span class="name">hints.txt · hints/ · prompts.txt · .github/</span><span class="tag read">읽기</span><span class="what">도움 사다리와 Copilot 지침·요청</span></div></li>
+              <li><div class="row"><span class="name">readiness/ · independent-task.txt · operations/ · templates/ · web/</span><span class="what">사전 연습, 혼자 풀기, 사용 사례, 결함 사본 원본, 결과 화면</span></div></li>
+              <li><div class="row"><span class="name">.baseline/ · .harness/ · review/ · evidence/</span><span class="tag made">수업 중 생김</span><span class="what">기준 사본, 하네스 기록, 결함 사본, 마지막 근거</span></div></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="top-files" aria-labelledby="top-files-h">
+  <h2 id="top-files-h"><span class="n">3</span>맨 위 폴더의 파일</h2>
+  <div class="card">
+    <dl class="files">
+      <div><dt><a href="README.md"><code>README.md</code></a><span class="tag read">읽기</span></dt>
+        <dd>과정 전체의 입구입니다. 바로 시작 명령, 오늘 만들어 가는 세 묶음, 하루 지도, 하네스 소개를 앞에 두고, 뒤에는 교육 목표와 작업물, 실습 예제, 학습 흐름과 시간표, 사전 준비, 처음 보이는 실패의 뜻, 완료와 기록 기준, 독립 시도와 답안 공개 조건, 검증 범위와 한계를 자세히 적었습니다.</dd></div>
+      <div><dt><a href="따라하기.html"><code>따라하기.html</code></a><span class="tag read">읽기</span></dt>
+        <dd>수업 중 브라우저에 띄워 두는 <b>단 하나의 화면</b>입니다. 0장(수업 전 도구 확인)부터 8장(인계와 재현)까지 장마다 큰 그림, 칠 명령, 나오면 되는 신호를 보여 줍니다. 코드가 지킬 여섯 가지(C1–C6), 늘 지킬 것, 막혔을 때 알릴 것, 끝나면 강사가 보는 것과 점수 기준도 이 페이지에 있습니다. 따로 적는 워크북은 없습니다.</dd></div>
+      <div><dt><a href="PARTICIPANT-START.txt"><code>PARTICIPANT-START.txt</code></a><span class="tag read">읽기</span></dt>
+        <dd>글로 된 진행 순서입니다. 단계별로 무엇을 먼저 하고, 언제 무엇을 하지 않으며, 도움과 참고답안이 어떤 조건에서 열리는지 적었습니다.</dd></div>
+      <div><dt><a href="HVE-Core-Discovery-Framing-요구사항-정제.html"><code>HVE-Core-…-요구사항-정제.html</code></a><span class="tag read">읽기</span></dt>
+        <dd>첫 단계(문제와 성공 기준)에서 쓰는 요구사항 정제의 원칙과 방법입니다. 프레임워크를 설치하지 않고 원칙만 손으로 적용하며, 같은 합성 사례에서 입력 → 범위 → 관찰 → 종합 → 첫 테스트 → 인계로 이어 갑니다. 별도 강좌나 양식이 아닙니다.</dd></div>
+      <div><dt><code>저장소-상세설명.html</code><span class="tag read">읽기</span></dt>
+        <dd>지금 보는 이 문서입니다. README가 짧게 말한 것을 구조와 파일 단위까지 풀어 씁니다.</dd></div>
+      <div><dt><code>package.json</code>, <code>root-hint.cjs</code><span class="tag keep">고치지 않음</span></dt>
+        <dd>맨 위 폴더에서 <code>npm run …</code>을 잘못 쳤을 때 “<code>cd example-project</code>로 이동하라”는 안내만 내고 종료 코드 1로 끝냅니다. 실습 명령은 실행하지 않습니다.</dd></div>
+      <div><dt><code>readme-images/</code></dt>
+        <dd>README 맨 앞의 그림 네 장입니다. 왜 배우는지(<code>1-why.svg</code>), 무엇을 만드는지(<code>2-build.svg</code>), 하루 지도(<code>3-day.svg</code>), 하네스의 네 문(<code>4-harness.svg</code>).</dd></div>
+      <div><dt><code>content/harness-lab.json</code></dt>
+        <dd>하네스 실습의 범위(학습자가 쓰는 세 파일, 명령, 꼭 관찰할 상황, 활동 시간, 경계)를 기계가 읽는 형식으로 적은 요약입니다. 강의 자료와 실습 안내가 같은 범위를 말하는지 맞추는 기준이라, 수강생이 열 필요는 없습니다.</dd></div>
+      <div><dt><code>.gitignore</code></dt>
+        <dd><code>.baseline/</code>, <code>.harness/</code>, <code>review/</code>, <code>evidence/</code> 같은 수업 중 생기는 기록과 비밀키·토큰·이미지·내려받은 ZIP/PDF/Word가 Git에 올라가지 않게 막습니다. 웹에서 손으로 올리는 것까지 막아 주지는 않으니 개인 기록을 공개하지 않도록 직접 조심합니다.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="project" aria-labelledby="project-h">
+  <h2 id="project-h"><span class="n">4</span><span>실습 폴더 <code>example-project</code> 안</span></h2>
+  <p class="intro">기능별로 묶었습니다. 처음 받은 상태에서 <code>npm test</code>는 16개가 통과하고, 하네스 세 파일은 TODO라 <code>npm run harness:check</code>는 실패하는 것이 정상입니다.</p>
+
+  <div class="card">
+    <h3>업무 코드 · <code>src/</code></h3>
+    <dl class="files">
+      <div><dt><a href="example-project/src/summarize-results.mjs"><code>summarize-results.mjs</code></a><span class="tag mine">승인 뒤 한 곳</span></dt>
+        <dd>진입점입니다. 입력을 검사한 뒤 후보 정책 <code>['failed']</code>로 요약을 만듭니다. 13:45 변경 요청과 사람 승인 뒤에 <b>이 정책 한 곳만</b> 바꿔 후보를 넓힙니다.</dd></div>
+      <div><dt><a href="example-project/src/summary-core.mjs"><code>summary-core.mjs</code></a><span class="tag read">읽기</span></dt>
+        <dd>빌드 선택, 중복 정리, 상태별 건수, 모듈 요약, 후보 고르기를 하는 공통 계산입니다. 진입점이 넘긴 정책을 그대로 따릅니다.</dd></div>
+      <div><dt><a href="example-project/src/validate-input.mjs"><code>validate-input.mjs</code></a><span class="tag read">읽기</span></dt>
+        <dd>요약하기 전에 입력 전체를 검사합니다. 칸이나 값이 계약과 다르면 고쳐 주지 않고 <code>TypeError</code>로 거부합니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>합성 입력 · <code>data/</code></h3>
+    <dl class="files">
+      <div><dt><a href="example-project/data/test-results.json"><code>test-results.json</code></a><span class="tag keep">고치지 않음</span></dt>
+        <dd>공개 입력 8행입니다. 선택한 빌드의 7행에서 똑같은 반복 1행을 빼면 검사 6개이고, 다른 빌드의 1행은 세지 않습니다. 상태는 통과 2 · 실패 2 · 시간 초과 1 · 미실행 1입니다.</dd></div>
+      <div><dt><a href="example-project/data/transfer-results.json"><code>transfer-results.json</code></a><span class="tag keep">고치지 않음</span></dt>
+        <dd>혼자 풀기(독립 시도)에서 처음 보는 새 입력 7행입니다. 결과를 실행하기 전에 후보를 먼저 예측합니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>약속과 읽을거리</h3>
+    <dl class="files">
+      <div><dt><a href="example-project/contract.txt"><code>contract.txt</code></a><span class="tag read">읽기</span></dt>
+        <dd><b>판단의 기준</b>입니다. 처음 약속(v1)과 승인 후 변경(v2), 여섯 규칙 C1–C6, 별도 하네스 계약을 적었습니다. 코드는 구현, 실행 출력은 그때의 관찰이라 셋이 다르면 계약을 따릅니다.</dd></div>
+      <div><dt><a href="example-project/domain-behavior.txt"><code>domain-behavior.txt</code></a><span class="tag read">읽기</span></dt>
+        <dd>요구·계획·개발의 공통 읽기입니다. 용어를 정하는 DDD, 행동 예시를 합의하는 BDD, 공개 예시와 기존 검사의 연결, 계획과 기록의 추적, 명령 읽는 법(무엇·왜·입력·출력·산출물·다음 행동), 인계와 독립 시도의 구분을 다룹니다.</dd></div>
+      <div><dt><a href="example-project/quality-guide.txt"><code>quality-guide.txt</code></a><span class="tag read">읽기</span></dt>
+        <dd>코드 품질 원칙 카드입니다. DDD·BDD·INVEST·SOLID·SMART를 원칙 이름이 아니라 “어떤 잘못을 막는가”로 설명합니다.</dd></div>
+      <div><dt><a href="example-project/quality-workflows.json"><code>quality-workflows.json</code></a><span class="tag read">읽기</span></dt>
+        <dd>도메인 규칙을 행동 예시로 바꾸기 같은 작업 카드 모음입니다. 자동으로 불러오거나 실행하지 않고, 필요한 카드만 읽어 일반 Chat에 손으로 건넵니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>검사 · <code>test/</code></h3>
+    <dl class="files">
+      <div><dt><a href="example-project/test/v1.test.mjs"><code>v1.test.mjs</code></a><span class="tag keep">고치지 않음</span></dt>
+        <dd>처음 정책의 공통 검사 16개입니다(<code>npm test</code>). 새 정책을 구현한 뒤에는 옛 후보 검사 1개가 실패하는 것이 정상입니다.</dd></div>
+      <div><dt><a href="example-project/test/v2.test.mjs"><code>v2.test.mjs</code></a><span class="tag keep">고치지 않음</span></dt>
+        <dd>승인 후 정책의 공통 검사 16개입니다(<code>npm run test:v2</code>). 처음에는 후보 범위 검사 1개가 실패하고, 최종 확인은 이것으로 합니다.</dd></div>
+      <div><dt><a href="example-project/test/contract-suite.mjs"><code>contract-suite.mjs</code></a><span class="tag keep">고치지 않음</span></dt>
+        <dd>v1·v2·review 검사가 함께 쓰는 C1–C6 검사 본문입니다.</dd></div>
+      <div><dt><a href="example-project/test/learner.test.mjs"><code>learner.test.mjs</code></a><span class="tag mine">내가 씀</span></dt>
+        <dd>제공 예제 1개로 시작합니다. 내가 3개를 더합니다: 똑같은 반복은 한 번 → 후보 확대(구현 전에 먼저 실패) → 원본 보존.</dd></div>
+      <div><dt><a href="example-project/test/transfer.test.mjs"><code>transfer.test.mjs</code></a><span class="tag mine">내가 씀</span></dt>
+        <dd>혼자 풀기의 예측 칸입니다. 처음엔 <code>expectedIds = null</code>이라 실패합니다. 실행 전에 예측과 이유를 써서 고정합니다.</dd></div>
+      <div><dt><a href="example-project/test/review.test.mjs"><code>review.test.mjs</code></a><span class="tag keep">고치지 않음</span></dt>
+        <dd>결함 사본 <code>review/summarize-results.mjs</code>를 같은 16개 계약으로 검사합니다. 사본을 만들기 전에는 실행할 대상이 없습니다.</dd></div>
+      <div><dt><code>web.test.mjs</code>, <code>harness-regression.test.mjs</code><span class="tag keep">고치지 않음</span></dt>
+        <dd>결과 화면과 하네스 부품이 약속대로 동작하는지 지키는 검사입니다(<code>test:web</code>, <code>test:harness</code>). 수업의 필수 명령은 아닙니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>하네스 · <code>harness/</code>와 보호된 부품</h3>
+    <dl class="files">
+      <div><dt><a href="example-project/harness/README.txt"><code>harness/README.txt</code></a><span class="tag read">읽기</span></dt>
+        <dd>세 파일을 어떻게 쓰는지, 쓸 수 있는 제공 부품(<code>validate</code>, <code>verifyApproval</code>, <code>runStep</code>, <code>recordResult</code>, <code>stop</code>, <code>finish</code> 등), 꼭 관찰할 운영 상황과 명령별 종료 코드를 설명합니다.</dd></div>
+      <div><dt><a href="example-project/harness/instructions.txt"><code>instructions.txt</code></a><span class="tag mine">내가 씀</span></dt>
+        <dd>처음엔 TODO입니다. 목적, 합성 입력과 계약, 허용 변경, 금지 작업, 실패 중단 조건, 돌려줄 근거를 내 말로 씁니다. 하네스 fingerprint에 들어갑니다.</dd></div>
+      <div><dt><a href="example-project/harness/workflow.json"><code>workflow.json</code></a><span class="tag mine">내가 씀</span></dt>
+        <dd>처음엔 TODO입니다. 목적, 입력(<code>data/test-results.json</code>), 맥락, 허용 도구와 순서(<code>inspect-input</code>, <code>test:v2</code>), 출력(<code>.harness</code>), 시간 제한과 재시도 상한을 정확한 형식으로 씁니다.</dd></div>
+      <div><dt><a href="example-project/harness/run.mjs"><code>run.mjs</code></a><span class="tag mine">내가 씀</span></dt>
+        <dd>처음엔 TODO입니다. 제공 부품을 10–25줄로 이어 검증 → 승인 확인 → 순서 실행 → 기록 → 실패하면 멈춤 → 모두 성공하면 완료를 만들고, 실패 중단 분기를 직접 씁니다.</dd></div>
+      <div><dt><code>scripts/harness.mjs</code>, <code>harness-core.mjs</code>, <code>harness-paths.mjs</code>, <code>harness-task.mjs</code><span class="tag keep">고치지 않음</span></dt>
+        <dd>보호된 실행 부품입니다. 설정 검사, 승인 선언, 실제 자식 프로세스 실행과 시간 제한, 기록, 잠금, checkpoint와 재개를 맡습니다. 다시 구현하거나 고치지 않습니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>실행 도구 · <code>scripts/</code></h3>
+    <dl class="files">
+      <div><dt><code>preflight.mjs</code></dt>
+        <dd>Node 버전과 수동 점검 질문을 출력합니다. 파일을 고치지 않고 Copilot 권한도 확인하지 않습니다.</dd></div>
+      <div><dt><code>baseline.mjs</code></dt>
+        <dd>어떤 파일이든 처음 고치기 전에 기준 사본(<code>.baseline/</code>)을 남깁니다. 이미 있으면 덮지 않고, <code>compare:baseline</code>으로 달라진 파일을 봅니다.</dd></div>
+      <div><dt><code>demo.mjs</code>, <code>usage-probe.mjs</code></dt>
+        <dd>합성 사용 사례 7건을 지금 코드로 돌려 요약과 후보가 어떻게 나오는지 보여 줍니다.</dd></div>
+      <div><dt><code>evidence.mjs</code>, <code>evidence-core.mjs</code></dt>
+        <dd>마지막에 최종 정책의 공통 검사를 다시 실행해 결과를 <code>evidence/v2-*.json</code>에 남깁니다. 출력 원문·계정·절대 경로는 저장하지 않습니다.</dd></div>
+      <div><dt><code>prepare-review.mjs</code></dt>
+        <dd><code>templates/review-summarizer.mjs</code>로 결함 사본 <code>review/summarize-results.mjs</code>를 <b>한 번만</b> 만듭니다. 이미 있으면 덮거나 지우지 않습니다.</dd></div>
+      <div><dt><code>web.mjs</code>, <code>web-report.mjs</code></dt>
+        <dd><code>npm run web</code>으로 <code>http://127.0.0.1:4173</code>에 여는 읽기 전용 결과 화면입니다. 새로고침할 때마다 <code>src/</code>를 다시 읽어 계산합니다. 파일을 고치거나 검사·하네스를 실행하지 않습니다.</dd></div>
+      <div><dt><code>scoped-files.mjs</code></dt>
+        <dd>정해진 파일만 안전하게 읽는 공통 부품이고, 기준 사본에 넣을 9개 파일 목록을 갖고 있습니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>인계 기록</h3>
+    <dl class="files">
+      <div><dt><a href="example-project/README.txt"><code>README.txt</code></a><span class="tag mine">완성란만</span></dt>
+        <dd>이 폴더의 실행 안내 전체입니다. 맨 끝 <b>[학습자 완성란]</b> 다섯 줄(목적 · 실행명령 · 실제결과 · 변경이유 · 제한)을 내가 채웁니다.</dd></div>
+      <div><dt><a href="example-project/handoff.txt"><code>handoff.txt</code></a><span class="tag mine">내가 씀</span></dt>
+        <dd>다음 사람이 이 파일만 보고 이어받는 곳입니다. [계획] [하네스 근거] [원인 가설] [받은 도움] [미확인] [다음 행동] 칸이 있습니다. 빈칸은 “하지 않음·확인하지 않음”이라는 뜻이고, 하지 않은 것을 채우지 않습니다.</dd></div>
+      <div><dt><a href="example-project/PARTICIPANT-START.txt"><code>PARTICIPANT-START.txt</code></a><span class="tag read">읽기</span></dt>
+        <dd>이 폴더에서의 시작 순서 요약입니다. 전체 순서는 맨 위의 같은 이름 파일과 따라하기를 따릅니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>도움과 Copilot 지침</h3>
+    <dl class="files">
+      <div><dt><a href="example-project/hints.txt"><code>hints.txt</code></a>, <code>hints/</code><span class="tag read">읽기</span></dt>
+        <dd>선택형 도움 사다리입니다. 기대값과 시도를 먼저 적은 뒤 한 단계만 엽니다: 0 환경, 1 검토 대상, 2 작은 반례 질문, 3 내 가설 점검 질문, 보충으로 JS 문법 카드. 완전한 복구 해설은 학습자 파일에 없습니다.</dd></div>
+      <div><dt><a href="example-project/prompts.txt"><code>prompts.txt</code></a><span class="tag read">읽기</span></dt>
+        <dd>단계별 요청 원문입니다. 자동 적용이 안 되는 환경에서 필요한 부분만 손으로 복사해 씁니다. 답변은 사람이 검토할 제안이지 승인 기록이 아닙니다.</dd></div>
+      <div><dt><code>.github/copilot-instructions.md</code></dt>
+        <dd>Copilot이 이 폴더에서 지킬 공통 지침입니다. 판단 근거는 계약, 용어는 도메인 안내를 따르게 합니다.</dd></div>
+      <div><dt><code>.github/instructions/</code></dt>
+        <dd>하네스 파일과 검사 파일을 다룰 때 따로 붙는 지침 두 개입니다.</dd></div>
+      <div><dt><code>.github/prompts/</code></dt>
+        <dd>채팅에서 <code>/이름</code>으로 부르는 단계별 요청 여섯 개입니다: requirements, context-check, plan, failure-read, harness-review, handoff-critique.</dd></div>
+      <div><dt><code>.github/agents/harness-reviewer.agent.md</code></dt>
+        <dd>하네스와 변경을 <b>읽기만</b> 하는 검토 에이전트입니다. 편집·실행·승인을 하지 않습니다. 모두 선택 도구이며 판단과 실행은 본인이 합니다.</dd></div>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3>그 밖의 폴더와 수업 중 생기는 것</h3>
+    <dl class="files">
+      <div><dt><a href="example-project/readiness/task.txt"><code>readiness/</code></a></dt>
+        <dd>수업 전에 <b>별도 연습 사본</b>에서 하는 편집·저장·실행 연습입니다. <code>npm run readiness:check</code>가 처음엔 의도적으로 실패하고, 값 하나를 직접 고쳐 저장한 뒤 다시 실행합니다. 수업용 사본에는 옮기지 않습니다.</dd></div>
+      <div><dt><a href="example-project/independent-task.txt"><code>independent-task.txt</code></a></dt>
+        <dd>혼자 풀기 과제 설명입니다. 새 입력에 승인된 계약을 적용하고, 예측과 첫 실제 결과를 고정할 때까지 AI·힌트·강사 도움을 열지 않습니다.</dd></div>
+      <div><dt><a href="example-project/operations/README.txt"><code>operations/</code></a></dt>
+        <dd>제작자가 만든 합성 사용 사례 7건(<code>usage-cases.json</code>)과 문맥 판단 상황(<code>context-scenarios.json</code>), 읽는 법입니다. 실제 사용자 관찰이나 효과 지표가 아닙니다.</dd></div>
+      <div><dt><code>templates/review-summarizer.mjs</code><span class="tag keep">고치지 않음</span></dt>
+        <dd>결함 사본의 원본입니다. 직접 고치지 않고 <code>prepare:review</code>가 복사한 사본을 고칩니다.</dd></div>
+      <div><dt><code>web/index.html</code></dt>
+        <dd>결과 화면 페이지입니다. 입력에서 후보까지의 흐름, 지금 코드의 후보 정책, 진행 상태를 보여 줍니다.</dd></div>
+      <div><dt><code>.baseline/</code><span class="tag made">수업 중 생김</span></dt>
+        <dd><code>npm run baseline</code>이 첫 편집 전에 만드는 기준 사본입니다.</dd></div>
+      <div><dt><code>.harness/</code><span class="tag made">수업 중 생김</span></dt>
+        <dd>하네스 승인 이유, 실행·시간 초과·금지 거절·stale·새 승인·이어 하기의 실제 기록입니다.</dd></div>
+      <div><dt><code>review/</code><span class="tag made">수업 중 생김</span></dt>
+        <dd><code>prepare:review</code>가 한 번 만드는 결함 사본입니다. 첫 실패를 남긴 뒤 원인을 찾아 이 한 파일을 고칩니다.</dd></div>
+      <div><dt><code>evidence/</code><span class="tag made">수업 중 생김</span></dt>
+        <dd>마지막에 <code>npm run evidence</code>로 다시 실행한 근거입니다.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="tool" aria-labelledby="tool-h">
+  <h2 id="tool-h"><span class="n">5</span>예제 도구가 하는 일</h2>
+  <p class="intro">빌드는 검사할 프로그램의 한 버전이고, 모듈은 기능별 묶음입니다. 도구는 결과 파일을 읽어 한 빌드의 숫자를 정리하고 다음에 살펴볼 후보를 고릅니다. 공개 입력으로 따라가면 이렇게 됩니다.</p>
+  <ol class="flow" aria-label="입력에서 후보까지">
+    <li><b>입력 전체 검사</b><span>8행 모두 칸과 값을 확인합니다. 다른 빌드의 잘못된 행도 거부합니다.</span></li>
+    <li><b>빌드 고르기</b><span>요청한 빌드의 7행만 남깁니다.</span></li>
+    <li><b>반복 정리</b><span>똑같은 반복 1행을 한 번만 세서 검사 6개가 됩니다.</span></li>
+    <li><b>숫자 정리</b><span>상태별 건수(통과 2 · 실패 2 · 시간 초과 1 · 미실행 1)와 모듈별 요약.</span></li>
+    <li><b>후보 고르기</b><span>정책에 맞는 행을 처음 나온 순서대로 새 배열에 담습니다.</span></li>
+  </ol>
+
+  <div class="policy">
+    <div class="card">
+      <h3>처음 정책 (v1)</h3>
+      <div class="chips"><span class="chip on">failed</span><span class="chip off">timed_out</span><span class="chip off">not_run</span><span class="chip off">passed</span></div>
+      <p><span class="big">2</span> <span class="muted">개 후보 · 실패한 검사만</span></p>
+    </div>
+    <div class="arrow" aria-hidden="true"><b>→</b>13:45 요청<br>+ 사람 승인</div>
+    <div class="card">
+      <h3>승인 후 정책 (v2)</h3>
+      <div class="chips"><span class="chip on">failed</span><span class="chip on">timed_out</span><span class="chip on">not_run</span><span class="chip off">passed</span></div>
+      <p><span class="big">4</span> <span class="muted">개 후보 · 시간 초과·미실행 포함</span></p>
+    </div>
+  </div>
+  <p class="small muted">바뀌는 것은 후보 범위뿐입니다. 상태별 건수, 반복·충돌 처리, 순서, 입력 검사, 원본 보존은 그대로입니다. 요청 자체는 승인이 아니고, 후보는 권고일 뿐 자동 재실행이나 출시 허가가 아닙니다. <b>미실행은 통과가 아닙니다.</b></p>
+
+  <div class="card">
+    <h3>코드가 지킬 여섯 가지 (C1–C6)</h3>
+    <div class="rules">
+      <div class="rule"><b>C1</b><strong>요청한 빌드만 센다</strong><span>다른 빌드의 같은 검사 번호는 별개 검사입니다.</span></div>
+      <div class="rule"><b>C2</b><strong>후보는 승인 뒤에만 넓힌다</strong><span>v1은 failed만, 승인 뒤 v2는 failed · timed_out · not_run.</span></div>
+      <div class="rule"><b>C3</b><strong>반복은 한 번, 충돌은 오류</strong><span>buildId + module + caseId와 이름·상태까지 같으면 한 번, 이름·상태가 다르면 TypeError.</span></div>
+      <div class="rule"><b>C4</b><strong>처음 나온 순서 그대로</strong><span>모듈과 후보를 이름순으로 정렬하지 않습니다.</span></div>
+      <div class="rule"><b>C5</b><strong>요약 전에 입력 전체 검사</strong><span>계약과 다르면 고쳐 주지 않고 거부합니다.</span></div>
+      <div class="rule"><b>C6</b><strong>원본은 그대로, 요약은 새로</strong><span>입력 배열·행·옵션을 바꾸지 않고, 후보에는 처음 남긴 원본 행을 담습니다.</span></div>
+    </div>
+    <p class="small muted">자세한 조건은 <a href="example-project/contract.txt">contract.txt</a>에 있습니다. 입력의 상태별 건수와 <code>node:test</code>의 통과 수는 서로 다른 숫자입니다.</p>
+  </div>
+</section>
+
+<section id="harness" aria-labelledby="harness-h">
+  <h2 id="harness-h"><span class="n">6</span>하네스: 내가 짜는 안전한 작업 순서표</h2>
+  <p class="intro">하네스는 AI 에이전트(또는 사람)가 일할 때 따르는 작업 순서표입니다. 업무 함수는 후보만 만들고, 하네스는 이 교육 도구의 허용된 검사를 실제로 실행합니다. <b>최소 하네스를 직접 만들고 운영하는 것도 필수</b>이며, 제공 실행기를 실행하는 데서 끝나지 않습니다.</p>
+  <ol class="gates" aria-label="하네스의 네 문">
+    <li><b>허용 도구만</b><span><code>inspect-input</code>, <code>test:v2</code> 말고는 실행 전에 거절합니다.</span></li>
+    <li><b>정해진 순서</b><span>검증 → 승인 확인 → 순서대로 실행.</span></li>
+    <li><b>실패하면 멈춤</b><span>실패를 기록하고 그 자리에서 멈춥니다.</span></li>
+    <li><b>모두 기록</b><span>명령·종료 코드·fingerprint·산출물이 <code>.harness</code>에 남습니다.</span></li>
+  </ol>
+  <div class="grid2">
+    <div class="card">
+      <h3>제공되는 것과 내가 쓰는 것</h3>
+      <ul class="plain">
+        <li><b>제공:</b> 보호된 실행 부품(<code>scripts/harness*.mjs</code>)과 부품 설명서</li>
+        <li><b>내가 씀:</b> <code>instructions.txt</code>(지시), <code>workflow.json</code>(설정), <code>run.mjs</code>(10–25줄 조합과 실패 중단 분기)</li>
+        <li>완성 구성이나 강사 실행기를 복사하지 않습니다. v1 <code>npm test</code> 16개 통과는 하네스 완성이 아닙니다.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>꼭 관찰할 네 가지</h3>
+      <ul class="plain">
+        <li><b>시간 초과:</b> 실제 자식 프로세스가 제한 시간에 끝나며 실패로 남는지</li>
+        <li><b>금지 요청:</b> 허용 밖 도구가 실행·쓰기 전에 거절되는지</li>
+        <li><b>오래된 근거:</b> 성공 뒤 지시를 바꾸면 stale이 되고 재개가 거절되는지, 사람이 다시 검토·승인해 새로 실행하는지</li>
+        <li><b>안전한 재개:</b> 같은 fingerprint의 중단 작업만 checkpoint에서 이어 가고, 재시도 상한과 성공 단계 중복 방지가 지켜지는지</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmdlist" aria-label="하네스 명령">
+    <code class="cmd">npm run harness:check</code>
+    <code class="cmd">npm run harness:approve -- --reason "직접 검토한 범위와 이유"</code>
+    <code class="cmd">npm run harness:run</code>
+    <code class="cmd">npm run harness:drill -- timeout     # 또는 forbidden</code>
+    <code class="cmd">npm run harness:status</code>
+    <code class="cmd">npm run harness:resume -- --latest</code>
+  </div>
+  <p class="small muted">로컬 승인 선언은 신원 인증이나 실제 기업 승인이 아니고, 허용 목록은 완전한 샌드박스가 아닙니다. README와 handoff도 fingerprint에 들어가므로 정해진 시간에는 열어 보기만 합니다.</p>
+</section>
+
+<section id="day" aria-labelledby="day-h">
+  <h2 id="day-h"><span class="n">7</span>하루 흐름</h2>
+  <p class="intro">강의 여덟 개를 차례로 지나며 세 묶음을 채웁니다. 장 번호는 <a href="따라하기.html">그림 따라하기</a>의 장과 같고, 제목을 누르면 그 장으로 갑니다. 왼쪽에 빨간 줄이 있는 장에는 시간이 정해진 관문이 있습니다.</p>
+  <ol class="day">
+    <li><span class="num">0</span><span class="when">수업 전 · 10분</span><span class="body"><a href="따라하기.html#ch0">도구가 준비됐는지 보기</a><span>VS Code, Node 22, Copilot 로그인만 확인합니다.</span></span></li>
+    <li><span class="num">1</span><span class="when">09:00–09:20</span><span class="body"><a href="따라하기.html#ch1">새로 받고 기본 검사</a><span>새 폴더에 받고, 고치기 전에 지금 상태(<code>npm test</code> 16개 통과)를 봅니다.</span></span></li>
+    <li><span class="num">2</span><span class="when">09:20–10:10</span><span class="body"><a href="따라하기.html#ch2">목적을 쓰고, 사진 찍고, 손으로 세기</a><span>요구사항을 정제하고 기준 사본을 남긴 뒤, 7행 · 고유 6개 · 중복 1행 · 처음 후보 2개를 직접 셉니다.</span></span></li>
+    <li><span class="num">3</span><span class="when">10:20–11:10</span><span class="body"><a href="따라하기.html#ch3">필요한 곳만 읽고, AI 말은 대조하기</a><span>필요한 파일 부분만 고르고 AI 답의 주장을 계약과 맞춰 봅니다. 하네스 지시를 씁니다.</span></span></li>
+    <li><span class="num">4</span><span class="when">11:20–12:20</span><span class="body"><a href="따라하기.html#ch4">만들기 전에 설계도를 글로 적기</a><span>파일도 명령도 건드리지 않고 <code>handoff.txt</code> [계획]에 세 줄만 씁니다.</span></span></li>
+    <li class="gatebox"><span class="num">5</span><span class="when">13:20–14:50</span><span class="body"><a href="따라하기.html#ch5">요청은 승인이 아니다, 빨간불부터</a><span>하네스 설정과 실행 순서를 짜고, 13:45 요청과 사람 승인 뒤 새 검사가 먼저 실패하는 걸 본 다음 정책 한 곳만 고칩니다.</span></span></li>
+    <li><span class="num">6</span><span class="when">15:00–15:50</span><span class="body"><a href="따라하기.html#ch6">일부러 실패시켜 보기</a><span>보존 동작을 확인하고, 하네스 차단 훈련을 하고, 15:40에 결함 사본을 한 번 만들어 첫 실패를 남깁니다.</span></span></li>
+    <li class="gatebox"><span class="num">7</span><span class="when">16:00–16:50</span><span class="body"><a href="따라하기.html#ch7">고치고, 다시 확인하고, 혼자 풀기</a><span>최소 반례로 원인을 좁혀 한 파일만 고칩니다. 16:38–16:45에는 도움 없이 새 입력의 후보를 예측하고 고정합니다.</span></span></li>
+    <li class="gatebox"><span class="num">8</span><span class="when">16:50–17:50</span><span class="body"><a href="따라하기.html#ch8">넘겨주고, 내 안내만 보고 다시 하기</a><span>README 완성란과 handoff를 쓰고, 17:10–17:25에 여섯 명령을 본인이 다시 실행합니다. 17:25 이후 조건을 갖춘 사람만 참고답안과 비교합니다.</span></span></li>
+  </ol>
+  <div class="card">
+    <h3>시간이 정해진 관문 넷</h3>
+    <ul class="plain">
+      <li><b>13:45 변경 요청</b> — 요청은 승인이 아닙니다. 사람 승인을 따로 기록한 뒤에만 후보 범위를 바꿉니다.</li>
+      <li><b>16:38–16:45 혼자 풀기</b> — AI·힌트·강사 도움 없이 예측하고 실행 전에 고정합니다.</li>
+      <li><b>17:10–17:25 여섯 명령</b> — 대화 기억이 아니라 남긴 안내만 보고 다시 실행합니다.</li>
+      <li><b>17:25 답안 공개 조건</b> — 16:45 이후이고, 첫 예측과 첫 실제 결과를 고정했고, 여섯 명령까지 마친 사람만 비교합니다.</li>
+    </ul>
+    <p class="small muted">수업·실습 440분 안에 개인 활동 265분이 들어 있고, 휴식 40분과 점심 60분은 따로입니다. 세부 시간표는 <a href="README.md">README</a>의 ‘하루의 학습 흐름’에 있습니다.</p>
+  </div>
+</section>
+
+<section id="goals" aria-labelledby="goals-h">
+  <h2 id="goals-h"><span class="n">8</span>교육 목표와 작업물</h2>
+  <p class="intro">목표 네 가지는 세 묶음을 만들면서 익힙니다. 기존 활동 시간을 바꿔 쓰며, 별도 시간이나 점수를 더하지 않습니다.</p>
+  <table>
+    <thead><tr><th scope="col">교육 목표</th><th scope="col">수업에서 하는 일</th><th scope="col">확인할 작업물</th></tr></thead>
+    <tbody>
+      <tr><td data-label="교육 목표"><b>원하는 결과와 수정 범위를 설명하기</b></td><td data-label="수업에서 하는 일">요구 문서와 입력을 보고 기대 건수·후보를 먼저 계산합니다. AI에게 필요한 자료만 주고 바꿀 부분과 유지할 조건을 정합니다.</td><td data-label="확인할 작업물">기대값과 이유, 고른 자료, 수정·검증 계획, 편집 전 기준 사본</td></tr>
+      <tr><td data-label="교육 목표"><b>승인된 작은 변경을 직접 검증하기</b></td><td data-label="수업에서 하는 일">새 요구를 확인하는 검사가 수정 전 코드에서 실패하는지 봅니다. 승인한 범위만 고치고, 검토용 사본의 결함도 재현·수정합니다.</td><td data-label="확인할 작업물">수정 전후 차이, 내 검사, 실제 실행 결과, 실패 원인과 검증 한계</td></tr>
+      <tr><td data-label="교육 목표"><b>하네스를 직접 만들고 안전하게 운영하기</b></td><td data-label="수업에서 하는 일">목적·맥락·허용 도구·출력·시간/재시도 상한과 실행 조합·중단 분기를 씁니다. 시간 초과·금지 요청·stale 거절·같은 fingerprint 재개를 확인합니다.</td><td data-label="확인할 작업물">하네스 세 파일, 실패·거절·새 승인·새 실행·checkpoint의 실제 기록</td></tr>
+      <tr><td data-label="교육 목표"><b>새 입력을 판단하고 재현·인계하기</b></td><td data-label="수업에서 하는 일">새 결과 자료의 후보를 먼저 예상하고, 첫 예측과 실행 결과를 보존한 뒤 자기 안내로 다시 실행합니다.</td><td data-label="확인할 작업물">새 입력의 예측·이유와 첫 결과, 실행 안내, 재현 기록, 미완료·미확인·받은 도움</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="muted small">파일로 보면 · 아침에 받은 것과 저녁에 남는 것</h3>
+  <table>
+    <thead><tr><th scope="col">파일 (<code>example-project</code> 안)</th><th scope="col">아침</th><th scope="col">저녁</th></tr></thead>
+    <tbody>
+      <tr><td data-label="파일"><code>.baseline/</code></td><td data-label="아침">없음</td><td data-label="저녁">어떤 파일이든 고치기 전에 남긴 기준 사본</td></tr>
+      <tr><td data-label="파일"><code>test/learner.test.mjs</code></td><td data-label="아침">제공 검사 1개</td><td data-label="저녁">내 검사 3개 추가: 반복 → 후보 확대(먼저 실패) → 원본 보존</td></tr>
+      <tr><td data-label="파일"><code>src/summarize-results.mjs</code></td><td data-label="아침">후보 <code>['failed']</code></td><td data-label="저녁">승인 뒤 그 한 곳만 바꾼 후보 범위</td></tr>
+      <tr><td data-label="파일"><code>review/summarize-results.mjs</code></td><td data-label="아침">없음</td><td data-label="저녁">첫 실패를 남긴 뒤 원인을 찾아 고친 한 파일</td></tr>
+      <tr><td data-label="파일"><code>harness/</code> 세 파일</td><td data-label="아침">TODO</td><td data-label="저녁">내가 쓴 지시·설정·실행 순서와 실패 중단 분기</td></tr>
+      <tr><td data-label="파일"><code>.harness/</code></td><td data-label="아침">없음</td><td data-label="저녁">실행·시간 초과·금지 거절·stale·새 승인·이어 하기의 실제 기록</td></tr>
+      <tr><td data-label="파일"><code>test/transfer.test.mjs</code></td><td data-label="아침"><code>expectedIds = null</code></td><td data-label="저녁">실행 전에 혼자 쓰고 고정한 예측</td></tr>
+      <tr><td data-label="파일"><code>README.txt</code>, <code>handoff.txt</code></td><td data-label="아침">빈 안내 틀</td><td data-label="저녁">실제 결과·변경 이유·제한과 근거 위치를 적은 인계</td></tr>
+      <tr><td data-label="파일"><code>evidence/</code></td><td data-label="아침">없음</td><td data-label="저녁">마지막에 다시 실행한 근거</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="records" aria-labelledby="records-h">
+  <h2 id="records-h"><span class="n">9</span>기록은 어디에, 끝나면 무엇을 보나</h2>
+  <p class="intro">따로 적는 양식은 없습니다. 일하면서 생기는 프로젝트 파일에 남기고, 같은 내용을 두 곳에 다시 쓰지 않습니다.</p>
+  <table>
+    <thead><tr><th scope="col">남길 것</th><th scope="col">어디에</th></tr></thead>
+    <tbody>
+      <tr><td data-label="남길 것">기대값</td><td data-label="어디에"><code>test/learner.test.mjs</code>, <code>test/transfer.test.mjs</code> — 실행 전에 먼저 씁니다</td></tr>
+      <tr><td data-label="남길 것">하네스 승인 이유</td><td data-label="어디에"><code>npm run harness:approve -- --reason "…"</code>가 <code>.harness</code>에 남깁니다</td></tr>
+      <tr><td data-label="남길 것">실행 결과</td><td data-label="어디에">명령 출력, <code>evidence/v2-*.json</code>, <code>npm run harness:status</code></td></tr>
+      <tr><td data-label="남길 것">목적 · 변경 이유 · 실제 결과 · 제한</td><td data-label="어디에"><code>README.txt</code> 맨 끝 [학습자 완성란] 다섯 줄</td></tr>
+      <tr><td data-label="남길 것">계획 · 하네스 근거 · 원인 가설 · 받은 도움 · 미확인 · 다음 행동</td><td data-label="어디에"><code>handoff.txt</code>의 칸</td></tr>
+    </tbody>
+  </table>
+  <div class="grid2">
+    <div class="card">
+      <h3>마지막에 다시 칠 여섯 명령</h3>
+      <div class="cmdlist">
+        <code class="cmd">npm run preflight
+npm run test:v2
+npm run test:learner
+npm run test:review
+npm run demo
+npm run evidence</code>
+      </div>
+      <p class="small muted"><code>evidence</code>는 최종 정책의 공통 검사 실행 근거입니다. 내 검사·검토 검사·사람 승인·AI 활용을 한꺼번에 증명하지 않습니다.</p>
+    </div>
+    <div class="card">
+      <h3>강사가 보는 기준</h3>
+      <p>다섯 항목(목적·성공 기준, 맥락·모델 판단, 핵심 작업 과정, 검증·원인 수정, 본인 재현·인수인계)을 각 0–2점으로 봅니다. <b>합계 8점 이상</b>이고 <b>필수 세 항목이 각각 1점 이상</b>이면 통과입니다.</p>
+      <p class="small muted">하네스 세 파일이나 운영 근거가 없으면 전체 완료는 HOLD입니다. 학습자 자가 채점은 없고, 미실행·미확인은 점수를 짐작하지 않고 보류합니다. 자세한 기준은 <a href="따라하기.html#finish">따라하기의 ‘끝나면 강사가 보는 것’</a>에 있습니다.</p>
+    </div>
+  </div>
+  <p class="small muted">공통 검사 16개, 내 검사 최소 4개(제공 1 + 내가 추가 3), 검토 검사 16개, 독립 과제 1개, 하네스 결과는 서로 합산하지 않습니다. 한쪽의 통과로 다른 쪽의 실패나 미실행을 대신하지 않습니다.</p>
+</section>
+
+<section id="commands" aria-labelledby="commands-h">
+  <h2 id="commands-h"><span class="n">10</span>명령 한눈에</h2>
+  <p class="intro">모두 <code>example-project</code> 안에서 칩니다. <code>npm install</code>은 하지 않습니다. 처음에 실패하는 명령은 대부분 “아직 하지 않음”을 알려 주는 정상 신호입니다.</p>
+  <table>
+    <thead><tr><th scope="col">명령</th><th scope="col">하는 일</th><th scope="col">처음 받은 상태에서</th></tr></thead>
+    <tbody>
+      <tr><td data-label="명령"><code>npm run preflight</code></td><td data-label="하는 일">Node 버전과 수동 점검 질문</td><td data-label="처음 받은 상태에서">Node 22 이상이면 통과</td></tr>
+      <tr><td data-label="명령"><code>npm test</code> / <code>npm run test:v1</code></td><td data-label="하는 일">처음 정책의 공통 검사</td><td data-label="처음 받은 상태에서">16개 통과</td></tr>
+      <tr><td data-label="명령"><code>npm run test:v2</code></td><td data-label="하는 일">승인 후 정책의 공통 검사</td><td data-label="처음 받은 상태에서">후보 범위 검사 1개 실패 예상</td></tr>
+      <tr><td data-label="명령"><code>npm run test:learner</code></td><td data-label="하는 일">내 검사</td><td data-label="처음 받은 상태에서">제공 예제 1개 통과</td></tr>
+      <tr><td data-label="명령"><code>npm run baseline</code></td><td data-label="하는 일">첫 편집 전 기준 사본 남기기</td><td data-label="처음 받은 상태에서">한 번만, 덮어쓰지 않음</td></tr>
+      <tr><td data-label="명령"><code>npm run compare:baseline</code></td><td data-label="하는 일">기준 사본과 달라진 파일 보기</td><td data-label="처음 받은 상태에서">기준 사본을 남긴 뒤 사용</td></tr>
+      <tr><td data-label="명령"><code>npm run demo</code></td><td data-label="하는 일">합성 사례 7건으로 요약·후보 보기</td><td data-label="처음 받은 상태에서">실행됨</td></tr>
+      <tr><td data-label="명령"><code>npm run web</code></td><td data-label="하는 일">읽기 전용 결과 화면 (127.0.0.1:4173)</td><td data-label="처음 받은 상태에서">실행됨, 선택</td></tr>
+      <tr><td data-label="명령"><code>npm run prepare:review</code></td><td data-label="하는 일">결함 사본 만들기</td><td data-label="처음 받은 상태에서">15:40에 정확히 한 번</td></tr>
+      <tr><td data-label="명령"><code>npm run test:review</code></td><td data-label="하는 일">결함 사본 검사</td><td data-label="처음 받은 상태에서">사본 전에는 실행 불가, 만든 직후 실패가 정상</td></tr>
+      <tr><td data-label="명령"><code>npm run test:transfer</code></td><td data-label="하는 일">혼자 풀기 예측 확인</td><td data-label="처음 받은 상태에서">예측을 안 써서 실패 예상</td></tr>
+      <tr><td data-label="명령"><code>npm run readiness:check</code></td><td data-label="하는 일">사전 편집 연습</td><td data-label="처음 받은 상태에서">첫 실패 예상, 별도 연습 사본에서만</td></tr>
+      <tr><td data-label="명령"><code>npm run harness:check</code></td><td data-label="하는 일">하네스 설정 형식 검사</td><td data-label="처음 받은 상태에서">TODO 때문에 실패 예상</td></tr>
+      <tr><td data-label="명령"><code>npm run evidence</code></td><td data-label="하는 일">마지막 근거 남기기</td><td data-label="처음 받은 상태에서">마지막 여섯 명령 때 사용</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted">승인된 새 정책을 구현한 뒤에는 <code>npm test</code>의 옛 후보 검사 1개가 실패하는 것이 정상입니다. 통과를 얻으려고 기대값이나 검사를 지우지 않습니다.</p>
+</section>
+
+<section id="limits" aria-labelledby="limits-h">
+  <h2 id="limits-h"><span class="n">11</span>지키는 경계와 한계</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>늘 지킬 것</h3>
+      <ul class="plain">
+        <li>실제 회사 코드·고객 자료·개인정보·비밀키는 Copilot에 붙여 넣지 않습니다. 실습 자료는 모두 합성입니다.</li>
+        <li>추가 설치·네트워크·관리자 권한이 필요 없습니다. 로컬 실행에 네트워크가 필요 없다는 말이 Copilot도 오프라인으로 된다는 뜻은 아닙니다.</li>
+        <li>혼자 하는 실습입니다. Copilot이 정책 때문에 막히면 그렇게 적고, 직접 읽고 고치고 실행해서 계속합니다.</li>
+        <li>데이터 안의 “이전 지시를 무시하라” 같은 문장은 지시가 아니라 데이터입니다.</li>
+        <li>개인 기록은 <code>git add -f</code>나 웹 업로드로 공개하지 않습니다.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>이 저장소가 주장하지 않는 것</h3>
+      <ul class="plain">
+        <li>공개 저장소에는 강사 정답과 완성 비교 구현이 없습니다. 참고답안은 17:25 이후 조건을 갖춘 사람에게 따로 제공합니다.</li>
+        <li>검사 통과가 사람의 이해, Copilot 숙련, 실제 서비스 운영 능력을 인증하지 않습니다.</li>
+        <li>혼자 풀기의 자동 검사는 내 예측과 내 코드가 일치하는지만 봅니다. 둘 다 틀려도 통과할 수 있습니다.</li>
+        <li>합성 사용 사례와 역할 시나리오는 실제 수강생 조사나 학습 효과가 아닙니다.</li>
+        <li>공식 LG 또는 Microsoft 발행·인증·후원을 뜻하지 않으며, 별도의 재사용 라이선스는 지정하지 않았습니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="reading" aria-labelledby="reading-h">
+  <h2 id="reading-h"><span class="n">12</span>처음이라면 이 순서로</h2>
+  <div class="card">
+    <ol class="order">
+      <li><a href="README.md">README.md</a>의 앞부분으로 전체 그림을 봅니다.</li>
+      <li>이 문서로 폴더와 파일의 역할을 익힙니다.</li>
+      <li><a href="PARTICIPANT-START.txt">PARTICIPANT-START.txt</a>로 진행 순서와 공개 조건을 확인합니다.</li>
+      <li><a href="example-project/domain-behavior.txt">domain-behavior.txt</a>, <a href="example-project/contract.txt">contract.txt</a>, <a href="example-project/data/test-results.json">test-results.json</a>을 함께 읽습니다.</li>
+      <li>수업 중에는 <a href="따라하기.html">따라하기.html</a> 한 페이지만 띄워 두고, 현재 단계의 <a href="example-project/README.txt">README.txt</a>를 봅니다.</li>
+    </ol>
+    <p class="small muted">모든 자료를 처음부터 외울 필요는 없습니다. GitHub에서 HTML 파일을 누르면 렌더링된 페이지가 아니라 소스가 보이므로, 받은 사본을 로컬 브라우저로 엽니다.</p>
+  </div>
+</section>
+
+<footer>
+  <p><a href="README.md">README로 돌아가기</a> · <a href="따라하기.html">그림 따라하기</a></p>
+  <p>이 문서는 저장소의 파일 구성을 설명합니다. 판단의 기준은 언제나 <code>example-project/contract.txt</code>이고, 단계별 명령은 따라하기와 <code>example-project/README.txt</code>를 따릅니다.</p>
+</footer>
+
+</main>
+</body>
+</html>
