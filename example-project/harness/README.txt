@@ -109,6 +109,24 @@ inspect-input은 합성 입력을 검사한다. test:v2는 기존 16개 계약�
   새 최종 필드는 만들지 않고 동결 README/handoff는 최종 주 기록에서 참조한다.
   17:10–17:25 여섯 명령과 17:25 이후 조건부 답안 공개는 그대로다.
 
+Copilot 기본 구조와의 연결 (선택 도구, 필수 흐름은 그대로)
+  example-project/.github에 GitHub Copilot이 바로 읽는 기본 파일이 있다.
+  VS Code에서 example-project 폴더만 열어야 Copilot이 이 .github를 찾는다.
+  .github/copilot-instructions.md      프로젝트 공통 규칙. Copilot Chat이 자동으로 읽는다.
+  .github/instructions/*.instructions.md  harness/·test/ 파일을 다룰 때만 붙는 규칙(applyTo).
+  .github/prompts/*.prompt.md          수업 단계별 요청. 채팅에서 /requirements, /context-check,
+                                       /plan, /harness-review, /failure-read, /handoff-critique.
+  .github/agents/harness-reviewer.agent.md  편집·실행 도구 없이 읽기만 하는 검토자.
+  지금 하네스와의 관계:
+    instructions.txt  ↔ 공통 규칙은 copilot-instructions.md가 주고, 이번 작업의 지시는 여전히
+                        내가 instructions.txt에 쓴다(지문에 포함, 40자 이상, TODO 없음).
+    workflow.json     ↔ Copilot 에이전트의 tools 목록은 Copilot이 쓸 도구를, workflow.json의
+                        allowedTools·steps는 실행기가 실제로 돌릴 도구와 순서를 정한다.
+    run.mjs           ↔ Copilot에는 같은 것이 없다. 순서·실패 중단·기록·재개는 코드와 보호
+                        실행기가 강제하고, Copilot은 /harness-review로 검토만 한다.
+  자동 적용이 안 되면 prompts.txt의 같은 요청을 복사해 쓴다. 파일 이름·도구 이름은 VS Code 버전에
+  따라 경고가 날 수 있다. 그때는 편집·실행 도구를 더하지 말고 읽기 도구만 남긴다.
+
 출력은 .harness/approval.json, latest.json, runs/<runId>/checkpoint.json이다.
 checkpoint에는 실제 종료·출력·시간 제한·시도·실패 원인과 SHA-256 checksum이 있다.
 checksum은 실수/손상 검출이며 악의적 같은 사용자에 대한 인증/위변조 방지가 아니다.
