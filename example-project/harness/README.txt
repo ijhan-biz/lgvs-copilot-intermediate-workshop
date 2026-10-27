@@ -6,10 +6,14 @@
    allowedTools와 steps는 ["inspect-input","test:v2"], output=".harness",
    schemaVersion=1, timeoutMs 정수 50~10000, retryLimit 정수 0~2를 갖는 정확한 객체.
    다른 키/경로/명령/shell은 거부한다. 실습 권장값 2000ms, 재시도 1회.
+   수업에서는 retryLimit을 1 또는 2로 둔다. 0도 형식상 허용되지만 첫 실패 뒤 재개가
+   RETRY_LIMIT로 막혀 아래 필수 운영 (1)·(4)의 같은 해시 재개를 관찰할 수 없다.
 2. instructions.txt: 목적·계약·허용 변경·금지·중단·반환 근거를 구체적으로 작성한다.
    최소 40자, TODO는 제거한다. 해시에 실제 포함되며 Copilot/수동 작업용이다.
 3. run.mjs: default async 함수에 전달되는 api를 10~25행 정도로 연결한다.
    단순 성공 반환으로 통과하지 못한다. 실패 분기를 반드시 직접 작성한다.
+   실패 분기가 없어도 정상 run은 통과한다. timeout 훈련의 failure가
+   MISSING_STOP_AFTER_FAILURE(stop 누락)나 MISSING_RETURN_AFTER_STOP(return 누락)이면 고친다.
 
 작성·승인 경계
   계획·검증 단계은 오전 baseline 뒤 선택한 워크북 여섯 칸 또는 work-record.json.coreRecord
@@ -53,13 +57,36 @@ inspect-input은 합성 입력을 검사한다. test:v2는 기존 16개 계약�
     완료 재개는 쓰기/작업 반복 없이 0. 실패/한도 초과/변경된 해시는 1.
 모든 명령의 마지막 stdout 행은 JSON이다. 오류도 성공으로 숨기지 않는다.
 
+마지막 JSON의 errorCode 또는 failure 읽기
+  INVALID_CONFIG              workflow.json의 키·값이 위 1번 계약과 다르다.
+  HARNESS_ERROR               그 밖의 오류. JSON 쉼표·따옴표 오류면 message에 줄·칸이 나온다.
+  INCOMPLETE_INSTRUCTIONS     instructions.txt가 40자 미만이거나 TODO가 남았다.
+  INVALID_ORCHESTRATION       run.mjs에 export default 함수가 없다.
+  REVIEW_REASON_REQUIRED      approve 이유가 8자 미만이거나 TODO다.
+  APPROVAL_REQUIRED           현재 fingerprint의 검토 선언이 없다. 파일을 바꾼 뒤의 옛 승인도 같다.
+  STALE_EVIDENCE              새 승인 뒤 옛 fingerprint의 checkpoint를 resume했다. 새 run을 한다.
+  ETIMEDOUT                   자식이 timeoutMs 안에 끝나지 않았다. timeout 훈련에서는 예상값이다.
+  FORBIDDEN_TOOL              허용 목록 밖 도구다. forbidden 훈련에서는 예상값이다.
+  MISSING_STOP_AFTER_FAILURE  실패를 기록한 뒤 stop 없이 다음 단계나 finish로 갔다.
+  MISSING_RETURN_AFTER_STOP   stop 뒤 return 없이 다음 단계나 finish로 갔다.
+  UNAWAITED_OPERATION         api 호출 앞에 await가 빠졌다.
+  INVALID_SEQUENCE            validate → verifyApproval → 정해진 단계 순서를 어겼다.
+  INVALID_RECEIPT             runStep 결과가 아닌 객체나 그 복사본을 기록했다.
+  FAILED_ORCHESTRATION        stop이나 finish 없이 함수가 끝났다(성공 객체만 반환 등).
+  INCOMPLETE_REQUIRED_STEPS   필수 작업이 모두 성공하기 전에 finish를 불렀다.
+  RETRY_LIMIT                 같은 작업의 시도 한도를 다 썼다. 새 검토·새 실행이 필요하다.
+  STATE_CHANGED               실행 도중 파일이 바뀌었다. 저장을 마친 뒤 다시 검토한다.
+  INVALID_CHECKPOINT·INVALID_LOCK·EEXIST  기록 손상이나 동시 실행이다. 지우지 말고 강사와 확인한다.
+
 필수 운영
   검증 15:30–15:40의 기존 운영 10분 안에서, C6 개인 검사로 바뀐
   test/learner.test.mjs를 포함한 현재 파일을 사람이 먼저 직접 재검토한다.
   npm run harness:approve -- --reason "직접 읽은 현재 파일의 범위와 허용 이유"
   → npm run harness:run → npm run harness:status 뒤에 아래 timeout/forbidden을 실행한다.
   옛 승인은 APPROVAL_REQUIRED로 거절된다. 이는 13:45 업무 승인과 별개의 로컬 재검토다.
-  (1) timeout 실패의 checkpoint/events에서 ETIMEDOUT, 실제 childStarted를 확인.
+  (1) timeout 실패의 마지막 JSON failure가 ETIMEDOUT인지 먼저 본다. checkpoint/events에서
+      ETIMEDOUT과 실제 childStarted도 확인한다. failure가 MISSING_STOP_AFTER_FAILURE나
+      MISSING_RETURN_AFTER_STOP이면 run.mjs 실패 분기를 고친 뒤 새 검토·승인·실행을 한다.
       같은 해시에서 resume하여 성공. 과거 실패 event는 그대로 보존한다.
   (2) forbidden 실패 event의 childStarted=false와 보호 파일 불변을 확인.
   (3) 정상 성공 후 instructions.txt에 허용된 지시를 추가한다.

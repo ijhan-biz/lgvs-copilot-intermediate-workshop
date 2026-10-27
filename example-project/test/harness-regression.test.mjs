@@ -355,15 +355,19 @@ test('no-op, fabricated results, forged receipts and invalid order cannot pass',
     ['forged receipt', 'export default async api => { await api.validate(); await api.verifyApproval(); await api.recordResult("inspect-input", {tool:"inspect-input",status:"passed",childStarted:true,exitCode:0}); };', 'INVALID_RECEIPT'],
     ['copied real receipt', 'export default async api => { await api.validate(); await api.verifyApproval(); const r = await api.runStep("inspect-input"); await api.recordResult("inspect-input", {...r}); };', 'INVALID_RECEIPT'],
     ['pending receipt ignored', 'export default async api => { await api.validate(); await api.verifyApproval(); await api.runStep("inspect-input"); };', 'FAILED_ORCHESTRATION'],
-    ['missing failure branch', 'export default async api => { await api.validate(); await api.verifyApproval(); const r = await api.runStep("inspect-input"); await api.recordResult("inspect-input", r); await api.finish(); };', 'INCOMPLETE_REQUIRED_STEPS'],
+    ['missing failure branch', 'export default async api => { await api.validate(); await api.verifyApproval(); const r = await api.runStep("inspect-input"); await api.recordResult("inspect-input", r); await api.finish(); };', 'MISSING_STOP_AFTER_FAILURE'],
+    ['loop without failure branch', 'export default async api => { await api.validate(); await api.verifyApproval(); for (const step of api.steps) { if (api.isComplete(step)) continue; const r = await api.runStep(step); await api.recordResult(step, r); } await api.finish(); };', 'MISSING_STOP_AFTER_FAILURE'],
+    ['stop without return', 'export default async api => { await api.validate(); await api.verifyApproval(); for (const step of api.steps) { if (api.isComplete(step)) continue; const r = await api.runStep(step); await api.recordResult(step, r); if (r.status === "failed") await api.stop(r); } await api.finish(); };', 'MISSING_RETURN_AFTER_STOP'],
   ];
+  // A real failed step is needed before a missing failure branch can show.
+  const drilled = new Set(['missing failure branch', 'loop without failure branch', 'stop without return']);
   for (const [name, source, expected] of variants) {
     await t.test(name, async t => {
       const { root } = await fixture(t, { source });
       await approveHarness(root, reason);
-      const result = await assertFailed(root, expected, name === 'missing failure branch' ? { drill: 'timeout' } : undefined);
+      const result = await assertFailed(root, expected, drilled.has(name) ? { drill: 'timeout' } : undefined);
       assert.deepEqual(result.completed, []);
-      if (name === 'missing failure branch') {
+      if (drilled.has(name)) {
         const event = (await checkpoint(root)).envelope.state.events[0];
         assert.equal(event.childStarted, true);
         assert.equal(event.errorCode, 'ETIMEDOUT');
@@ -371,6 +375,13 @@ test('no-op, fabricated results, forged receipts and invalid order cannot pass',
       }
     });
   }
+});
+
+test('an unawaited record is named before the next completion check', async t => {
+  const source = 'export default async api => { await api.validate(); await api.verifyApproval(); for (const step of api.steps) { if (api.isComplete(step)) continue; const r = await api.runStep(step); api.recordResult(step, r); } await api.finish(); };';
+  const { root } = await fixture(t, { source });
+  await approveHarness(root, reason);
+  await assertFailed(root, 'UNAWAITED_OPERATION');
 });
 
 test('retry cap persists across resumes and exhaustion never starts another child', async t => {

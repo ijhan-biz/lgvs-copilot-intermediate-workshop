@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, test } from 'node:test';
+import { summarizeValidatedResults } from '../src/summary-core.mjs';
 
 export const fixtures = JSON.parse(readFileSync(new URL('../data/test-results.json', import.meta.url), 'utf8'));
 export const options = { buildId: 'BUILD-DEMO-1' };
@@ -45,6 +46,8 @@ export function registerContractTests(label, summarizeTestResults, version) {
       const summary = summarizeTestResults(results, options);
       assert.deepEqual(summary.counts, { passed: 1, failed: 1, timed_out: 1, not_run: 1 });
       assert.deepEqual(summary.rerunCandidates, version === 'v1' ? [results[1]] : results.slice(1));
+      // The approved policy lives in the entry point; the shared core must keep honoring its argument.
+      assert.deepEqual(summarizeValidatedResults(results, options.buildId, ['failed']).rerunCandidates, [results[1]]);
     });
 
     test('C3 | 정확한 반복은 한 번, 첫 원본 참조 유지', () => {

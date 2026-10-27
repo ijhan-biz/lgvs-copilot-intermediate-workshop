@@ -225,6 +225,12 @@ export async function executeHarness(root, { resume = false, drill = null } = {}
       await verifyApproval(root, initial.fingerprint);
       if (closed || aborted) fail('CLOSED_SESSION');
     };
+    // Name the learner's missing failure branch instead of a generic order error.
+    const failAfterRecordedFailure = () => {
+      if (closed) return;
+      if (phase === 'recording') fail('UNAWAITED_OPERATION');
+      if (phase === 'must-stop') fail(terminal ? 'MISSING_RETURN_AFTER_STOP' : 'MISSING_STOP_AFTER_FAILURE');
+    };
     const api = Object.freeze({
       steps: requiredSteps,
       async validate() {
@@ -238,6 +244,7 @@ export async function executeHarness(root, { resume = false, drill = null } = {}
         phase = 'approved';
       },
       isComplete(step) {
+        failAfterRecordedFailure();
         if (closed || phase !== 'approved' || !requiredSteps.includes(step)) fail('INVALID_SEQUENCE');
         return state.completed.includes(step);
       },
@@ -245,6 +252,7 @@ export async function executeHarness(root, { resume = false, drill = null } = {}
         if (!requiredSteps.includes(step)) fail('FORBIDDEN_TOOL');
         if (closed || phase !== 'approved' || terminal || aborted || pending || step !== requiredSteps[state.completed.length]) {
           aborted = true;
+          failAfterRecordedFailure();
           fail('INVALID_SEQUENCE');
         }
         // Reserve before awaiting: concurrent calls cannot spawn unrecorded children.
@@ -302,7 +310,10 @@ export async function executeHarness(root, { resume = false, drill = null } = {}
         await save();
       },
       async finish() {
-        if (closed || phase !== 'approved' || terminal || aborted || pending || !equal(state.completed, requiredSteps)) fail('INCOMPLETE_REQUIRED_STEPS');
+        if (closed || phase !== 'approved' || terminal || aborted || pending || !equal(state.completed, requiredSteps)) {
+          failAfterRecordedFailure();
+          fail('INCOMPLETE_REQUIRED_STEPS');
+        }
         await assertCurrent();
         state.status = 'passed';
         state.failure = null;
