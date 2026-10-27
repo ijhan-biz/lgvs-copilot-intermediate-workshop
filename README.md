@@ -158,6 +158,8 @@ git clone https://github.com/ijhan-biz/lgvs-copilot-intermediate-workshop.git
 cd lgvs-copilot-intermediate-workshop/example-project
 ```
 
+`npm run …` 명령은 모두 `example-project` 폴더 안에서 칩니다. 저장소 맨 위 폴더에서 치면 `cd example-project`로 이동하라는 안내만 나오고 아무것도 실행하지 않습니다(종료 1).
+
 Git을 사용하지 않는다면 GitHub의 **Code → Download ZIP**을 누르고 완전히 압축 해제합니다. 이 파일은 GitHub가 저장소에서 자동으로 만든 소스 사본입니다. 별도로 관리하는 배포 ZIP이 아닙니다. 압축 파일 안에서 바로 편집·실행하지 않습니다.
 
 어느 방법이든 같은 파일을 받습니다. `workbook.html`은 로컬 브라우저로 열고, **`example-project` 폴더만** VS Code에서 엽니다. GitHub 소스 ZIP을 받았다면 압축을 푼 상위 폴더 이름에 `-main`이 붙을 수 있습니다. 터미널이 그 안의 `example-project`를 가리키는지 확인합니다.
@@ -259,6 +261,7 @@ npm run evidence
 | [HVE 원칙으로 요구사항 정제](./HVE-Core-Discovery-Framing-요구사항-정제.html) | 요구사항 정제 필수 HVE 40분의 원칙·방법 참고 자료; 기존 실습 25분 포함, 별도 강좌 아님 |
 | `example-project/` | 작동하는 시작 코드, 합성 입력, 계약과 검사 |
 | `example-project/work-record.template.json` | 기준 사본 보존 뒤 복사해 사용하는 빈 작업 기록 양식 |
+| `package.json`, `root-hint.cjs` (맨 위) | 맨 위 폴더에서 `npm run`을 쳤을 때 `example-project`로 이동하라고 알려 주는 안내용. 실습 명령을 실행하지 않음 |
 
 워크북 입력은 자동 저장되지 않습니다. 내보낸 실제 파일을 확인하고 보관합니다. GitHub의 HTML 파일 화면은 실행되는 워크북이 아니므로 내려받아 로컬 브라우저에서 엽니다.
 

@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "description": "실습 명령은 example-project 폴더에서 실행합니다. 맨 위 폴더에서 npm run을 치면 이동할 곳만 알려 주고 실행하지 않습니다.",
+  "scripts": {
+    "harness:check": "node root-hint.cjs",
+    "harness:approve": "node root-hint.cjs",
+    "harness:run": "node root-hint.cjs",
+    "harness:drill": "node root-hint.cjs",
+    "harness:status": "node root-hint.cjs",
+    "harness:resume": "node root-hint.cjs",
+    "test:harness": "node root-hint.cjs",
+    "test": "node root-hint.cjs",
+    "test:v1": "node root-hint.cjs",
+    "test:v2": "node root-hint.cjs",
+    "demo": "node root-hint.cjs",
+    "usage:probe": "node root-hint.cjs",
+    "preflight": "node root-hint.cjs",
+    "prepare:review": "node root-hint.cjs",
+    "test:review": "node root-hint.cjs",
+    "test:learner": "node root-hint.cjs",
+    "evidence": "node root-hint.cjs",
+    "baseline": "node root-hint.cjs",
+    "compare:baseline": "node root-hint.cjs",
+    "test:transfer": "node root-hint.cjs",
+    "readiness:check": "node root-hint.cjs"
+  }
+}
