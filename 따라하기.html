@@ -98,7 +98,9 @@ code, pre { font-family: var(--mono); }
 .whyline b { font: 800 20px var(--display); }
 .whyline i { font-style: normal; color: var(--muted); font-weight: 700; }
 .whynot { font-size: 14px; color: var(--muted); }
-.whynot b { color: var(--ink); margin-right: 4px; }
+.whynot b { color: var(--ink); margin-right: 6px; }
+.t-q { font: 800 22px var(--display); fill: var(--stop); }
+.f-mute { fill: var(--muted); }
 
 /* 하루 지도 */
 .map { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0; position: relative; }
@@ -267,83 +269,79 @@ footer code { background: var(--tint); color: var(--ink); padding: 0 5px; border
   <p class="eyebrow">GITHUB COPILOT 중급과정 · 2026년 10월 28일 · 수강생용</p>
   <h1>오늘 수업을,<br><mark>한 장씩</mark> 따라 하기.</h1>
   <section class="why" id="why" aria-labelledby="why-h">
-    <h2 id="why-h">이 따라하기는 무엇을 하려는 걸까요?</h2>
-    <p class="why-one">Copilot 같은 AI에게 일을 맡기면서도, <b>무엇이 맞는지는 내가 확인하는</b> 연습이에요. 작은 도구 하나를 하루 동안 고치며 해 봐요.</p>
+    <h2 id="why-h">어떤 일의, 무엇을 고치나요?</h2>
+    <p class="why-one"><b>소프트웨어 검사 결과를 정리하는 일</b>에서, <b>다시 볼 검사를 고르는 기준</b>을 고쳐요.</p>
     <ol class="whygrid">
       <li class="whycard">
-        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="검사 결과 여러 줄을 깔때기 도구로 걸러 다시 볼 후보 두 줄을 고르는 그림">
-          <rect x="12" y="18" width="76" height="112" rx="8" class="f-card s"/>
-          <rect x="24" y="28" width="52" height="8" rx="3" class="f-tint s-thin"/>
-          <rect x="24" y="40" width="52" height="8" rx="3" class="f-stop"/>
-          <rect x="24" y="52" width="52" height="8" rx="3" class="f-tint s-thin"/>
-          <rect x="24" y="64" width="52" height="8" rx="3" class="f-dim"/>
-          <rect x="24" y="76" width="52" height="8" rx="3" class="f-tint s-thin"/>
-          <rect x="24" y="88" width="52" height="8" rx="3" class="f-stop"/>
-          <rect x="24" y="100" width="52" height="8" rx="3" class="f-tint s-thin"/>
-          <rect x="24" y="112" width="52" height="8" rx="3" class="f-tint s-thin"/>
-          <path d="M96 74h18" class="s f-none"/><path d="M108 66l9 8-9 8" class="s f-none"/>
-          <path d="M124 34h64l-22 36v30l-20 12V70z" class="f-marker s"/>
-          <path d="M196 74h18" class="s f-none"/><path d="M208 66l9 8-9 8" class="s f-none"/>
-          <rect x="224" y="38" width="64" height="72" rx="8" class="f-card s"/>
-          <rect x="234" y="56" width="44" height="10" rx="3" class="f-stop"/>
-          <rect x="234" y="76" width="44" height="10" rx="3" class="f-stop"/>
-          <text x="50" y="156" text-anchor="middle" class="t">검사 결과</text>
-          <text x="156" y="156" text-anchor="middle" class="t">도구</text>
-          <text x="254" y="156" text-anchor="middle" class="t">다시 볼 후보</text>
+        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="새 빌드를 검사하면 통과, 실패, 시간 초과, 미실행 결과가 쌓이는 그림">
+          <rect x="14" y="50" width="72" height="58" rx="6" class="f-tint s"/>
+          <path d="M14 68h72" class="s f-none"/>
+          <rect x="36" y="80" width="28" height="16" rx="3" class="f-card s-thin"/>
+          <path d="M94 79h18" class="s f-none"/><path d="M106 71l9 8-9 8" class="s f-none"/>
+          <text x="104" y="62" text-anchor="middle" class="t-s">검사</text>
+          <rect x="124" y="16" width="164" height="122" rx="8" class="f-card s"/>
+          <circle cx="142" cy="36" r="7" class="f-go"/><text x="156" y="41" class="t-s">통과</text>
+          <circle cx="142" cy="64" r="7" class="f-stop"/><text x="156" y="69" class="t-s">실패</text>
+          <circle cx="142" cy="92" r="7" class="f-mute"/><text x="156" y="97" class="t-s">시간 초과</text>
+          <circle cx="142" cy="120" r="6" class="f-none s-thin" stroke-dasharray="3 2"/><text x="156" y="125" class="t-s">미실행</text>
+          <path d="M222 36h52M222 64h40M222 92h48M222 120h36" class="s-thin f-none" stroke-dasharray="2 4"/>
+          <text x="50" y="158" text-anchor="middle" class="t">새 빌드</text>
+          <text x="206" y="158" text-anchor="middle" class="t">검사 결과</text>
         </svg></div>
         <div class="whytxt">
-          <b class="kind">무엇을</b>
-          <strong>검사 결과를 정리하는 작은 도구</strong>
-          <span>검사 결과 8줄을 읽어 건수를 세고, 다시 볼 후보를 골라요. 앱을 새로 만들지 않고 이 도구 하나만 고쳐요.</span>
+          <b class="kind">어떤 일</b>
+          <strong>빌드 검사 결과 정리</strong>
+          <span>새 빌드마다 음량·재생 목록·블루투스 같은 기능을 검사해요. 쌓인 결과에서 다시 볼 검사를 골라 주는 작은 도구가 실습 대상이에요.</span>
         </div>
       </li>
       <li class="whycard">
-        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="AI의 제안 말풍선을 내가 손으로 센 값과 맞춰 보고 신호등 0을 확인하는 그림">
-          <path d="M24 20h90a10 10 0 0 1 10 10v50a10 10 0 0 1-10 10H52l-16 16V90H24a10 10 0 0 1-10-10V30a10 10 0 0 1 10-10z" class="f-tint s"/>
-          <path d="M30 40h76M30 54h52M30 68h64" class="s-thin f-none"/>
-          <path d="M132 55h18" class="s f-none"/><path d="M144 47l9 8-9 8" class="s f-none"/>
-          <rect x="160" y="22" width="62" height="78" rx="6" class="f-card s"/>
-          <path d="M174 38v20M182 38v20M190 38v20M198 38v20M168 54l38-12" class="s f-none"/>
-          <circle cx="206" cy="80" r="16" class="f-none s"/>
-          <path d="M218 92l12 12" class="s f-none" stroke-width="6"/>
-          <rect x="244" y="18" width="44" height="90" rx="12" class="f-ink"/>
-          <circle cx="266" cy="41" r="13" class="f-dim"/>
-          <circle cx="266" cy="83" r="15" class="f-go"/>
-          <text x="266" y="91" text-anchor="middle" class="t-sig">0</text>
-          <text x="69" y="156" text-anchor="middle" class="t">AI 제안</text>
-          <text x="191" y="156" text-anchor="middle" class="t">내가 확인</text>
-          <text x="266" y="156" text-anchor="middle" class="t">성공</text>
+        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="지금은 실패만 후보 상자에 들어가고, 시간 초과와 미실행은 빠지는 그림">
+          <rect x="14" y="18" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="30" r="7" class="f-go"/><text x="44" y="35" class="t-s">통과</text>
+          <rect x="14" y="48" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="60" r="7" class="f-stop"/><text x="44" y="65" class="t-s">실패</text>
+          <rect x="14" y="78" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="90" r="7" class="f-mute"/><text x="44" y="95" class="t-s">시간 초과</text>
+          <rect x="14" y="108" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="120" r="6" class="f-none s-thin" stroke-dasharray="3 2"/><text x="44" y="125" class="t-s">미실행</text>
+          <text x="160" y="98" text-anchor="middle" class="t-q">?</text>
+          <text x="160" y="128" text-anchor="middle" class="t-q">?</text>
+          <path d="M148 60h38" class="s f-none"/><path d="M180 52l9 8-9 8" class="s f-none"/>
+          <rect x="198" y="44" width="90" height="92" rx="10" class="f-marker s"/>
+          <rect x="212" y="58" width="62" height="16" rx="8" class="f-stop"/>
+          <text x="78" y="158" text-anchor="middle" class="t">검사 결과</text>
+          <text x="243" y="158" text-anchor="middle" class="t">후보</text>
         </svg></div>
         <div class="whytxt">
-          <b class="kind">어떻게</b>
-          <strong>AI는 제안, 확인은 내가</strong>
-          <span>Copilot의 답을 손으로 센 값과 검사 결과에 맞춰 봐요. 바꾸라는 요청이 와도 승인받은 만큼만 고쳐요.</span>
+          <b class="kind">지금 (v1)</b>
+          <strong>실패만 후보로 골라요</strong>
+          <span>시간 초과와 미실행은 통과가 아닌데도 후보에서 빠져요. 다시 봐야 할 검사를 놓칠 수 있어요.</span>
         </div>
       </li>
       <li class="whycard">
-        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="남긴 기록 세 개가 든 폴더를 다음 사람에게 넘기는 그림">
-          <path d="M12 34h46l10 12h82v84H12z" class="f-marker s"/>
-          <rect x="26" y="56" width="110" height="18" rx="9" class="f-card s-thin"/>
-          <rect x="26" y="80" width="110" height="18" rx="9" class="f-card s-thin"/>
-          <rect x="26" y="104" width="110" height="18" rx="9" class="f-card s-thin"/>
-          <text x="81" y="69" text-anchor="middle" class="t-s">내 검사</text>
-          <text x="81" y="93" text-anchor="middle" class="t-s">README 완성란</text>
-          <text x="81" y="117" text-anchor="middle" class="t-s">handoff.txt</text>
-          <path d="M160 82h22" class="s f-none"/><path d="M176 74l9 8-9 8" class="s f-none"/>
-          <circle cx="240" cy="56" r="17" class="f-card s"/>
-          <path d="M208 130c0-28 14-44 32-44s32 16 32 44z" class="f-tint s"/>
-          <text x="81" y="156" text-anchor="middle" class="t">남긴 기록</text>
-          <text x="240" y="156" text-anchor="middle" class="t">다음 사람</text>
+        <div class="pic"><svg viewBox="0 0 300 170" role="img" aria-label="승인 도장을 받은 뒤 실패, 시간 초과, 미실행이 모두 후보 상자에 들어가는 그림">
+          <rect x="14" y="18" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="30" r="7" class="f-go"/><text x="44" y="35" class="t-s">통과</text>
+          <rect x="14" y="48" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="60" r="7" class="f-stop"/><text x="44" y="65" class="t-s">실패</text>
+          <rect x="14" y="78" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="90" r="7" class="f-mute"/><text x="44" y="95" class="t-s">시간 초과</text>
+          <rect x="14" y="108" width="128" height="24" rx="12" class="f-card s-thin"/><circle cx="30" cy="120" r="6" class="f-none s-thin" stroke-dasharray="3 2"/><text x="44" y="125" class="t-s">미실행</text>
+          <path d="M150 48q8 0 8 10v22q0 10 8 10q-8 0-8 10v22q0 10-8 10" class="s f-none"/>
+          <path d="M170 90h18" class="s f-none"/><path d="M182 82l9 8-9 8" class="s f-none"/>
+          <rect x="198" y="44" width="90" height="92" rx="10" class="f-marker s"/>
+          <rect x="212" y="58" width="62" height="16" rx="8" class="f-stop"/>
+          <rect x="212" y="82" width="62" height="16" rx="8" class="f-mute"/>
+          <rect x="212" y="106" width="62" height="16" rx="8" class="f-card s-thin" stroke-dasharray="3 2"/>
+          <rect x="206" y="4" width="14" height="12" rx="4" class="f-ink"/><path d="M209 16v7h8v-7" class="f-ink"/>
+          <rect x="199" y="23" width="28" height="9" rx="3" class="f-card s-thin"/>
+          <text x="234" y="32" class="t-s">승인 뒤</text>
+          <text x="78" y="158" text-anchor="middle" class="t">검사 결과</text>
+          <text x="243" y="158" text-anchor="middle" class="t">후보</text>
         </svg></div>
         <div class="whytxt">
-          <b class="kind">남는 것</b>
-          <strong>남이 이어받을 수 있는 기록</strong>
-          <span>고친 도구와 내 검사, <code>README.txt</code> 완성란, <code>handoff.txt</code>. 내가 없어도 다음 사람이 그대로 다시 돌려 봐요.</span>
+          <b class="kind">고친 뒤 (v2)</b>
+          <strong>시간 초과·미실행도 후보로</strong>
+          <span>13:45 변경 요청을 사람이 승인한 뒤에만 넓혀요. 건수 세기, 중복 정리, 입력 검사는 그대로예요.</span>
         </div>
       </li>
     </ol>
-    <p class="whyline"><span>한 줄로</span><b>AI에게 맡기고</b><i aria-hidden="true">→</i><b>내가 확인하고</b><i aria-hidden="true">→</i><b>기록으로 남긴다</b></p>
-    <p class="whynot"><b>하지 않는 것</b>새 앱 만들기 · 검사를 실제로 다시 돌리기 · 출시 승인</p>
+    <p class="whyline"><span>고치는 방법</span><b>AI가 제안하고</b><i aria-hidden="true">→</i><b>내가 확인하고</b><i aria-hidden="true">→</i><b>기록으로 남긴다</b></p>
+    <p class="whynot"><b>후보란</b>사람이 다시 볼 검사 목록이에요. 이 도구가 검사를 실제로 다시 돌리거나 출시를 승인하지는 않아요.</p>
+    <p class="whynot"><b>함께 만드는 것</b>이 도구를 검사하고 실패하면 멈추는 내 작업 순서(하네스). 일부러 실패시켜 확인해요.</p>
   </section>
   <p class="lead">준비 한 장과 그림 8장을 차례로 넘기며 칩니다. 칠 명령과 나오면 되는 신호가 함께 있어요. 기록은 테스트와 <code>README.txt</code>·<code>handoff.txt</code>에 해요. 수업 중에 볼 화면은 이 페이지 하나예요.</p>
   <div class="firstnote">
