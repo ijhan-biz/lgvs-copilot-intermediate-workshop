@@ -165,7 +165,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
 .eli5 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
 .eli5 > div { border: 1px solid var(--cp-border); border-radius: 12px; padding: 16px; background: var(--cp-surface); }
 .eli5 svg { width: 48px; height: 48px; display: block; margin-bottom: 8px; }
-.eli5 h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.eli5 .eli5-title { margin: 0 0 6px; font-size: 1.05rem; font-weight: 700; }
 .eli5 p { margin: 0; }
 .e-fill { fill: var(--cp-accent-soft); stroke: var(--cp-accent); stroke-width: 2.5; }
 .e-line { fill: none; stroke: var(--cp-text); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
@@ -266,11 +266,11 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
   <p class="eyebrow">개발자 · QA를 위한 읽기 교재</p>
   <h1>HVE-Core 원칙을 활용한<br>요구사항 정제</h1>
   <p class="lead">요청을 곧바로 기능 목록으로 바꾸지 않고, 사용자의 판단·근거·확인 책임을 담은 초안으로 정리합니다.</p>
-  <p><strong>요구사항 정제 단계의 필수 내용</strong>입니다. HVE 프레임워크를 설치하거나 실행하지 않고 원칙만 손으로 적용합니다. 기존 프로젝트의 첫 개인 테스트는 실제로 실행합니다. 별도 활동이나 제출물을 더하지 않습니다.</p>
+  <p><strong>요구사항 정제 단계의 필수 내용</strong>입니다. HVE 프레임워크 없이 원칙만 손으로 적용하며, 설치하거나 실행할 것은 없습니다. 기존 프로젝트의 첫 개인 테스트는 실제로 실행합니다. 별도 활동이나 제출물을 더하지 않습니다.</p>
   <div class="eli5" aria-label="한눈에 보기">
-    <div><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" class="e-fill"/><path d="M18 18a6 6 0 1 1 9 5c-2 1-3 2-3 5" class="e-line"/><circle cx="24" cy="35" r="2" class="e-dot"/></svg><h3>왜 필요한가</h3><p>짧은 요청에는 <strong>누가, 언제, 무엇을 판단하는지</strong>가 빠져 있습니다. 그대로 만들면 같은 말을 서로 다르게 이해합니다.</p></div>
-    <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 36c8-12 14 4 22-8s10-12 14-12" class="e-line"/><circle cx="6" cy="36" r="4" class="e-dot"/><circle cx="28" cy="28" r="4" class="e-dot"/><circle cx="42" cy="16" r="4" class="e-dot"/></svg><h3>무엇을 하나</h3><p>범위를 좁히고 → 최근 작업을 살피고 → 기록을 묶어 문제 가설을 세운 뒤 → <strong>여섯 칸 초안</strong>을 만들어 → 확인할 사람에게 넘깁니다.</p></div>
-    <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 5h14l12 12v14L31 43H17L5 31V17z" class="e-stop"/><path d="M15 24h18" class="e-white"/></svg><h3>무엇이 아닌가</h3><p>실제 인터뷰·사용자 검증·조직 승인·구현 허가가 <strong>아닙니다</strong>. 근거와 빈칸을 설명할 수 있는 검토 초안까지 갑니다.</p></div>
+    <div><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" class="e-fill"/><path d="M18 18a6 6 0 1 1 9 5c-2 1-3 2-3 5" class="e-line"/><circle cx="24" cy="35" r="2" class="e-dot"/></svg><p class="eli5-title">왜 필요한가</p><p>짧은 요청에는 <strong>누가, 언제, 무엇을 판단하는지</strong>가 빠져 있습니다. 그대로 만들면 같은 말을 서로 다르게 이해합니다.</p></div>
+    <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 36c8-12 14 4 22-8s10-12 14-12" class="e-line"/><circle cx="6" cy="36" r="4" class="e-dot"/><circle cx="28" cy="28" r="4" class="e-dot"/><circle cx="42" cy="16" r="4" class="e-dot"/></svg><p class="eli5-title">무엇을 하나</p><p>범위를 좁히고 → 최근 작업을 살피고 → 기록을 묶어 문제 가설을 세운 뒤 → <strong>여섯 칸 초안</strong>을 만들어 → 확인할 사람에게 넘깁니다.</p></div>
+    <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 5h14l12 12v14L31 43H17L5 31V17z" class="e-stop"/><path d="M15 24h18" class="e-white"/></svg><p class="eli5-title">무엇이 아닌가</p><p>실제 인터뷰·사용자 검증·조직 승인·구현 허가가 <strong>아닙니다</strong>. 근거와 빈칸을 설명할 수 있는 검토 초안까지 갑니다.</p></div>
   </div>
   <dl class="glossary" aria-label="쉬운 말 풀이">
     <div><dt>HVE 원칙</dt><dd>해결책보다 사람과 문제를 먼저 이해하자는 생각입니다.</dd></div>
@@ -287,7 +287,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
     <button id="notes-toggle" type="button" aria-pressed="false">모든 강사 노트 열기</button>
     <button id="print-lecture" type="button">전체 내용 인쇄</button>
   </div>
-  <noscript><p>스크립트 없이도 본문·목차·접기 설명을 읽을 수 있습니다. 인쇄 스타일은 닫힌 상세도 표시합니다. 빈 여섯 칸은 생각을 정리하는 선택 도구이며 따로 적어 내거나 워크북에 옮길 필요가 없습니다.</p></noscript>
+  <noscript><p>스크립트 없이도 본문·목차·접기 설명을 읽을 수 있습니다. 인쇄 스타일은 닫힌 상세도 표시합니다. 빈 여섯 칸은 생각을 정리하는 선택 도구이며 따로 적어 내거나 다른 문서에 옮길 필요가 없습니다.</p></noscript>
 </header>
 
 <section id="overview" aria-labelledby="overview-title" data-slides="1,2,3,4,5,6,7,8">
@@ -474,7 +474,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
 <section id="requirements" aria-labelledby="requirements-title" data-slides="13,14,15,16,17,18,19,20">
   <p class="time">5 · 여섯 칸 초안</p>
   <h2 id="requirements-title">근거·경계·행동이 보이는 여섯 칸 초안</h2>
-  <p>다음 여섯 칸은 <strong>생각을 정리하는 틀</strong>입니다. 공식 HVE 형식도 제출물도 아니며, 따로 적어 두거나 워크북에 옮길 필요가 없습니다. 조사 가설과 기존 계약 사실을 섞지 않는 것이 문서 모양보다 중요합니다.</p>
+  <p>다음 여섯 칸은 <strong>생각을 정리하는 틀</strong>입니다. 공식 HVE 형식도 제출물도 아니며, 따로 적어 두거나 다른 문서에 옮길 필요가 없습니다. 조사 가설과 기존 계약 사실을 섞지 않는 것이 문서 모양보다 중요합니다.</p>
   <article class="draft" id="requirement-draft" aria-labelledby="draft-title">
     <h3 id="draft-title">채운 예시 · 실제 검증 전 검토용</h3>
     <dl class="six-fields">
@@ -533,7 +533,7 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--cp-surfa
   <p><strong>실행 결과는 실제 실행 뒤에만 말합니다.</strong> 실행 전 기대값이나 가상 관찰을 결과처럼 말하지 않습니다.</p>
   <article class="draft blank" id="blank-form" aria-labelledby="blank-title">
     <h3 id="blank-title">빈 한 장 · 생각 정리용</h3>
-    <p>읽거나 인쇄해 생각을 정리하는 한 장입니다. 화면 입력·저장 기능은 없고, 적어 내거나 워크북에 옮길 필요도 없습니다.</p>
+    <p>읽거나 인쇄해 생각을 정리하는 한 장입니다. 화면 입력·저장 기능은 없고, 적어 내거나 다른 문서에 옮길 필요도 없습니다.</p>
     <dl class="six-fields">
       <dt>사용자와 판단</dt><dd><span class="writing-line">누가, 언제, 무엇을 판단하나요?</span></dd>
       <dt>근거와 출처</dt><dd><span class="writing-line">어떤 원문·관찰·계약인가요? 가상 자료와 확인된 규칙을 구분하세요.</span></dd>
@@ -661,7 +661,7 @@ rerunCandidates: media/TC-102 → connectivity/TC-101</pre>
   <ul>
     <li><a href="example-project/contract.txt">공개 함수 계약</a>과 <a href="example-project/data/test-results.json">합성 입력</a>: 수업 행동 사실의 기준이며 실제 고객 필요의 근거가 아닙니다.</li>
     <li><a href="example-project/domain-behavior.txt">도메인과 행동 검증 안내</a>: 용어·책임·예시를 후속 단계에서 대조할 때 읽습니다. 이 강의의 실행 과제가 아닙니다.</li>
-    <li><a href="workbook.html#course-journey">전체 교육 흐름과 참가자 워크북</a> — 본과정의 기존 경로를 확인할 때 사용합니다. 이 강의가 본과정 흐름을 바꾸지 않습니다.</li>
+    <li><a href="따라하기.html">그림 따라하기</a> — 본과정의 기존 경로를 확인할 때 사용합니다. 이 강의가 본과정 흐름을 바꾸지 않습니다.</li>
   </ul>
   <p>대화·관찰·문제 문장·도표·여섯 칸 양식은 저자가 교육용으로 재구성했습니다. 준비된 허구는 실제 인터뷰나 독립 실증 근거가 아닙니다. 원문 전체·로고·외부 이미지를 복제하지 않았으며, 실제 고객 조사·사용자 검증·조직 승인·구현·효과 개선을 수행했다는 주장은 하지 않습니다.</p>
 </section>

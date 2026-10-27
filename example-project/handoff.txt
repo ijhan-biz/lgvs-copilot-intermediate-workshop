@@ -1,6 +1,6 @@
 내 실행 안내 — 다음 사람이 이 파일만 보고 이어받는 곳
 =====================================================
-오늘의 기록은 프로젝트 안에만 남긴다. 워크북이나 따로 적는 양식은 없다.
+오늘의 기록은 프로젝트 안에만 남긴다. 따로 적는 기록장이나 양식은 없다.
   기대값      → test/learner.test.mjs, test/transfer.test.mjs (실행 전에 먼저 쓴다)
   하네스 승인 → npm run harness:approve -- --reason "직접 검토한 범위와 이유"가 .harness에 남긴다
   실행 결과   → 명령 출력, evidence/v2-*.json, npm run harness:status

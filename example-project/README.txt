@@ -84,7 +84,7 @@ domain-behavior.txt 3~5절의 공개 예시·실제 검사 제목·명령 설명
 
 기록 정책 — 프로젝트 파일에만 남긴다
 -----------------------------------
-따로 적는 워크북이나 JSON 양식은 없다. 기록은 일을 하면서 생기는 파일에 남긴다.
+따로 적는 기록장이나 JSON 양식은 없다. 기록은 일을 하면서 생기는 파일에 남긴다.
   기대값: 실행 전에 테스트 파일에 먼저 쓴다(test/learner.test.mjs, test/transfer.test.mjs).
   하네스 승인: harness:approve의 --reason이 이유·시각·fingerprint로 .harness에 남는다.
   실행 결과: 명령 출력, evidence/v2-*.json, harness:status.

@@ -4,7 +4,7 @@ Agentic SDLC with Github Copilot
 실습: 테스트 결과 정리 도구 · 합성 자료의 요약·검토 후보·인계
 
 필수 하네스 구축·운영
-  workbook.html#harness-lab에서 세 학습자 파일·명령·시간 배분을 확인합니다.
+  따라하기.html의 3장과 5–8장에서 세 학습자 파일·명령·시간을 확인합니다.
   harness/instructions.txt는 맥락 선택 10분에, workflow.json·run.mjs는 오후 구축 25분에
   직접 작성합니다. 제공 부품을 연결하는 순서·기록·실패 중단 분기는 본인이 만듭니다.
   시작본 harness:check 실패는 TODO 미완성의 예상 상태입니다. 기존 v1 npm test 16개 통과와 다릅니다.
@@ -49,7 +49,7 @@ Agentic SDLC with Github Copilot
 전체 흐름을 먼저 읽으실 때
   README.md의 ‘하루의 학습 흐름’ 연결도와 일곱 단계 설명 → 이 시작 안내 →
   example-project/domain-behavior.txt의 용어·예시와 contract.txt/공개 입력 →
-  현재 단계의 example-project/README.txt 순서로 읽습니다. workbook.html은 단계 설명을 읽는 안내서이며 입력 칸이 없습니다.
+  현재 단계의 example-project/README.txt 순서로 읽습니다. 수업 중 화면은 따라하기.html 하나입니다.
   요청의 뜻과 기대값을 정해야 AI에게 줄 근거를 고를 수 있고, 그 근거가 있어야 변경 계획을 세울 수 있습니다.
   계획은 구현 허가가 아닙니다. 13:45 공개와 사람 승인 후에만 후보 범위를 바꿉니다.
   보존할 동작과 별도 사본의 실패를 확인한 뒤 원인을 좁혀 복구하고, 자기 안내서로 다시 실행해 인계합니다.
@@ -62,9 +62,9 @@ Agentic SDLC with Github Copilot
   1. 공개 저장소를 git clone하거나 GitHub Code → Download ZIP 소스 압축을 모두 풉니다.
      사전 연습은 별도 사본에서 npm run readiness:check로 의도적 실패→편집·저장·재실행을 확인합니다.
      수업용은 새 clone 또는 GitHub 소스 ZIP 다운로드·압축 해제로 새 사본을 준비합니다.
-  2. workbook.html은 브라우저로 읽고, example-project만 VS Code로 엽니다.
+  2. 따라하기.html은 브라우저로 열고, example-project만 VS Code로 엽니다.
      프로젝트 터미널에서 npm run preflight → npm test. 첫 편집 전 npm run baseline.
-  3. 기록은 프로젝트 파일에만 남깁니다. 따로 적는 워크북·JSON 양식은 없습니다.
+  3. 기록은 프로젝트 파일에만 남깁니다. 따로 적는 기록장·JSON 양식은 없습니다.
      기대값은 테스트, 목적·변경 이유·실제 결과·제한은 README.txt 맨 끝 [학습자 완성란],
      계획·하네스 근거·원인 가설·받은 도움·미확인·다음 행동은 handoff.txt에 씁니다.
      README·handoff는 하네스 fingerprint 대상이라 15:30 승인부터 16:38 재개 확인까지는 열어 보기만 하고,
@@ -139,7 +139,7 @@ Agentic SDLC with Github Copilot
    새 사본을 받습니다. 후자는 GitHub가 만드는 소스 압축이며 별도 제작 교육 ZIP이 아닙니다.
    소스 ZIP은 새 폴더에 모두 압축 해제하고 내부 미리보기에서 실행하지 않습니다.
    두 경로의 추적 파일은 같습니다.
-   workbook.html은 브라우저로 엽니다.
+   따라하기.html은 브라우저로 엽니다.
    VS Code에서는 새 사본의 example-project 폴더만 엽니다.
    터미널 작업 위치 역시 example-project여야 합니다.
    통합 안내인 example-project/README.txt를 먼저 읽고 실제 경로를 확인합니다.
@@ -155,7 +155,7 @@ Agentic SDLC with Github Copilot
    preflight는 Node 확인과 수동 점검 질문을 출력합니다. 폴더·필수 파일·Copilot 로그인·조직 권한은 자동 검사하지 않습니다.
    실패하면 위치·Node 버전·오류를 기록하고 지원을 받습니다.
 
-3. 기록은 프로젝트 파일에만 남깁니다. 따로 적는 워크북이나 JSON 양식은 없습니다.
+3. 기록은 프로젝트 파일에만 남깁니다. 따로 적는 기록장이나 JSON 양식은 없습니다.
    기대값은 테스트, 목적·변경 이유·실제 결과·제한은 README.txt [학습자 완성란],
    계획·하네스 근거·원인 가설·받은 도움·미확인·다음 행동은 handoff.txt, 하네스 승인은 .harness,
    실행 결과는 출력과 evidence에 남습니다. 같은 내용을 두 곳에 다시 쓰지 않습니다.
@@ -370,7 +370,7 @@ Agentic SDLC with Github Copilot
    80회는 내부 호출을 포함한 모듈별 계획이지 실측이 아닙니다.
    769.6을 500 Credit 단위로 올림한 1,000/인·50,000/50명은 준비량이며 청구액이 아닙니다.
 
-8. 워크북은 읽기 안내서입니다. 입력 칸·내보내기·가져오기가 없습니다.
+8. 수업 화면은 따라하기.html 하나입니다. 따로 내보내거나 가져올 기록 양식은 없습니다.
    기록은 example-project의 테스트·README.txt·handoff.txt에 저장하고 다시 열어 확인합니다.
    README·handoff는 하네스 fingerprint 대상입니다. 15:30 승인부터 16:38 재개 확인까지는 열어 보기만 하고,
    그동안의 원인 가설은 review/summarize-results.mjs 맨 위 주석, 하네스 경로는 .harness에 둡니다.
@@ -393,7 +393,7 @@ Agentic SDLC with Github Copilot
 
 코드 품질 원칙
 앞에서 요구·계획·개발에 적용한 domain-behavior.txt의 용어·행동·검사 연결을 계속 사용합니다.
-워크북의 ‘코드 품질’에서 DDD·YAGNI·클린 코드·BDD의 작은 판단 질문을 사용합니다.
+example-project/quality-guide.txt의 짧은 카드에서 DDD·YAGNI·클린 코드·BDD의 작은 판단 질문을 사용합니다.
 전체 DDD 설계나 BDD 도구 숙달·인증 과정이 아닙니다.
 라이브러리 8개·스킬 4개 상세 비교는 닫힌 ‘선택 참고’이며 필수 읽기가 아닙니다.
 필수 실습에는 선택 라이브러리나 외부 스킬을 설치하지 않습니다.
@@ -413,7 +413,7 @@ example-project/quality-guide.txt와 quality-workflows.json은 수동 카드이�
 검토 깊이는 변경마다 다릅니다. 계획과 검증 기준의 기존 계획 시간 안에서 이번 후보 범위 변경의
 검토 경로·근거·사람이 집중할 부분을 handoff [계획]에 짧게 둡니다.
 자가 검증과 결과 정리에는 현재 변경의 핵심 의미·영향 검토 또는 보완 대기 판단을 확인합니다. 가상 PR 카드 전체·WIP·감사는
-워크북의 닫힌 ‘선택 참고’입니다. 실제 PR 생성이나 자동 승인 실습은 아닙니다.
+강사 해설에서만 다루는 선택 참고입니다. 실제 PR 생성이나 자동 승인 실습은 아닙니다.
 정보/검증이 부족하면 보완을 기다리고, 전문성이 필요하면 상세 검토를 요청합니다.
 범위가 분명한 변경은 핵심 의미·영향을 살피며, 사전 허용 정형 작업도 필수 승인·검사를 우회하지 않습니다.
 CI 초록불·작은 diff·AI 확신만으로 저위험을 확정하지 않습니다.
