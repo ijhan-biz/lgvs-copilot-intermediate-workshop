@@ -63,6 +63,7 @@ Agentic SDLC with Github Copilot
      사전 연습은 별도 사본에서 npm run readiness:check로 의도적 실패→편집·저장·재실행을 확인합니다.
      수업용은 새 clone 또는 GitHub 소스 ZIP 다운로드·압축 해제로 새 사본을 준비합니다.
   2. 따라하기.html은 브라우저로 열고, example-project만 VS Code로 엽니다.
+     Windows 명령 프롬프트(cmd)라면 따라하기-윈도우.html을 엽니다.
      프로젝트 터미널에서 npm run preflight → npm test. 첫 편집 전 npm run baseline.
   3. 기록은 프로젝트 파일에만 남깁니다. 따로 적는 기록장·JSON 양식은 없습니다.
      기대값은 테스트, 목적·변경 이유·실제 결과·제한은 README.txt 맨 끝 [학습자 완성란],
