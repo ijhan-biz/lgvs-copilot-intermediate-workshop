@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="t d">
+<title id="t">AI의 답을 원문과 대조하고 근거를 남기는 하루</title>
+<desc id="d">왼쪽은 답을 내놓는 AI, 가운데는 그 답을 계약 원문과 돋보기로 대조하는 사람, 오른쪽은 맡긴 것·확인한 것·남은 것을 적은 기록장입니다.</desc>
+<style>
+.bg{fill:#FFFFFF;stroke:#CED4DF;stroke-width:2}
+.s{stroke:#17202D;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill:none}
+.card{fill:#FFFFFF}.tint{fill:#E6EBF4}.mk{fill:#FFD54A}.go{fill:#1C9A55}.stop{fill:#D6453B}.ink{fill:#17202D}
+text{font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;fill:#17202D}
+.h{font-size:26px;font-weight:800}.m{font-size:20px;font-weight:800}.sm{font-size:16px;font-weight:600;fill:#5B6679}.b{font-size:17px;font-weight:700}
+</style>
+<rect x="1" y="1" width="958" height="358" rx="22" class="bg"/>
+<text x="480" y="48" text-anchor="middle" class="h">AI에게 맡긴 것과 내가 확인한 것을 말하는 하루</text>
+
+<!-- AI -->
+<path d="M58 92h196a14 14 0 0 1 14 14v44a14 14 0 0 1-14 14H150l-18 18v-18H58a14 14 0 0 1-14-14v-44a14 14 0 0 1 14-14z" class="card s"/>
+<text x="156" y="134" text-anchor="middle" class="b">“이렇게 하면 돼요”</text>
+<path d="M156 196v-14" class="s"/><circle cx="156" cy="196" r="7" class="mk s"/>
+<rect x="100" y="204" width="112" height="88" rx="18" class="tint s"/>
+<circle cx="134" cy="244" r="10" class="ink"/><circle cx="178" cy="244" r="10" class="ink"/>
+<path d="M136 270h40" class="s"/>
+<text x="156" y="326" text-anchor="middle" class="m">AI의 답</text>
+
+<path d="M292 248h62" class="s"/><path d="M342 236l14 12-14 12" class="s"/>
+
+<!-- 사람이 대조 -->
+<path d="M384 106h92l20 20v130H384z" class="card s"/>
+<path d="M400 142h70M400 162h70M400 182h52" class="s" stroke-width="2"/>
+<text x="440" y="240" text-anchor="middle" class="sm">계약</text>
+<circle cx="520" cy="196" r="38" class="card s" stroke-width="5"/>
+<path d="M547 224l30 30" class="s" stroke-width="10"/>
+<path d="M506 194l10 10 18-22" class="s" stroke="#1C9A55" stroke-width="5"/>
+<text x="480" y="326" text-anchor="middle" class="m">원문과 대조</text>
+
+<path d="M606 248h62" class="s"/><path d="M656 236l14 12-14 12" class="s"/>
+
+<!-- 기록 -->
+<rect x="702" y="92" width="214" height="208" rx="14" class="card s"/>
+<rect x="770" y="80" width="78" height="26" rx="8" class="mk s"/>
+<rect x="726" y="132" width="24" height="24" rx="5" class="go"/><path d="M732 144l5 5 9-11" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+<text x="762" y="151" class="b">맡긴 것</text>
+<rect x="726" y="182" width="24" height="24" rx="5" class="go"/><path d="M732 194l5 5 9-11" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+<text x="762" y="201" class="b">직접 확인한 것</text>
+<rect x="726" y="232" width="24" height="24" rx="5" class="mk s" stroke-width="2"/>
+<text x="762" y="251" class="b">아직 모르는 것</text>
+<text x="809" y="326" text-anchor="middle" class="m">근거를 남김</text>
+</svg>

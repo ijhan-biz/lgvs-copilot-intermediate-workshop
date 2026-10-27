@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="t d">
+<title id="t">하루 지도 · 09:00–18:00</title>
+<desc id="d">강의 여덟 개가 차례로 놓인 길입니다. 시작 09:00, 문제와 기준 09:20, 맥락 10:20, 계획 11:20, 점심 뒤 변경과 구현 13:20, 검증 15:00, 수정과 재검증 16:00, 인계 16:50. 13:45 변경 요청, 16:38 혼자 풀기, 17:10 여섯 명령, 17:25 답안 공개 조건이 빨간 꼬리표로 표시됩니다.</desc>
+<style>
+.bg{fill:#FFFFFF;stroke:#CED4DF;stroke-width:2}
+.s{stroke:#17202D;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill:none}
+.card{fill:#FFFFFF}.mk{fill:#FFD54A}.stop{fill:#D6453B}.ink{fill:#17202D}
+text{font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;fill:#17202D}
+.h{font-size:24px;font-weight:800}.n{font-size:20px;font-weight:800}.t{font-size:14px;font-weight:600;fill:#5B6679}.b{font-size:15px;font-weight:800}.f{font-size:14px;font-weight:800}
+</style>
+<rect x="1" y="1" width="958" height="328" rx="22" class="bg"/>
+<text x="36" y="46" class="h">하루 지도 · 09:00–18:00</text>
+
+<path d="M90 190H870" class="s" stroke-width="6"/>
+<rect x="452" y="180" width="56" height="20" rx="10" class="card"/>
+<text x="480" y="195" text-anchor="middle" class="t">점심</text>
+
+<!-- 관문 꼬리표 -->
+<path d="M536 146v20M759 146v22M870 110v58M870 74v10" class="s"/>
+<rect x="472" y="120" width="128" height="26" rx="13" class="stop"/><text x="536" y="138" text-anchor="middle" class="f" style="fill:#FFFFFF">13:45 변경 요청</text>
+<rect x="695" y="120" width="128" height="26" rx="13" class="stop"/><text x="759" y="138" text-anchor="middle" class="f" style="fill:#FFFFFF">16:38 혼자 풀기</text>
+<rect x="806" y="84" width="128" height="26" rx="13" class="stop"/><text x="870" y="102" text-anchor="middle" class="f" style="fill:#FFFFFF">17:10 여섯 명령</text>
+<rect x="806" y="48" width="128" height="26" rx="13" class="stop"/><text x="870" y="66" text-anchor="middle" class="f" style="fill:#FFFFFF">17:25 답안 조건</text>
+
+<!-- 정거장 -->
+<circle cx="90" cy="190" r="22" class="card s"/><text x="90" y="197" text-anchor="middle" class="n">1</text>
+<circle cx="201" cy="190" r="22" class="card s"/><text x="201" y="197" text-anchor="middle" class="n">2</text>
+<circle cx="313" cy="190" r="22" class="card s"/><text x="313" y="197" text-anchor="middle" class="n">3</text>
+<circle cx="424" cy="190" r="22" class="card s"/><text x="424" y="197" text-anchor="middle" class="n">4</text>
+<circle cx="536" cy="190" r="26" class="mk s"/><text x="536" y="197" text-anchor="middle" class="n">5</text>
+<circle cx="647" cy="190" r="22" class="card s"/><text x="647" y="197" text-anchor="middle" class="n">6</text>
+<circle cx="759" cy="190" r="22" class="card s"/><text x="759" y="197" text-anchor="middle" class="n">7</text>
+<circle cx="870" cy="190" r="22" class="card s"/><text x="870" y="197" text-anchor="middle" class="n">8</text>
+
+<text x="90" y="240" text-anchor="middle" class="t">09:00</text><text x="90" y="262" text-anchor="middle" class="b">시작</text>
+<text x="201" y="240" text-anchor="middle" class="t">09:20</text><text x="201" y="262" text-anchor="middle" class="b">문제·기준</text>
+<text x="313" y="240" text-anchor="middle" class="t">10:20</text><text x="313" y="262" text-anchor="middle" class="b">맥락</text>
+<text x="424" y="240" text-anchor="middle" class="t">11:20</text><text x="424" y="262" text-anchor="middle" class="b">계획</text>
+<text x="536" y="240" text-anchor="middle" class="t">13:20</text><text x="536" y="262" text-anchor="middle" class="b">변경·구현</text>
+<text x="647" y="240" text-anchor="middle" class="t">15:00</text><text x="647" y="262" text-anchor="middle" class="b">검증</text>
+<text x="759" y="240" text-anchor="middle" class="t">16:00</text><text x="759" y="262" text-anchor="middle" class="b">수정·재검증</text>
+<text x="870" y="240" text-anchor="middle" class="t">16:50</text><text x="870" y="262" text-anchor="middle" class="b">인계</text>
+
+<text x="480" y="306" text-anchor="middle" class="t">빨간 꼬리표는 시간이 정해진 관문입니다. 노란 5번(90분)이 가장 깁니다.</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img" aria-labelledby="t d">
+<title id="t">하네스는 AI 에이전트가 따르는 안전한 작업 순서표입니다</title>
+<desc id="d">할 일이 네 개의 문을 지나 완료로 갑니다. 허용된 도구만, 정해진 순서로, 실패하면 멈춤, 모두 기록. 아래에는 파일이 바뀌면 옛 승인이 무효가 되고, 같은 지문일 때만 이어 한다는 두 규칙이 있습니다.</desc>
+<style>
+.bg{fill:#FFFFFF;stroke:#CED4DF;stroke-width:2}
+.s{stroke:#17202D;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill:none}
+.card{fill:#FFFFFF}.tint{fill:#E6EBF4}.mk{fill:#FFD54A}.go{fill:#1C9A55}.stop{fill:#D6453B}.ink{fill:#17202D}
+text{font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;fill:#17202D}
+.h{font-size:24px;font-weight:800}.b{font-size:17px;font-weight:800}.sm{font-size:15px;font-weight:600;fill:#5B6679}.w{font-size:15px;font-weight:800;fill:#FFFFFF}
+</style>
+<rect x="1" y="1" width="958" height="318" rx="22" class="bg"/>
+<text x="36" y="46" class="h">하네스 · AI 에이전트가 따르는 작업 순서표</text>
+
+<path d="M60 150H900" class="s" stroke-width="6"/>
+<rect x="30" y="126" width="64" height="48" rx="10" class="tint s"/><text x="62" y="156" text-anchor="middle" class="b">할 일</text>
+<rect x="866" y="126" width="64" height="48" rx="10" class="go"/><text x="898" y="156" text-anchor="middle" class="w">완료</text>
+
+<!-- 문 1: 허용 도구만 -->
+<rect x="146" y="92" width="130" height="116" rx="14" class="card s"/>
+<rect x="168" y="112" width="34" height="26" rx="5" class="tint s" stroke-width="2"/>
+<rect x="212" y="112" width="34" height="26" rx="5" class="tint s" stroke-width="2"/>
+<circle cx="230" cy="170" r="14" class="go"/><path d="M223 170l5 5 9-11" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+<text x="211" y="238" text-anchor="middle" class="b">허용 도구만</text>
+
+<!-- 문 2: 순서 -->
+<rect x="336" y="92" width="130" height="116" rx="14" class="card s"/>
+<circle cx="366" cy="150" r="15" class="ink"/><text x="366" y="156" text-anchor="middle" class="w">1</text>
+<circle cx="401" cy="150" r="15" class="ink"/><text x="401" y="156" text-anchor="middle" class="w">2</text>
+<circle cx="436" cy="150" r="15" class="ink"/><text x="436" y="156" text-anchor="middle" class="w">3</text>
+<text x="401" y="238" text-anchor="middle" class="b">정해진 순서</text>
+
+<!-- 문 3: 실패하면 멈춤 -->
+<rect x="526" y="92" width="130" height="116" rx="14" class="card s"/>
+<path d="M574 116h34l24 24v34l-24 24h-34l-24-24v-34z" class="stop"/>
+<text x="591" y="163" text-anchor="middle" class="w">멈춤</text>
+<text x="591" y="238" text-anchor="middle" class="b">실패하면 멈춤</text>
+
+<!-- 문 4: 기록 -->
+<rect x="716" y="92" width="130" height="116" rx="14" class="card s"/>
+<rect x="752" y="110" width="58" height="76" rx="6" class="tint s" stroke-width="2.5"/>
+<path d="M764 130h34M764 146h34M764 162h22" class="s" stroke-width="2"/>
+<text x="781" y="238" text-anchor="middle" class="b">모두 기록</text>
+
+<rect x="146" y="262" width="320" height="36" rx="18" class="mk"/>
+<text x="306" y="286" text-anchor="middle" class="b">파일이 바뀌면 옛 승인은 무효</text>
+<rect x="526" y="262" width="320" height="36" rx="18" class="tint"/>
+<text x="686" y="286" text-anchor="middle" class="b">같은 지문일 때만 이어 하기</text>
+</svg>

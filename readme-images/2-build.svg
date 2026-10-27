@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img" aria-labelledby="t d">
+<title id="t">아침에 받은 폴더가 저녁에 세 묶음의 결과물이 됩니다</title>
+<desc id="d">왼쪽 아침 폴더에는 후보 2개 함수, TODO 세 파일, 빈 기록이 있습니다. 오른쪽 저녁에는 승인된 만큼만 고친 도구, 내가 짠 하네스, 남이 이어받을 인계 묶음이 있습니다.</desc>
+<style>
+.bg{fill:#FFFFFF;stroke:#CED4DF;stroke-width:2}
+.s{stroke:#17202D;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;fill:none}
+.card{fill:#FFFFFF}.tint{fill:#E6EBF4}.mk{fill:#FFD54A}.go{fill:#1C9A55}.stop{fill:#D6453B}.ink{fill:#17202D}.dim{fill:#F4F6FA}
+text{font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;fill:#17202D}
+.h{font-size:26px;font-weight:800}.m{font-size:19px;font-weight:800}.sm{font-size:15px;font-weight:600;fill:#5B6679}.b{font-size:16px;font-weight:700}.n{font-size:15px;font-weight:800;fill:#FFFFFF}
+</style>
+<rect x="1" y="1" width="958" height="378" rx="22" class="bg"/>
+<text x="480" y="46" text-anchor="middle" class="h">오늘 만들어 가는 것 · 한 폴더, 세 묶음</text>
+
+<!-- 아침 -->
+<text x="158" y="92" text-anchor="middle" class="m">아침 · 받은 그대로</text>
+<path d="M36 112h70l14 16h158v220H36z" class="tint s"/>
+<rect x="58" y="146" width="200" height="50" rx="10" class="dim s" stroke-dasharray="6 5" stroke-width="2"/>
+<text x="158" y="177" text-anchor="middle" class="b">후보 2개 함수</text>
+<rect x="58" y="210" width="200" height="50" rx="10" class="dim s" stroke-dasharray="6 5" stroke-width="2"/>
+<text x="158" y="241" text-anchor="middle" class="b">TODO 세 파일</text>
+<rect x="58" y="274" width="200" height="50" rx="10" class="dim s" stroke-dasharray="6 5" stroke-width="2"/>
+<text x="158" y="305" text-anchor="middle" class="b">빈 기록 여섯 칸</text>
+
+<!-- 화살표 -->
+<path d="M296 236h70" class="s" stroke-width="5"/><path d="M352 220l18 16-18 16" class="s" stroke-width="5"/>
+<text x="331" y="210" text-anchor="middle" class="sm">하루</text>
+
+<!-- 저녁 -->
+<text x="660" y="92" text-anchor="middle" class="m">저녁 · 내가 만든 것</text>
+<rect x="390" y="112" width="166" height="236" rx="14" class="card s"/>
+<circle cx="416" cy="138" r="14" class="ink"/><text x="416" y="143" text-anchor="middle" class="n">1</text>
+<path d="M432 158h56l14 14v58h-70z" class="tint s" stroke-width="2.5"/>
+<circle cx="490" cy="222" r="15" class="go"/><path d="M482 222l6 6 10-12" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+<text x="473" y="270" text-anchor="middle" class="b">고친 도구</text>
+<text x="473" y="294" text-anchor="middle" class="sm">승인 뒤 후보 4</text>
+<text x="473" y="316" text-anchor="middle" class="sm">내 검사 3개</text>
+
+<rect x="576" y="112" width="166" height="236" rx="14" class="card s"/>
+<circle cx="602" cy="138" r="14" class="ink"/><text x="602" y="143" text-anchor="middle" class="n">2</text>
+<path d="M600 214h118" class="s"/>
+<rect x="612" y="168" width="14" height="46" rx="3" class="go"/>
+<rect x="646" y="168" width="14" height="46" rx="3" class="mk s" stroke-width="2"/>
+<rect x="680" y="168" width="14" height="46" rx="3" class="stop"/>
+<text x="659" y="270" text-anchor="middle" class="b">내가 짠 하네스</text>
+<text x="659" y="294" text-anchor="middle" class="sm">규칙 세 파일</text>
+<text x="659" y="316" text-anchor="middle" class="sm">실행·실패 기록</text>
+
+<rect x="762" y="112" width="166" height="236" rx="14" class="card s"/>
+<circle cx="788" cy="138" r="14" class="ink"/><text x="788" y="143" text-anchor="middle" class="n">3</text>
+<path d="M800 182l45-20 45 20v44l-45 20-45-20z" class="tint s" stroke-width="2.5"/>
+<path d="M800 182l45 20 45-20M845 202v44" class="s" stroke-width="2.5"/>
+<rect x="858" y="152" width="40" height="22" rx="5" class="mk s" stroke-width="2"/>
+<text x="845" y="270" text-anchor="middle" class="b">인계 묶음</text>
+<text x="845" y="294" text-anchor="middle" class="sm">기록·예측·문서</text>
+<text x="845" y="316" text-anchor="middle" class="sm">여섯 명령 근거</text>
+</svg>
