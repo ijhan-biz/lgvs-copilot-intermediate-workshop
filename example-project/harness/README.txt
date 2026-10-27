@@ -2,10 +2,21 @@
 
 초기 npm test는 v1 16개 통과, harness:check는 미완성 설정으로 종료 1이다.
 이것은 완성 실행기를 호출하는 선택 과제가 아니다. 다음 세 파일은 학습자가 작성한다.
-1. workflow.json: 목적, input="data/test-results.json", context=["harness/instructions.txt"],
-   allowedTools와 steps는 ["inspect-input","test:v2"], output=".harness",
-   schemaVersion=1, timeoutMs 정수 50~10000, retryLimit 정수 0~2를 갖는 정확한 객체.
-   다른 키/경로/명령/shell은 거부한다. 실습 권장값 2000ms, 재시도 1회.
+1. workflow.json: 아래 틀을 harness/workflow.json에 그대로 붙여 넣고 purpose만 내 말로 바꾼다.
+   {
+     "schemaVersion": 1,
+     "purpose": "TODO: 이 하네스로 무엇을 확인하고 언제 멈추는지 12자 이상으로 쓴다",
+     "input": "data/test-results.json",
+     "context": ["harness/instructions.txt"],
+     "allowedTools": ["inspect-input", "test:v2"],
+     "steps": ["inspect-input", "test:v2"],
+     "output": ".harness",
+     "timeoutMs": 2000,
+     "retryLimit": 1
+   }
+   purpose는 12자 이상이고 TODO를 지워야 통과한다. schemaVersion·input·context·allowedTools·steps·output은 이 값 그대로 둔다.
+   timeoutMs는 정수 50~10000(권장 2000), retryLimit은 정수 0~2(권장 1)다.
+   다른 키/경로/명령/shell은 거부한다.
    수업에서는 retryLimit을 1 또는 2로 둔다. 0도 형식상 허용되지만 첫 실패 뒤 재개가
    RETRY_LIMIT로 막혀 아래 필수 운영 (1)·(4)의 같은 해시 재개를 관찰할 수 없다.
 2. instructions.txt: 목적·계약·허용 변경·금지·중단·반환 근거를 구체적으로 작성한다.
